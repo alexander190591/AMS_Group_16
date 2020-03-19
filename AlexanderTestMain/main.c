@@ -2,7 +2,7 @@
 
 int main()
 {
-    while(true)
+    while(1)
     {
         // This is where testing could happen...
     }
