@@ -10,7 +10,7 @@
 
 int main(void)
 {
-    // AlexanderMain();
+    AlexanderMain();
 	
 	// SebastianMain();
 	
