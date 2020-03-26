@@ -6,6 +6,7 @@
  */ 
 
 #include "MainFiles.h"
+#include "../SoilHumiditySensor/include/SoilHumiditySensor.h"
 
 void AlexanderMain()
 {

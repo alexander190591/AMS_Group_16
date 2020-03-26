@@ -125,9 +125,18 @@
     <Compile Include="MainFiles\TonniMain.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SoilHumiditySensor\include\SoilHumiditySensor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SoilHumiditySensor\src\SoilHumiditySensor.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MainFiles" />
+    <Folder Include="SoilHumiditySensor" />
+    <Folder Include="SoilHumiditySensor\include" />
+    <Folder Include="SoilHumiditySensor\src" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
