@@ -106,7 +106,7 @@
 /************************************************************************/
 /*						Interrupt, ADCs, Clocks etc.					*/
 /************************************************************************/
-
+#define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
 
 /************************************************************************/
 /*								FREE PINS                               */
@@ -135,7 +135,6 @@
 #define SOME_NAME			PL1			//	Pin# 48		Some description
 #define SOME_NAME			PL0			//	Pin# 49		Some description
 												
-#define SOME_NAME			PF0			//	Pin# A0		Some description
 #define SOME_NAME			PF1			//	Pin# A1		Some description
 #define SOME_NAME			PF2			//	Pin# A2		Some description
 #define SOME_NAME			PF3			//	Pin# A3		Some description

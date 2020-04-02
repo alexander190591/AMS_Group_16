@@ -30,15 +30,15 @@
     <EraseKey />
     <AsfFrameworkConfig>
       <framework-data xmlns="">
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -122,6 +122,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="defines.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -149,15 +152,24 @@
     <Compile Include="StepperDriver\src\StepperDriver.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UART\include\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UART\src\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MainFiles" />
+    <Folder Include="UART" />
     <Folder Include="StepperDriver" />
     <Folder Include="SoilHumiditySensor" />
     <Folder Include="SoilHumiditySensor\include" />
     <Folder Include="SoilHumiditySensor\src" />
     <Folder Include="StepperDriver\include" />
     <Folder Include="StepperDriver\src" />
+    <Folder Include="UART\include" />
+    <Folder Include="UART\src" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
