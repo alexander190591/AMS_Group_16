@@ -1,9 +1,19 @@
-/*
- * defines.h
+ /*! \brief Define file for use throughout the project.
+ *			
+ *			This file contains definition names for all Arduino MEGA 2560 GPIO pins. 
+ *			Free Pins are at the bottom of the file.
+ *			Used pins are put in relevant sections.
+ *			
  *
- * Created: 02-04-2020 09:12:02
- *  Author: Alexander
- */ 
+ *	
+ *	Filename:					defines.h
+ *	Path:						./
+ *	Created:					02-04-2020 09:12:02
+ *	Author:						Alexander
+ *	Major change #1:			Tonni Lutze			02-04-2020 12:01:03			Change: Created all definitions. 
+ *	Major change #2:			
+ */
+
 
 
 #ifndef DEFINES_H_
@@ -100,13 +110,34 @@
 
 //		Define NAME			Arduino			PCB Pin		Description
 //		NAME				Port Pin
-#define STEPPER_BTN_START	PF6			//	Pin# A6		Stepper motor START limit switch
-#define STEPPER_BTN_END		PF7			//	Pin# A7		Stepper motor END limit switch
+#define STEPPER_BTN_CLOSED	PF6			//	Pin# A6		Stepper motor START limit switch
+#define STEPPER_BTN_OPENED	PF7			//	Pin# A7		Stepper motor END limit switch
+
+
+
 
 /************************************************************************/
-/*						Interrupt, ADCs, Clocks etc.					*/
+/*			Interrupt, ADCs, Clocks Alternate Port names etc.			*/
 /************************************************************************/
 #define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
+
+#define STEPPER_MODE_PORT	PORTB
+#define STEPPER_CTL_PORT	PORTA
+#define STEPPER_BTN_PORT	PORTA
+
+#define STEPPER_MODE_DDR	DDRB
+#define STEPPER_CTL_DDR		DDRA
+#define STEPPER_BTN_DDR		DDRF
+
+
+/************************************************************************/
+/*				Misc Defines that could be used in general				*/
+/************************************************************************/
+
+#define LOW		0
+#define HIGH	1
+#define OPEN	1
+#define CLOSE	-1
 
 /************************************************************************/
 /*								FREE PINS                               */

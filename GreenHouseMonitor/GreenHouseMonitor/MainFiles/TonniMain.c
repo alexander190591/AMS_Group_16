@@ -30,7 +30,9 @@ void TonniMain()
 // 	CloseWindow();
 
 
+StepperInit();
 
+OpenWindow();
 
 
 
