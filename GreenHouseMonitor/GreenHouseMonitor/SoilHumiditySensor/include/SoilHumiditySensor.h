@@ -11,13 +11,16 @@
 
 struct SoilHumiditySensor
 {
-	int humidityValue = 0;
-	unsigned char analogPin = 0;
-	double humidityInPercent = 0;
+	int _humidityValue = 0;
+	unsigned char _analogPin = 0;
+	double _humidityInPercent = 0;
+	void (*setUp)(const struct SoilHumiditySensor*, unsigned char analogPin);
+	void (*analogRead)(const struct SoilHumiditySensor*);
+	void (*getHumidityInPercent)(const struct SoilHumiditySensor*);
+	
 };
 
-void SoilHumiditySensor_SetUp(unsigned char analogPin);
-unsigned int SoilHumiditySensor_AnalogRead();
-double SoilHumiditySensor_GetHumidityInPercent();
-
+void setUp(const struct SoilHumiditySensor* p, unsigned char analogPin);
+void analogRead(const struct SoilHumiditySensor*);
+void setHumidityInPercent(const struct SoilHumiditySensor*);
 #endif /* SOILHUMIDITYSENSOR_H_ */
