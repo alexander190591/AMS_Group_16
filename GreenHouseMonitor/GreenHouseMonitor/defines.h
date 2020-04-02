@@ -100,13 +100,22 @@
 
 //		Define NAME			Arduino			PCB Pin		Description
 //		NAME				Port Pin
-#define STEPPER_BTN_START	PF6			//	Pin# A6		Stepper motor START limit switch
-#define STEPPER_BTN_END		PF7			//	Pin# A7		Stepper motor END limit switch
+#define STEPPER_BTN_CLOSED	PF6			//	Pin# A6		Stepper motor START limit switch
+#define STEPPER_BTN_OPENED	PF7			//	Pin# A7		Stepper motor END limit switch
 
 /************************************************************************/
-/*						Interrupt, ADCs, Clocks etc.					*/
+/*			Interrupt, ADCs, Clocks Alternate Port names etc.			*/
 /************************************************************************/
 #define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
+
+#define STEPPER_MODE_PORT	PORTB
+#define STEPPER_CTL_PORT	PORTA
+#define STEPPER_BTN_PORT	PORTA
+
+#define STEPPER_MODE_DDR	DDRB
+#define STEPPER_CTL_DDR		DDRA
+#define STEPPER_BTN_DDR		DDRF
+
 
 /************************************************************************/
 /*								FREE PINS                               */

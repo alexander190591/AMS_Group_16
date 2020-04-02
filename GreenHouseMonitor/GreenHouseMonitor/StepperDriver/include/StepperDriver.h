@@ -6,34 +6,24 @@
  */ 
 
 
+ /*! \brief Low level driver for the Big Easy Stepper Motor Driver Module.
+ *	
+ *	Filename: 
+ *	Created: 
+ *	
+ */
+
  #include <avr/io.h>
  #define F_CPU 16000000
  #include <util/delay.h>
  #include <stdbool.h>
- 
+ #include "../../defines.h"
 
 
 #ifndef STEPPERDRIVER_H_
 #define STEPPERDRIVER_H_
 
 
-#define STEPPER_MODE_PORT	PORTB
-#define STEPPER_CTL_PORT	PORTA
-#define END_SWITCH_PORT		PORTA
-
-#define STEPPER_MODE_DDR	DDRB
-#define STEPPER_CTL_DDR		DDRA
-#define END_SWITCH_DDR		DDRF
-
-
-#define EN_BIT			0
-#define DIR_BIT			2
-#define STEP_BIT		4
-#define MS1_BIT			4
-#define MS2_BIT			5
-#define MS3_BIT			6
-#define SW_OPEN_BIT		7
-#define SW_CLOSE_BIT	6
 
 #define LOW		0
 #define HIGH	1
@@ -42,8 +32,8 @@
 
 #define STEP_DEGREE		0.9
 #define STEP_REVOLUTION	(360 / STEP_DEGREE)
-#define SINGLE_STEP_ON	(STEPPER_CTL_PORT |=   (1 << STEP_BIT))
-#define SINGLE_STEP_OFF	(STEPPER_CTL_PORT &=  ~(1 << STEP_BIT))
+#define SINGLE_STEP_ON	(STEPPER_CTL_PORT |=   (1 << STEPPER_STEP))
+#define SINGLE_STEP_OFF	(STEPPER_CTL_PORT &=  ~(1 << STEPPER_STEP))
 
 #define END_SWITCH_CLOSED	(PINA & SW_CLOSE_BIT)
 #define END_SWITCH_OPEN		(PINA & SW_OPEN_BIT)
@@ -65,11 +55,8 @@ int maxNbrRevolutions;
 
 
 struct Motor{
-
 	bool isEnabled;
-	int direction;
-
-	
+	int direction;	
 };
 
 
@@ -85,17 +72,20 @@ struct Window{
 
 
 
-
-void StepperInit();
+//	For Initializing the Stepper Driver
+void StepperInit();	
+//	
 void DefaultReset();
 
-
 void EnableMotor();
+
 void DisableMotor();
 
 
 void SetStepperMode(int mode);
+
 void OpenWindow();
+
 void CloseWindow();
 
 void DriveStepper(int revolutions);
