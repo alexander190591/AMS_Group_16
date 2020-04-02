@@ -9,13 +9,14 @@
 #ifndef SOILHUMIDITYSENSOR_H_
 #define SOILHUMIDITYSENSOR_H_
 
+#define _ValueInWater 294
+#define _ValueInAir 600
+
 struct SoilHumiditySensor
 {
 	int _humidityValue;
 	unsigned char _analogPin;
 	double _humidityInPercent;
-	int _ValueInWater = 294;
-	int _ValueInAir = 600;
 	void (*setUp)(struct SoilHumiditySensor*, unsigned char analogPin);
 	int (*analogRead)(struct SoilHumiditySensor*);
 	double (*getHumidityInPercent)(struct SoilHumiditySensor*);

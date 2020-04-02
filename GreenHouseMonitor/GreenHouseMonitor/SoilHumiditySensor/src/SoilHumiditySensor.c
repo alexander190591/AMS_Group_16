@@ -80,5 +80,9 @@ int analogRead(struct SoilHumiditySensor* p)
 double getHumidityInPercent(struct SoilHumiditySensor* p)
 {
 	// TODO this one... Based on calibration that is done when the _humidityValue is set correctly...
-	return 0.0;
+	
+	int range = _ValueInAir-_ValueInWater;
+	int relativeValue = p->analogRead(p)-_ValueInWater;
+	double percentage = ((relativeValue)*100)/range;
+	return percentage;
 }
