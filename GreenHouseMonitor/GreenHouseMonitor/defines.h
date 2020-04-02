@@ -89,12 +89,12 @@
 
 //		Define NAME			Arduino			PCB Pin		Description
 //		NAME				Port Pin
-#define STEPPER_STEP		PH4			//	Pin# 7		Step pulse pin
 #define STEPPER_DIR			PH5			//	Pin# 8		Motor Direction
 #define STEPPER_EN			PH6			//	Pin# 9		Enable Stepper Motor
 #define STEPPER_MS1			PB4			//	Pin# 10		Register 1	For controlling stepping mode
 #define STEPPER_MS2			PB5			//	Pin# 11		Register 2	For controlling stepping mode
 #define STEPPER_MS3			PB6			//	Pin# 12		Register 3	For controlling stepping mode
+#define STEPPER_STEP		PB7			//	Pin# 13		Step pulse pin
 
 
 /************************************************************************/
@@ -110,8 +110,11 @@
 
 //		Define NAME			Arduino			PCB Pin		Description
 //		NAME				Port Pin
-#define STEPPER_BTN_CLOSED	PF6			//	Pin# A6		Stepper motor START limit switch
-#define STEPPER_BTN_OPENED	PF7			//	Pin# A7		Stepper motor END limit switch
+// #define STEPPER_BTN_CLOSED	PF6			//	Pin# A6		Stepper motor START limit switch
+// #define STEPPER_BTN_OPENED	PF7			//	Pin# A7		Stepper motor END limit switch
+
+#define STEPPER_BTN_CLOSED	PK0			//	Pin# A8		Some description
+#define STEPPER_BTN_OPENED	PK1			//	Pin# A9		Some description
 
 
 
@@ -121,14 +124,22 @@
 /************************************************************************/
 #define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
 
-#define STEPPER_MODE_PORT	PORTB
-#define STEPPER_CTL_PORT	PORTA
-#define STEPPER_BTN_PORT	PORTA
 
-#define STEPPER_MODE_DDR	DDRB
-#define STEPPER_CTL_DDR		DDRA
-#define STEPPER_BTN_DDR		DDRF
+//Stepper PORT and DDR
+#define STEPPER_MODE_PORT			PORTB	//	Designating Step Mode Pins to PORT B
+#define STEPPER_EN_PORT				PORTH	//	Designating enable Pin to PORT H
+#define STEPPER_DIR_PORT			PORTH	//	Designating direction Pin to PORT H
+#define STEPPER_STEP_PORT			PORTB	//	Designating step pulse Pin to PORT B
+#define STEPPER_MODE_DDR			DDRB	//	Designating Step Mode Pins to DDR B
+#define STEPPER_EN_DDR				DDRH	//	Designating enable Pin to DDR H
+#define STEPPER_DIR_DDR				DDRH	//	Designating direction Pin to DDR H
+#define STEPPER_STEP_DDR			DDRB	//	Designating step pulse Pin to DDR B
+//Button PORT and DDR
+#define STEPPER_BTN_PORT			PORTK	//	Designating end button Pins to PORT K
+#define STEPPER_BTN_DDR				DDRK	//	Designating end button Pins to DDR K
 
+#define STEPPER_READ_BTN_OPENED		PINK
+#define STEPPER_READ_BTN_CLOSED		PINK
 
 /************************************************************************/
 /*				Misc Defines that could be used in general				*/
@@ -148,7 +159,7 @@
 /*
 #define SOME_NAME			PE0			//	Pin# 0		Some description
 #define SOME_NAME			PE1			//	Pin# 1		Some description
-#define SOME_NAME			PB7			//	Pin# 13		Some description
+#define SOME_NAME			PH4			//	Pin# 7		Some description
 #define SOME_NAME			PJ1			//	Pin# 14		Some description
 #define SOME_NAME			PJ0			//	Pin# 15		Some description
 #define SOME_NAME			PH1			//	Pin# 16		Some description
@@ -171,8 +182,7 @@
 #define SOME_NAME			PF3			//	Pin# A3		Some description
 #define SOME_NAME			PF4			//	Pin# A4		Some description
 #define SOME_NAME			PF5			//	Pin# A5		Some description
-#define SOME_NAME			PK0			//	Pin# A8		Some description
-#define SOME_NAME			PK1			//	Pin# A9		Some description
+
 #define SOME_NAME			PK2			//	Pin# A10	Some description
 #define SOME_NAME			PK3			//	Pin# A11	Some description
 #define SOME_NAME			PK4			//	Pin# A12	Some description

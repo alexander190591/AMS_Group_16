@@ -158,6 +158,12 @@
     <Compile Include="StepperDriver\src\StepperDriver.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="StepperDriver\test\Test_StepperDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="StepperDriver\test\Test_StepperDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UART\include\uart.h">
       <SubType>compile</SubType>
     </Compile>
@@ -169,6 +175,7 @@
     <Folder Include="ButtonDriver\include" />
     <Folder Include="ButtonDriver\src" />
     <Folder Include="MainFiles" />
+    <Folder Include="StepperDriver\test" />
     <Folder Include="UART" />
     <Folder Include="ButtonDriver" />
     <Folder Include="StepperDriver" />

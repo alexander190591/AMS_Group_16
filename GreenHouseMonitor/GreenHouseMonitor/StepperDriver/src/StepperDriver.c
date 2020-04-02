@@ -42,21 +42,20 @@ void StepperInit()
 	
 	//	Setting Stepper mode pins as output
 	
-	STEPPER_MODE_DDR |= (1 << STEPPER_MS1);
-	STEPPER_MODE_DDR |= (1 << STEPPER_MS2);
-	STEPPER_MODE_DDR |= (1 << STEPPER_MS3);
+	STEPPER_MODE_DDR	|= (1 << STEPPER_MS1);
+	STEPPER_MODE_DDR	|= (1 << STEPPER_MS2);
+	STEPPER_MODE_DDR	|= (1 << STEPPER_MS3);
 
 	//	Setting Stepper control pins as output
-	STEPPER_CTL_DDR |= (1 << STEPPER_EN);
-	STEPPER_CTL_DDR |= (1 << STEPPER_DIR);
-	STEPPER_CTL_DDR |= (1 << STEPPER_STEP);
+	STEPPER_EN_DDR		|= (1 << STEPPER_EN);
+	STEPPER_DIR_DDR		|= (1 << STEPPER_DIR);
+	STEPPER_STEP_DDR	|= (1 << STEPPER_STEP);
 
-	//	Setting End-switches as input
-	STEPPER_BTN_DDR &= ~(1 << STEPPER_BTN_OPENED);
-	STEPPER_BTN_DDR &= ~(1 << STEPPER_BTN_CLOSED);
+	
 
-	//DDRF &= ~(1 << 1);
-	//DDRH |= (1 << 5);
+// 
+// 	DDRF &= ~(1 << 1);
+// 	DDRH |= (1 << 5);
 
 	
 	DefaultReset();
@@ -75,52 +74,47 @@ void StepperInit()
 
 
 void DefaultReset(){
-	
-	//	I want my default as 1/16 Microstep mode (Mode 5 ( H H H )) : 
-	//STEPPER_CTL_PORT	= SetPin(STEP_BIT, LOW);
-	
-	STEPPER_CTL_PORT	&= ~(1 << STEPPER_STEP);	//	Set Step Low 	
-	SetDirection(OPEN);
-	SetStepperMode(5);
-	DisableMotor();								//	Disabling until we actually need the motor
-
+		
+	SINGLE_STEP_OFF;		//	Set Step Pin Low 	
+	SetDirection(OPEN);		//	Default direction will be OPEN
+	SetStepperMode(5);		//	I want my default as 1/16 Microstep mode (Mode 5 ( H H H )) : 
+	DisableMotor();			//	Disabling until we actually need the motor
 }
 
 
 void SetStepperMode(int mode){
 
 	switch (mode){
-
 		case 1:	//	Mode: Full	( L L L )
-			STEPPER_CTL_PORT	&= ~(1 << STEPPER_STEP);
+			SINGLE_STEP_OFF;
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS1);
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS2);
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS3);
 			stepperMode = 1;
 			break;
 		case 2:	//	Mode: Half	( H L L )
-			STEPPER_CTL_PORT	&= ~(1 << STEPPER_STEP);
+			SINGLE_STEP_OFF;
 			STEPPER_MODE_PORT	|=  (1 << STEPPER_MS1);
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS2);
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS3);
 			stepperMode = 2;
 			break;
 		case 3:	//	Mode: 1/4 Microstep	( L H L )
-			STEPPER_CTL_PORT	&= ~(1 << STEPPER_STEP);
+			SINGLE_STEP_OFF;
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS1);
 			STEPPER_MODE_PORT	|=  (1 << STEPPER_MS2);
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS3);
 			stepperMode = 3;
 			break;
 		case 4:	//	Mode: 1/8 Microstep	( L L H )
-			STEPPER_CTL_PORT	&= ~(1 << STEPPER_STEP);
+			SINGLE_STEP_OFF;
 			STEPPER_MODE_PORT	|=  (1 << STEPPER_MS1);
 			STEPPER_MODE_PORT	|=  (1 << STEPPER_MS2);
 			STEPPER_MODE_PORT	&= ~(1 << STEPPER_MS3);
 			stepperMode = 4;
 			break;
 		case 5:	//	Mode: 1/16 Microstep	( H H H )
-			STEPPER_CTL_PORT	&= ~(1 << STEPPER_STEP);
+			SINGLE_STEP_OFF;
 			STEPPER_MODE_PORT	|=  (1 << STEPPER_MS1);
 			STEPPER_MODE_PORT	|=  (1 << STEPPER_MS2);
 			STEPPER_MODE_PORT	|=  (1 << STEPPER_MS3);
@@ -134,35 +128,25 @@ void SetStepperMode(int mode){
 void OpenWindow()
 {
 	int revolutions = 1;
-		
-	if (!isWindowOpen)
-	{
-		StepperInit();
-		SetDirection(OPEN);
-		SetStepperMode(4);
-		EnableMotor();
-		DriveStepper(revolutions);
-		isWindowOpen = true;
-		DisableMotor();
-	}
+	SetDirection(OPEN);
+	SetStepperMode(5);
+	EnableMotor();	
+	if (!isWindowOpen) { DriveStepper(revolutions); }
+	isWindowOpen = true;
+	DisableMotor();
 }
 
 
 
 void CloseWindow()
 {
-	int revolutions = 10;
-	
-	if (isWindowOpen)
-	{
-		StepperInit();
-		SetDirection(CLOSE);
-		SetStepperMode(4);
-		EnableMotor();
-		DriveStepper(revolutions);
-		isWindowOpen = false;
-		DisableMotor();
-	}
+	int revolutions = 1;
+	SetDirection(CLOSE);
+	SetStepperMode(5);
+	EnableMotor();
+	if (isWindowOpen) { DriveStepper(revolutions); }
+	isWindowOpen = false;
+	DisableMotor();
 }
 
 
@@ -172,16 +156,16 @@ void SetDirection(/*struct Motor *motor,*/ int direction){
 	OPEN  =  1 = Clockwise
 	CLOSE = -1 = Widdershins / Counter Clockwise
 	*/
-	if		(direction == OPEN)	{ STEPPER_CTL_PORT |=  (1 << STEPPER_DIR); }		//	Clockwise
-	else if (direction == CLOSE)	{ STEPPER_CTL_PORT &= ~(1 << STEPPER_DIR); }		//	Widdershins
+	if		(direction == OPEN)		{ DIRECTION_CLOCKWISE; }		//	Clockwise
+	else if (direction == CLOSE)	{ DIRECTION_WIDDERSHINS; }		//	Widdershins
 }
 
-void EnableMotor(/*struct Motor *motor*/){
-	STEPPER_CTL_PORT &=	~(1 << STEPPER_EN);
+void EnableMotor(){
+	MOTOR_ENABLE;
 }
 
-void DisableMotor(/*struct Motor *motor*/){
-	STEPPER_CTL_PORT |=	(1 << STEPPER_EN);
+void DisableMotor(){
+	MOTOR_DISABLE;
 }
 
 
@@ -201,9 +185,10 @@ If the mode is set to 1/16 microstep:
 
 int steps = 0;
 
-//	Setting Step low to prepare.
-	STEPPER_CTL_PORT &= ~(1 << STEPPER_STEP);
-	
+	//	Setting Step low to prepare.
+	SINGLE_STEP_OFF;
+
+	//	Calculating the number of steps to complete an entire revolution
 	switch (stepperMode){
 		case 1:
 			steps = (STEP_REVOLUTION * 1 *	revolutions);
@@ -223,16 +208,21 @@ int steps = 0;
 			break;
 	}
 
+	//	Performing calculated steps
 	for (int i = 0; i<steps; i++){
+		//	Setting Step Pin HIGH on for taking a single step
 		SINGLE_STEP_ON;
 
+		//	Choosing apropriate delay, based on step mode.
 			 if (stepperMode == 1) { _delay_us(DELAY_FULL_STEP); }
 		else if (stepperMode == 2) { _delay_us(DELAY_HALF_STEP); }
 		else if (stepperMode == 3) { _delay_us(DELAY_QUART_STEP); }
 		else if (stepperMode == 4) { _delay_us(DELAY_EIGHT_STEP); }
 		else if (stepperMode == 5) { _delay_us(DELAY_SIXTEENTH_STEP); }
 
+		//	Setting Step Pin LOW after taking a single step
 		SINGLE_STEP_OFF;
+		//	Assuring an appropriate delay after finished step, based on step mode.
 			 if (stepperMode == 1) { _delay_us(DELAY_FULL_STEP); }
 		else if (stepperMode == 2) { _delay_us(DELAY_HALF_STEP); }
 		else if (stepperMode == 3) { _delay_us(DELAY_QUART_STEP); }
