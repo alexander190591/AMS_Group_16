@@ -79,6 +79,6 @@ int analogRead(struct SoilHumiditySensor* p)
  */
 double getHumidityInPercent(struct SoilHumiditySensor* p)
 {
+	// TODO this one... Based on calibration that is done when the _humidityValue is set correctly...
 	return 0.0;
 }
-
