@@ -6,7 +6,7 @@
 *************************************************/
 #include <avr/io.h>
 #include <stdlib.h>
-#include "uart.h"
+#include "../../UART/include/uart.h"
 
 // Target CPU frequency
 #define XTAL 16000000

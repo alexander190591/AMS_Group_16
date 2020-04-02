@@ -10,8 +10,8 @@
 #define MAINFILES_H_
 
 void AlexanderMain();
-void SebastianMain();
-void TonniMain();
+//void SebastianMain();
+//void TonniMain();
 
 
 

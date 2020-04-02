@@ -14,14 +14,14 @@ void AlexanderMain()
 	// Uart for testing, copied form Henning's MSYS-class.
 	InitUART(9600, 1, 0);
 	
-	struct SoilHumiditySensor mySoilHumiditySensor = {0,0,0,setUp, analogRead, setHumidityInPercent}; // Initializing the "object" of type SoilHumiditySensor called mySoilHumiditySensor.
-	mySoilHumiditySensor->setUp(&mySoilHumiditySensor, 0);	// Setting up soil humidity sensor with ADC pin 0 on the ATMega2560.	
+	struct SoilHumiditySensor mySoilHumiditySensor = {0,0,0,setUp, analogRead, getHumidityInPercent}; // Initializing the "object" of type SoilHumiditySensor called mySoilHumiditySensor.
+	mySoilHumiditySensor.setUp(&mySoilHumiditySensor, 0);	// Setting up soil humidity sensor with ADC pin 0 on the ATMega2560.	
 	
 	/* Replace with your application code */
 	while (1)
 	{
-		mySoilHumiditySensor->analogRead(&mySoilHumiditySensor);	// Reading value, setting it in struct.
+		mySoilHumiditySensor.analogRead(&mySoilHumiditySensor);	// Reading value, setting it in struct.
 		
-		SendInteger(mySoilHumiditySensor->_humidityValue);
+		SendInteger(mySoilHumiditySensor._humidityValue);
 	}
 }

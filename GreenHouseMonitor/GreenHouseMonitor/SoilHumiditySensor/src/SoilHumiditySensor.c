@@ -15,7 +15,7 @@
  * \return void
  */
 
-void setUp(const struct SoilHumiditySensor* p, unsigned char analogPin)
+void setUp(struct SoilHumiditySensor* p, unsigned char analogPin)
 {
 	p->_analogPin = analogPin;	// Setting structs variable (like attribute in class)
 	// ADC, Mega2560 Datasheet p. 268 ->
@@ -41,6 +41,7 @@ void setUp(const struct SoilHumiditySensor* p, unsigned char analogPin)
 	else if(analogPin < 16 && analogPin > 7)
 	{
 		ADMUX |= (0b11000 + analogPin);		// See table 26-4. Done to make analogPin fit to table... (0b11000 + 8 == 0b100000, 0b11000 + 9 == 0b100001 etc).
+	}
 	else // WRONG ADC PIN NUMBER!!! DISABLE ADC!
 	{
 		// ADEN == 0;
@@ -54,7 +55,7 @@ void setUp(const struct SoilHumiditySensor* p, unsigned char analogPin)
  * 
  * \return unsigned int Returns the value of the analog read.
  */
-void analogRead(const struct SoilHumiditySensor* p)
+int analogRead(struct SoilHumiditySensor* p)
 {
 	// Begin conversion from Analog to Digital: Setting ADSC bit (ADC Start Conversion) in ADCSRA high. (Mega2560 Datasheet p. 285)
 	ADCSRA |= (1<<ADSC);
@@ -67,6 +68,8 @@ void analogRead(const struct SoilHumiditySensor* p)
 	// Can be read by unsigned int val = ADCW;
 	
 	p->_humidityValue = ADCW;
+	
+	return p->_humidityValue;
 }
 
 /**
@@ -74,8 +77,8 @@ void analogRead(const struct SoilHumiditySensor* p)
  * 
  * \return double Percentage of soil humidity.
  */
-double SoilHumiditySensor_GetHumidityInPercent()
+double getHumidityInPercent(struct SoilHumiditySensor* p)
 {
-	
+	return 0.0;
 }
 
