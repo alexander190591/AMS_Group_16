@@ -27,14 +27,11 @@ void SoilHumiditySensor_SetUp(unsigned char analogPin) //
 	// Choosing reference voltage, ADMUX REFS1, REFS0 (ADMUX bit 7 and 6).
 	
 	// Choosing of ADC input.
-	
-	
 }
 
 
 /**
  * \brief Reads the value on the ADC set with the SoilHumiditySensor.
- * 
  * 
  * \return unsigned int Returns the value of the analog read.
  */
