@@ -1,16 +1,16 @@
-/*
- * StepperDriver.h
- *
- * Created: 26-03-2020 09:32:41
- *  Author: Tonni
- */ 
-
-
  /*! \brief Low level driver for the Big Easy Stepper Motor Driver Module.
+ *			
+ *			
+ *
  *	
- *	Filename: 
- *	Created: 
  *	
+ *	Filename:	StepperDriver.h
+ *	Path:		./StepperDriver/include
+ *	Created:	26-03-2020 09:32:41
+ *	Author:		Tonni Lutze
+ *
+ *	Major change #1:
+ *	Major change #2:
  */
 
  #include <avr/io.h>
@@ -22,6 +22,8 @@
 
 #ifndef STEPPERDRIVER_H_
 #define STEPPERDRIVER_H_
+
+#pragma region DEFINES
 
 #define STEP_DEGREE		0.9
 #define STEP_REVOLUTION	(360 / STEP_DEGREE)
@@ -37,6 +39,9 @@
 #define DELAY_EIGHT_STEP		50
 #define DELAY_SIXTEENTH_STEP	20
 
+#pragma endregion DEFINES
+
+
 // 
 // #define OPEN  (STEPPER_CTL_PORT |=  (1 << DIR_BIT)
 // #define CLOSE (STEPPER_CTL_PORT &= ~(1 << DIR_BIT)
@@ -51,8 +56,6 @@ struct Motor{
 	bool isEnabled;
 	int direction;	
 };
-
-
 
 struct Window{
 	bool	isOpen;
@@ -83,7 +86,7 @@ void CloseWindow();
 
 void DriveStepper(int revolutions);
 
-void SetDirection(/*struct Motor *motor,*/ int dir);
+void SetDirection(/*struct Motor *motor,*/ int direction);
 
 
 #endif /* STEPPERDRIVER_H_ */

@@ -1,9 +1,17 @@
-/*
- * StepperDriver.c
+ /*! \brief Low level driver for the Big Easy Stepper Motor Driver Module.
+ *			
+ *			
  *
- * Created: 26-03-2020 09:32:56
- *  Author: Tonni
- */ 
+ *	
+ *	
+ *	Filename:	StepperDriver.c
+ *	Path:		./StepperDriver/src
+ *	Created:	26-03-2020 09:32:41
+ *	Author:		Tonni Lutze
+ *
+ *	Major change #1:
+ *	Major change #2:
+ */
 
  #include "../include/StepperDriver.h"
 
@@ -158,14 +166,14 @@ void CloseWindow()
 }
 
 
-void SetDirection(/*struct Motor *motor,*/ int dir){
+void SetDirection(/*struct Motor *motor,*/ int direction){
 	/*
 	Rotations: 
 	OPEN  =  1 = Clockwise
 	CLOSE = -1 = Widdershins / Counter Clockwise
 	*/
-	if		(dir == OPEN)	{ STEPPER_CTL_PORT |=  (1 << STEPPER_DIR); }		//	Clockwise
-	else if (dir == CLOSE)	{ STEPPER_CTL_PORT &= ~(1 << STEPPER_DIR); }		//	Widdershins
+	if		(direction == OPEN)	{ STEPPER_CTL_PORT |=  (1 << STEPPER_DIR); }		//	Clockwise
+	else if (direction == CLOSE)	{ STEPPER_CTL_PORT &= ~(1 << STEPPER_DIR); }		//	Widdershins
 }
 
 void EnableMotor(/*struct Motor *motor*/){

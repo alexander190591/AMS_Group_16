@@ -122,6 +122,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ButtonDriver\include\ButtonDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ButtonDriver\src\ButtonDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
@@ -160,8 +166,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ButtonDriver\include" />
+    <Folder Include="ButtonDriver\src" />
     <Folder Include="MainFiles" />
     <Folder Include="UART" />
+    <Folder Include="ButtonDriver" />
     <Folder Include="StepperDriver" />
     <Folder Include="SoilHumiditySensor" />
     <Folder Include="SoilHumiditySensor\include" />

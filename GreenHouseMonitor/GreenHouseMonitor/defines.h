@@ -1,9 +1,19 @@
-/*
- * defines.h
+ /*! \brief Define file for use throughout the project.
+ *			
+ *			This file contains definition names for all Arduino MEGA 2560 GPIO pins. 
+ *			Free Pins are at the bottom of the file.
+ *			Used pins are put in relevant sections.
+ *			
  *
- * Created: 02-04-2020 09:12:02
- *  Author: Alexander
- */ 
+ *	
+ *	Filename:					defines.h
+ *	Path:						./
+ *	Created:					02-04-2020 09:12:02
+ *	Author:						Alexander
+ *	Major change #1:			Tonni Lutze			02-04-2020 12:01:03			Change: Created all definitions. 
+ *	Major change #2:			
+ */
+
 
 
 #ifndef DEFINES_H_
