@@ -23,13 +23,6 @@
 #ifndef STEPPERDRIVER_H_
 #define STEPPERDRIVER_H_
 
-
-
-#define LOW		0
-#define HIGH	1
-#define OPEN	1
-#define CLOSE	-1
-
 #define STEP_DEGREE		0.9
 #define STEP_REVOLUTION	(360 / STEP_DEGREE)
 #define SINGLE_STEP_ON	(STEPPER_CTL_PORT |=   (1 << STEPPER_STEP))

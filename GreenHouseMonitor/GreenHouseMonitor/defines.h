@@ -103,6 +103,9 @@
 #define STEPPER_BTN_CLOSED	PF6			//	Pin# A6		Stepper motor START limit switch
 #define STEPPER_BTN_OPENED	PF7			//	Pin# A7		Stepper motor END limit switch
 
+
+
+
 /************************************************************************/
 /*			Interrupt, ADCs, Clocks Alternate Port names etc.			*/
 /************************************************************************/
@@ -116,6 +119,15 @@
 #define STEPPER_CTL_DDR		DDRA
 #define STEPPER_BTN_DDR		DDRF
 
+
+/************************************************************************/
+/*				Misc Defines that could be used in general				*/
+/************************************************************************/
+
+#define LOW		0
+#define HIGH	1
+#define OPEN	1
+#define CLOSE	-1
 
 /************************************************************************/
 /*								FREE PINS                               */
