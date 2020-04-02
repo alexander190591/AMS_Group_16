@@ -114,6 +114,7 @@
 
 //		Define NAME			Arduino			PCB Pin		Description
 //		NAME				Port Pin
+/*
 #define SOME_NAME			PE0			//	Pin# 0		Some description
 #define SOME_NAME			PE1			//	Pin# 1		Some description
 #define SOME_NAME			PB7			//	Pin# 13		Some description
@@ -148,5 +149,5 @@
 #define SOME_NAME			PK5			//	Pin# A13	Some description
 #define SOME_NAME			PK6			//	Pin# A14	Some description
 #define SOME_NAME			PK7			//	Pin# A15	Some description
-
+*/
 #endif /* DEFINES_H_ */
