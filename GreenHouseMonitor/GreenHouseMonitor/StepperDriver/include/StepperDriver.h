@@ -5,7 +5,7 @@
  *	
  *	
  *	Filename:	StepperDriver.h
- *	Path:		./StepperDriver/include
+ *	Path:		./GreenHouseMonitor/StepperDriver/include
  *	Created:	26-03-2020 09:32:41
  *	Author:		Tonni Lutze
  *
@@ -14,8 +14,8 @@
  */
 
  #include <avr/io.h>
- #define F_CPU 16000000
- #include <util/delay.h>
+ //#define F_CPU 16000000
+ //#include <util/delay.h>
  #include <stdbool.h>
  #include "../../defines.h"
 
@@ -92,6 +92,8 @@ void CloseWindow();
 void DriveStepper(int revolutions);
 
 void SetDirection(/*struct Motor *motor,*/ int direction);
+
+void CalibrateWindowOpening();
 
 
 #endif /* STEPPERDRIVER_H_ */

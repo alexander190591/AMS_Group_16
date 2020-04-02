@@ -1,34 +1,34 @@
-/*
- * TonniMain.c
+/*! \brief Temp Main file for testing
+ *	
+ *			Description here
  *
- * Created: 26-03-2020 08:44:17
- *  Author: Alexander
- */ 
+ *
+ *	
+ *	Filename:	TonniMain.c
+ *	Path:		./GreenHouseMonitor/MainFiles
+ *	Created:	26-03-2020 08:44:17
+ *	Author:		Tonni Lutze
+ *	Major change #1:			
+ */
 
 #include <avr/io.h>
-#define F_CPU 16000000
-#include <util/delay.h>
+//#define F_CPU 16000000
+//#include <util/delay.h>
 
 
 #include "MainFiles.h"
-#include "../StepperDriver/include/StepperDriver.h"
-#include "../StepperDriver/test/Test_StepperDriver.h"
-#include "../ButtonDriver/include/ButtonDriver.h"
 
-unsigned char SW_Status(){
-	return (~PINF);
-}
+#include "../StepperDriver/test/Test_StepperDriver.h"
+#include "../ButtonDriver/test/Test_ButtonDriver.h"
 
 
 void TonniMain(){
 	
-// 	TestStepperDriver();
+ 	TestStepperDriver();
+//	TestButtonDriver();
 
 	
-	InitButtons();
 		
 
-// 		
-// 	TestStepperDriver();
 
 }

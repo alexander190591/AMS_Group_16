@@ -128,6 +128,12 @@
     <Compile Include="ButtonDriver\src\ButtonDriver.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ButtonDriver\test\Test_ButtonDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ButtonDriver\test\Test_ButtonDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
@@ -173,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ButtonDriver\include" />
+    <Folder Include="ButtonDriver\test" />
     <Folder Include="ButtonDriver\src" />
     <Folder Include="MainFiles" />
     <Folder Include="StepperDriver\test" />

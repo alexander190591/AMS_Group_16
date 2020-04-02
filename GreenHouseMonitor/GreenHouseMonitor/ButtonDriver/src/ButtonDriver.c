@@ -5,7 +5,7 @@
  *
  *	
  *	Filename:	ButtonDriver.c
- *	Path:		./ButtonDriver/src
+ *	Path:		./GreenHouseMonitor/ButtonDriver/src
  *	Created:	02-04-2020 07:52:49
  *	Author:		Tonni Lutze
  *	Major change #1:			
@@ -18,11 +18,7 @@
  
  void InitButtons(){
 
-	//	TEMPORARY STUFF:
-	DDRF	|= (1 << PF7);
-	#define TEST_LED_ON		(PORTF |=	 (1 << PF7))
-	#define TEST_LED_OFF	(PORTF &=	~(1 << PF7))
-	//	TEMPORARY STUFF END
+	
 
 	//	Setting momentary switches as input
  	STEPPER_BTN_DDR		&=	~(1 << STEPPER_BTN_OPENED);

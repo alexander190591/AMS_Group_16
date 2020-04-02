@@ -5,7 +5,7 @@
  *	
  *	
  *	Filename:	StepperDriver.c
- *	Path:		./StepperDriver/src
+ *	Path:		./GreenHouseMonitor/StepperDriver/src
  *	Created:	26-03-2020 09:32:41
  *	Author:		Tonni Lutze
  *
@@ -14,6 +14,7 @@
  */
 
  #include "../include/StepperDriver.h"
+ #include "../../ButtonDriver/include/ButtonDriver.h"
 
  /*
  
@@ -232,37 +233,37 @@ int steps = 0;
 }
 
 void CalibrateWindowOpening(){
+	
 
-	bool isWindowClosed, endStopReached = false;
-	int revolutionCount = 0;
+	
+
+// 	bool isWindowClosed, endStopReached = false;
+	int revolutionCount;
 	
 	//	First we want to make sure the window is fully closed
 	SetDirection(CLOSE);
-	SetStepperMode(4);
+	SetStepperMode(1);
 	EnableMotor();
-	while (!isWindowClosed)
-	{
-		if (!(~PINF & (1 << STEPPER_BTN_CLOSED)))
-		{
-			isWindowClosed = true;
-		}
-
+	//	Drive Stepper Motor until Fully-Closed end-switch is triggered
+	while (!MntSwitchClosed()){
 		DriveStepper(1);
 	}
+	DisableMotor();
+	//	Make sure to reset counter.
+	revolutionCount = 0;
 
 	//	The window should be closed at this point
 	//	Now we run the stepper forwards until it hits the end switch, while it does we'll count the number of revolutions it takes to open fully
 	SetDirection(OPEN);
-	while (!endStopReached)
-	{
-		if (!(~PINF & (1 << STEPPER_BTN_OPENED)))
-		{
-			endStopReached = true;
-		}
+	EnableMotor();
+	//	Drive Stepper Motor until Fully-Opened end-switch is triggered
+	while (!MntSwitchOpened()){
 		DriveStepper(1);
-		revolutionCount ++;		
+		//	Count the number of revolutions needed to fully open window.
+		++revolutionCount;		
 	}
-	//	Now we should know the number of revolutions it took to open the window fully, this value can be saved and used to open the window in percentages or via an PID in conjunction with temperature measurements
-	
+	DisableMotor();
+	//	Now we should know the number of revolutions it took to open the window fully, this value can be saved and used to open the window in 
+	//	percentages or via an PID in conjunction with temperature measurements.
 	maxNbrRevolutions = revolutionCount;
 }

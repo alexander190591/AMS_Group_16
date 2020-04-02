@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include "MainFiles/MainFiles.h"
+#include "defines.h"
 
 int main(void)
 {
