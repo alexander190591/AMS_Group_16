@@ -29,16 +29,16 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <EraseKey />
     <AsfFrameworkConfig>
-      <framework-data xmlns="">
-        <options />
-        <configurations />
-        <files />
-        <documentation help="" />
-        <offline-documentation help="" />
-        <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
-        </dependencies>
-      </framework-data>
+      <framework-data>
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
+  </dependencies>
+</framework-data>
     </AsfFrameworkConfig>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -137,6 +137,18 @@
     <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="DisplayDriver\include\DisplayControl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DisplayDriver\include\TFTdriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DisplayDriver\src\DisplayControl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DisplayDriver\src\TFTdriver.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -170,6 +182,12 @@
     <Compile Include="StepperDriver\test\Test_StepperDriver.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="TouchDisplay\include\TouchDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TouchDisplay\src\TouchDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UART\include\uart.h">
       <SubType>compile</SubType>
     </Compile>
@@ -181,8 +199,14 @@
     <Folder Include="ButtonDriver\include" />
     <Folder Include="ButtonDriver\test" />
     <Folder Include="ButtonDriver\src" />
+    <Folder Include="DisplayDriver\include" />
+    <Folder Include="DisplayDriver\src" />
     <Folder Include="MainFiles" />
+    <Folder Include="DisplayDriver" />
+    <Folder Include="TouchDisplay" />
     <Folder Include="StepperDriver\test" />
+    <Folder Include="TouchDisplay\include" />
+    <Folder Include="TouchDisplay\src" />
     <Folder Include="UART" />
     <Folder Include="ButtonDriver" />
     <Folder Include="StepperDriver" />
