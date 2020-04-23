@@ -121,3 +121,21 @@ char array[7];
 }
 
 /************************************************************************/
+
+/*************************************************************************
+Converts the long "Tal" to an ASCII string - and then sends this string
+using the USART.
+Makes use of the C standard library <stdlib.h>.
+Parameter:
+    Tal: The long to be converted and sent. 
+*************************************************************************/
+void SendLong(long Tal)
+{
+char array[11];
+  // Convert the integer to an ASCII string (array), radix = 10 
+  ltoa(Tal, array, 10);
+  // - then send the string
+  SendString(array);
+}
+
+/************************************************************************/

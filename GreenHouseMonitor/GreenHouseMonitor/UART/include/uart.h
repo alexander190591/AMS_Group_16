@@ -10,4 +10,5 @@ char ReadChar();
 void SendChar(char Tegn);
 void SendString(char* Streng);
 void SendInteger(int Tal);
+void SendLong(long Tal);
 /****************************************/

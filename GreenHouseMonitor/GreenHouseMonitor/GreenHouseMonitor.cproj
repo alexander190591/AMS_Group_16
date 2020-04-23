@@ -177,6 +177,18 @@
     <Compile Include="MainFiles\TonniMain.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SDCardDriver\include\SDCardDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SDCardDriver\src\SDCardDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SDCardDriver\test\Test_SDCardDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SDCardDriver\test\Test_SDCardDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SoilHumiditySensor\include\SoilHumiditySensor.h">
       <SubType>compile</SubType>
     </Compile>
@@ -228,6 +240,10 @@
     <Folder Include="DisplayDriver\src" />
     <Folder Include="MainFiles" />
     <Folder Include="DisplayDriver" />
+    <Folder Include="SDCardDriver" />
+    <Folder Include="SDCardDriver\include" />
+    <Folder Include="SDCardDriver\test" />
+    <Folder Include="SDCardDriver\src" />
     <Folder Include="SPIDriver" />
     <Folder Include="SPIDriver\include" />
     <Folder Include="SPIDriver\test" />
