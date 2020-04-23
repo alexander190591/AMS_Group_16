@@ -9,6 +9,19 @@
 #ifndef DISPLAYCONTROL_H_
 #define DISPLAYCONTROL_H_
 
+//Functions for updating display with values,
+//  reserved for non-touch
+
+void updateWindowDisplay(char*);
+void updateEarthHumidDisplay(char*);
+void updateTemperaturDisplay(char*);
+
+
+//The functions for calling main controldisplay parts,
+//  reserved for touch
+void windowControlDisplay(unsigned int, unsigned int);
+void earthHumidControlDisplay(unsigned int, unsigned int);
+
 
 
 

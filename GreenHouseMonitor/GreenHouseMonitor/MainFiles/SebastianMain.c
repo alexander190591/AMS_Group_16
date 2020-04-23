@@ -5,6 +5,7 @@
  *  Author: Alexander
  */ 
 #include "MainFiles.h"
+#include <util/delay.h>
 #include "../TouchDisplay/include/TouchDriver.h"
 
 void SebastianMain()
@@ -16,24 +17,21 @@ void SebastianMain()
 		DisplayInit();
 		//All pixels white (background)
 		FillRectangle(0,0,320,240,31,63,31);
-		// Draw red parts of danish flag
-		FillRectangle(0,140,100,100,31,0,0);
-		FillRectangle(0,0,100,100,31,0,0);
-		FillRectangle(140,0,320-140,100,31,0,0);
-		FillRectangle(140,140,320-140,100,31,0,0);
-		Setup();
-		//DisplayOn();
-		//_delay_ms(1000);
-		//DisplayOff();
-		//_delay_ms(1000);
-		//DisplayOn();
+		
+		updateWindowDisplay("aaaaa");
+		_delay_ms(10000);
+		windowControlDisplay(50,50);
+		_delay_ms(20000);
+		windowControlDisplay(50,50);
+		_delay_ms(20000);
+		windowControlDisplay(120,50);
 		while(1)
 		{
 			//DisplayOn();
-			//_delay_ms(1000);
+			_delay_ms(1000);
 			//DisplayOff();
 			//_delay_ms(1000);
-			TouchSetup();
+			//TouchSetup();
 		}
 	}
 }

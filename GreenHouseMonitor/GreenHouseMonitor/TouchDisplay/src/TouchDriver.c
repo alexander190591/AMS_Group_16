@@ -6,7 +6,6 @@
  */ 
 #include <avr/io.h>
 #include <avr/cpufunc.h>
-#define F_CPU 16000000
 #include <util/delay.h>
 #include "../include/TouchDriver.h"
 #include "../../defines.h"
@@ -22,9 +21,16 @@ int _Data = 0;
 
 
 void Setup(){
-	DDRH |= TOUCH_CLK;
-	DDRE |= 0b0011100;
-	DDRG |= 0b0010000;
+	
+	//Setting Arduino outputs
+	DDRE |= (1<<TOUCH_CS);
+	DDRG |= (1<<TOUCH_IN);
+	DDRH |= (1<<TOUCH_CLK);
+	
+	//Setting Arduino inputs	
+	DDRE &= ~(1<<TOUCH_OUT);
+	DDRE &= ~(1<<TOUCH_IRQ);
+	//DDRG |= 0b0010000;
 
 	_NOP();
 	_NOP();
@@ -47,10 +53,11 @@ void TouchSetup(){
 	_NOP();
 	CLK_PORT |= (0<<TOUCH_CLK); //Low
 	
-	if(readData() != 0){
+	if(readData() > 0){
 		DisplayOff();
-		_delay_ms(2000);
+		_delay_ms(1000);
 		DisplayOn();
+		_delay_ms(1000);
 	}
 	CS_PORT |= (1<<TOUCH_CS); //High
 	
@@ -59,7 +66,7 @@ void TouchSetup(){
 
 void sendCommand(unsigned char command){
 	
-	for (int i = 8; i>0; i--)
+	for (int i = 7; i>0; i--)
 	{
 		DIN_PORT |= ((1&(command >> i))<<TOUCH_IN);
 		clockPulse();
@@ -80,7 +87,7 @@ void sendCommand(unsigned char command){
 
 int readData(){
 	_Data = 0;
-	for(int i = 12; i>0; i--){
+	for(int i = 11; i>0; i--){
 		_Data = (TOUCH_OUT << i);
 		clockPulse();
 	}
@@ -102,7 +109,7 @@ void clockPulse(){
 	_NOP();
 	_NOP();
 	_NOP();
-	CLK_PORT |= (0<<TOUCH_CLK); //Low
+	CLK_PORT &= ~(1<<TOUCH_CLK); //Low
 }
 
 /*void T4Delay(){
