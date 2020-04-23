@@ -125,7 +125,8 @@
 /*			Interrupt, ADCs, Clocks Alternate Port names etc.			*/
 /************************************************************************/
 #define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
-
+#define SOILMOISTURE_PORT   PORTF       //  Designating SoilMoistureSensor pin to PORT F (ADC0-ADC7)
+#define SOILMOISTURE_DDR	DDRF		//  Designating SoilMoistureSensor pin to Data Direction Register F
 
 //Stepper PORT and DDR
 #define STEPPER_MODE_PORT			PORTB	//	Designating Step Mode Pins to PORT B

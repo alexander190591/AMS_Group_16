@@ -8,7 +8,7 @@
 #include "MainFiles.h"
 #include "../SoilHumiditySensor/include/SoilHumiditySensor.h"
 #include "../UART/include/uart.h"	// For debugging
-#define F_CPU 16000000		// Used for util/delay.h
+#include "../defines.h"
 #include <util/delay.h>		// Used for _delay_ms()
 
 void AlexanderMain()
@@ -17,15 +17,16 @@ void AlexanderMain()
 	InitUART(9600, 8, 0);
 	
 	struct SoilHumiditySensor mySoilHumiditySensor = {0,0,0,setUp, analogRead, getHumidityInPercent}; // Initializing the "object" of type SoilHumiditySensor called mySoilHumiditySensor.
-	mySoilHumiditySensor.setUp(&mySoilHumiditySensor, 0);	// Setting up soil humidity sensor with ADC pin 0 on the ATMega2560.	
+	mySoilHumiditySensor.setUp(&mySoilHumiditySensor, SOILMOISTURE_PIN);	// Setting up soil humidity sensor with ADC pin 0 on the ATMega2560.	
 	
 	/* Replace with your application code */
 	while (1)
 	{
 		_delay_ms(1000);
 		mySoilHumiditySensor.analogRead(&mySoilHumiditySensor);	// Reading value, setting it in struct.
-		
 		SendInteger(mySoilHumiditySensor._humidityValue);
-		SendChar('\n');
+		SendString(" ADC value = ");
+		SendInteger(mySoilHumiditySensor.getHumidityInPercent(&mySoilHumiditySensor));
+		SendString("%\n");
 	}
 }
