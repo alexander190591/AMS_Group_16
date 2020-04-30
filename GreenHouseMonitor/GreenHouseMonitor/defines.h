@@ -80,6 +80,10 @@
 #define TOUCH_CS			PE3			//	PIN# 5		Touch Cable Select
 #define TOUCH_CLK			PH3			//	PIN# 6		Touch bus Clock
 
+/*							Interrupt									*/
+#define	TCH_SCRN_INT		INT4			// Interrupt 4 bit for EIMSK (External Interrupt Mask Register)
+#define TCH_SCRN_ISC0		ISC40			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define TCH_SCRN_ISC1		ISC41			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
 
 
 
@@ -103,7 +107,29 @@
 /*			Defines for Senors (Humidity, temperature etc.)				*/
 /************************************************************************/
 
+//						A I R   S E N S O R
+// Pin & Port for AirSensor
+#define AIRSENSOR_PIN		PD3				//Pin# 18		Data-pin for the DHT11
+#define AIRSENSOR_PORT		PORTD			// Designating AirSensor pin to PORT D
+#define AIRSENSOR_DDR		DDRD			// Designating AirSensor pin to Data Direction Register D
 
+// Timer for AirSensor
+#define	DHT11_TIMER			TCNT1			// Timer/Counter 1	(16-bit)
+#define	DHT11_INTMASKREG	TIMSK1			// Timer/Counter 1 Interrupt Mask Register
+#define DHT11_TCCRA			TCCR1A			// Timer/Counter 1 Control Register A
+#define DHT11_TCCRB			TCCR1B			// Timer/Counter 1 Control Register B
+#define DHT11_TIFR			TIFR1			// Timer/Counter 1 Interrupt Flag Register
+
+// Interrupt for AirSensor
+#define	SOME_NAME			INT3			// Interrupt 3 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC30			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC31			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
+
+//			  S O I L   M O I S T U R E   S E N S O R
+// Pin & Port for SoilMoistureSensor
+#define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
+#define SOILMOISTURE_PORT   PORTF       //  Designating SoilMoistureSensor pin to PORT F (ADC0-ADC7)
+#define SOILMOISTURE_DDR	DDRF		//  Designating SoilMoistureSensor pin to Data Direction Register F
 
 
 /************************************************************************/
@@ -124,10 +150,6 @@
 /************************************************************************/
 /*			Interrupt, ADCs, Clocks Alternate Port names etc.			*/
 /************************************************************************/
-#define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
-#define SOILMOISTURE_PORT   PORTF       //  Designating SoilMoistureSensor pin to PORT F (ADC0-ADC7)
-#define SOILMOISTURE_DDR	DDRF		//  Designating SoilMoistureSensor pin to Data Direction Register F
-
 //Stepper PORT and DDR
 #define STEPPER_MODE_PORT			PORTB	//	Designating Step Mode Pins to PORT B
 #define STEPPER_EN_PORT				PORTH	//	Designating enable Pin to PORT H
@@ -157,13 +179,6 @@
 /*                                TIMERS                                */
 /************************************************************************/
 //		Define NAME			Register		Description
-
-#define	DHT11_TIMER			TCNT1			// Timer/Counter 1	(16-bit)
-#define	DHT11_INTMASKREG	TIMSK1			// Timer/Counter 1 Interrupt Mask Register
-#define DHT11_TCCRA			TCCR1A			// Timer/Counter 1 Control Register A
-#define DHT11_TCCRB			TCCR1B			// Timer/Counter 1 Control Register B
-#define DHT11_TIFR			TIFR1			// Timer/Counter 1 Interrupt Flag Register
-
 /*
 #define	SOME_NAME			TCNT0			// Timer/Counter 0	(8-bit)
 #define	SOME_NAME			TIMSK0			// Timer/Counter 0 Interrupt Mask Register
@@ -201,10 +216,6 @@
 /*                              INTERRUPTS                              */
 /************************************************************************/
 //		Define NAME			Register		Description
-#define	TCH_SCRN_INT		INT4			// Interrupt 4 bit for EIMSK (External Interrupt Mask Register)
-#define TCH_SCRN_ISC0		ISC40			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
-#define TCH_SCRN_ISC1		ISC41			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
-
 /*
 #define	SOME_NAME			INT0			// Interrupt 0 bit for EIMSK (External Interrupt Mask Register)
 #define SOME_NAME			ISC00			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
@@ -218,10 +229,6 @@
 #define SOME_NAME			ISC20			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
 #define SOME_NAME			ISC21			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
 
-#define	SOME_NAME			INT3			// Interrupt 3 bit for EIMSK (External Interrupt Mask Register)
-#define SOME_NAME			ISC30			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
-#define SOME_NAME			ISC31			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
-
 #define	SOME_NAME			INT5			// Interrupt 5 bit for EIMSK (External Interrupt Mask Register)
 #define SOME_NAME			ISC50			// Interrupt Sense Control ISCn0 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			ISC51			// Interrupt Sense Control ISCn1 for EICRB (External Interrupt Control Register B)
@@ -234,10 +241,6 @@
 #define SOME_NAME			ISC70			// Interrupt Sense Control ISCn0 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			ISC71			// Interrupt Sense Control ISCn1 for EICRB (External Interrupt Control Register B)
 */
-
-
-// PE4 Skærm
-// Interrupt 4 bruges til skærmen
 
 
 /************************************************************************/
@@ -254,7 +257,6 @@
 #define SOME_NAME			PJ0			//	Pin# 15		Some description
 #define SOME_NAME			PH1			//	Pin# 16		Some description
 #define SOME_NAME			PH0			//	Pin# 17		Some description
-#define SOME_NAME			PD3			//	Pin# 18		Some description
 #define SOME_NAME			PD2			//	Pin# 19		Some description
 #define SOME_NAME			PD1			//	Pin# 20		Some description
 #define SOME_NAME			PD0			//	Pin# 21		Some description
