@@ -1,17 +1,21 @@
- /*! \brief Low level driver for the Big Easy Stepper Motor Driver Module.
- *			
- *			
- *
- *	
- *	
- *	Filename:	StepperDriver.c
- *	Path:		./GreenHouseMonitor/StepperDriver/src
- *	Created:	26-03-2020 09:32:41
- *	Author:		Tonni Lutze
- *
- *	Major change #1:
- *	Major change #2:
- */
+/** 
+  *	
+  *	
+  *	@file:		StepperDriver.c
+  *	@path:		./GreenHouseMonitor/StepperDriver/src
+  *	@date:		26-03-2020 09:32:41
+  *	@author:	Tonni Lutze
+  *
+  *	@brief Low level driver for the Big Easy Stepper Motor Driver Module.
+  *	
+  *	Description here
+  *	
+  *	
+  *	
+  *			
+  *	Major change #1:
+  *	
+**/
 
  #include "../include/StepperDriver.h"
  #include "../../ButtonDriver/include/ButtonDriver.h"
@@ -30,6 +34,8 @@
 
 
  */
+
+
 
 
 

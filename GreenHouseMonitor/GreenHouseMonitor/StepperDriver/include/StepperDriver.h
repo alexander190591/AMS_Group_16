@@ -1,17 +1,21 @@
- /*! \brief Low level driver for the Big Easy Stepper Motor Driver Module.
- *			
- *			
- *
- *	
- *	
- *	Filename:	StepperDriver.h
- *	Path:		./GreenHouseMonitor/StepperDriver/include
- *	Created:	26-03-2020 09:32:41
- *	Author:		Tonni Lutze
- *
- *	Major change #1:
- *	Major change #2:
- */
+/** 
+  *	
+  *	
+  *	@file:		StepperDriver.h
+  *	@path:		./GreenHouseMonitor/StepperDriver/include
+  *	@date:		26-03-2020 09:32:41
+  *	@author:	Tonni Lutze
+  *
+  *	@brief Low level driver for the Big Easy Stepper Motor Driver Module.
+  *	
+  *	Description here
+  *	
+  *	
+  *	
+  *			
+  *	Major change #1:
+  *	
+**/
 
  #include <avr/io.h>
  //#define F_CPU 16000000
@@ -24,7 +28,8 @@
 #define STEPPERDRIVER_H_
 
 #pragma region DEFINES
-
+//	Most of these defines only serves to limit the amount of code i need to write - 
+//	no reason to write (STEPPER_STEP_PORT	|=   (1 << STEPPER_STEP)) a half dosen times if SINGLE_STEP_ON will do the same
 #define STEP_DEGREE				0.9
 #define STEP_REVOLUTION			(360 / STEP_DEGREE)
 #define SINGLE_STEP_ON			(STEPPER_STEP_PORT	|=   (1 << STEPPER_STEP))
@@ -73,26 +78,123 @@ struct Window{
 
 
 
-//	For Initializing the Stepper Driver
+/**
+  * @brief Initiates the Stepper Driver.
+  * 
+  * 
+  * @param analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return void
+  * 
+**/
 void StepperInit();	
-//	
+
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void DefaultReset();
 
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void EnableMotor();
 
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void DisableMotor();
 
-
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void SetStepperMode(int mode);
 
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void OpenWindow();
 
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void CloseWindow();
 
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void DriveStepper(int revolutions);
 
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void SetDirection(/*struct Motor *motor,*/ int direction);
 
+/**
+  * @brief short description
+  * 
+  * Longer description
+  * 
+  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * 
+  * @return <description> i.e. what is returned. for example: void
+  * 
+**/	
 void CalibrateWindowOpening();
 
 
