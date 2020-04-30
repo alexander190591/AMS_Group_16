@@ -154,6 +154,93 @@
 #define CLOSE	-1
 
 /************************************************************************/
+/*                                TIMERS                                */
+/************************************************************************/
+//		Define NAME			Register		Description
+
+#define	DHT11_TIMER			TCNT1			// Timer/Counter 1	(16-bit)
+#define	DHT11_INTMASKREG	TIMSK1			// Timer/Counter 1 Interrupt Mask Register
+#define DHT11_TCCRA			TCCR1A			// Timer/Counter 1 Control Register A
+#define DHT11_TCCRB			TCCR1B			// Timer/Counter 1 Control Register B
+#define DHT11_TIFR			TIFR1			// Timer/Counter 1 Interrupt Flag Register
+
+/*
+#define	SOME_NAME			TCNT0			// Timer/Counter 0	(8-bit)
+#define	SOME_NAME			TIMSK0			// Timer/Counter 0 Interrupt Mask Register
+#define SOME_NAME			TCCR0A			// Timer/Counter 0 Control Register A
+#define SOME_NAME			TCCR0B			// Timer/Counter 0 Control Register B
+#define SOME_NAME			TIFR0			// Timer/Counter 0 Interrupt Flag Register
+
+#define	SOME_NAME			TCNT2			// Timer/Counter 2	(8-bit)
+#define	SOME_NAME			TIMSK2			// Timer/Counter 2 Interrupt Mask Register
+#define SOME_NAME			TCCR2A			// Timer/Counter 2 Control Register A
+#define SOME_NAME			TCCR2B			// Timer/Counter 2 Control Register B
+#define SOME_NAME			TIFR2			// Timer/Counter 2 Interrupt Flag Register
+
+#define	SOME_NAME			TCNT3			// Timer/Counter 3	(16-bit)
+#define	SOME_NAME			TIMSK3			// Timer/Counter 3 Interrupt Mask Register
+#define SOME_NAME			TCCR3A			// Timer/Counter 3 Control Register A
+#define SOME_NAME			TCCR3B			// Timer/Counter 3 Control Register B
+#define SOME_NAME			TIFR3			// Timer/Counter 3 Interrupt Flag Register
+
+#define	SOME_NAME			TCNT4			// Timer/Counter 4	(16-bit)
+#define	SOME_NAME			TIMSK4			// Timer/Counter 4 Interrupt Mask Register
+#define SOME_NAME			TCCR4A			// Timer/Counter 4 Control Register A
+#define SOME_NAME			TCCR4B			// Timer/Counter 4 Control Register B
+#define SOME_NAME			TIFR4			// Timer/Counter 4 Interrupt Flag Register
+
+#define	SOME_NAME			TCNT5			// Timer/Counter 5	(16-bit)
+#define	SOME_NAME			TIMSK5			// Timer/Counter 5 Interrupt Mask Register
+#define SOME_NAME			TCCR5A			// Timer/Counter 5 Control Register A
+#define SOME_NAME			TCCR5B			// Timer/Counter 5 Control Register B
+#define SOME_NAME			TIFR5			// Timer/Counter 5 Interrupt Flag Register
+*/
+
+
+/************************************************************************/
+/*                              INTERRUPTS                              */
+/************************************************************************/
+//		Define NAME			Register		Description
+#define	TCH_SCRN_INT		INT4			// Interrupt 4 bit for EIMSK (External Interrupt Mask Register)
+#define TCH_SCRN_ISC0		ISC40			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define TCH_SCRN_ISC1		ISC41			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
+
+/*
+#define	SOME_NAME			INT0			// Interrupt 0 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC00			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC01			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
+
+#define	SOME_NAME			INT1			// Interrupt 1 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC10			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC11			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
+
+#define	SOME_NAME			INT2			// Interrupt 2 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC20			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC21			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
+
+#define	SOME_NAME			INT3			// Interrupt 3 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC30			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC31			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
+
+#define	SOME_NAME			INT5			// Interrupt 5 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC50			// Interrupt Sense Control ISCn0 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			ISC51			// Interrupt Sense Control ISCn1 for EICRB (External Interrupt Control Register B)
+
+#define	SOME_NAME			INT6			// Interrupt 6 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC60			// Interrupt Sense Control ISCn0 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			ISC61			// Interrupt Sense Control ISCn1 for EICRB (External Interrupt Control Register B)
+
+#define	SOME_NAME			INT7			// Interrupt 7 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC70			// Interrupt Sense Control ISCn0 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			ISC71			// Interrupt Sense Control ISCn1 for EICRB (External Interrupt Control Register B)
+*/
+
+
+// PE4 Skærm
+// Interrupt 4 bruges til skærmen
+
+
+/************************************************************************/
 /*								FREE PINS                               */
 /************************************************************************/
 
