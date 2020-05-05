@@ -14,7 +14,7 @@ struct AirSensor
 {
 	double _temperature;											// Variable for storing temperature value when calling getValues()-method.
 	double _humidity;												// Variable for storing humidity value when calling getValues()-method.
-	int _microseconds;											// Variable for storing microseconds for the timer.
+	int _microseconds;												// Variable for storing microseconds for the timer.
 	void (*setUpAirSensor)(struct AirSensor*);						// Function pointer for setUpAirSensor 'method'.
 	double (*readTemperature)(struct AirSensor*);					// Function pointer for readTemperature 'method'.
 	double (*readHumidity)(struct AirSensor*);						// Function pointer for readHumidity 'method'.

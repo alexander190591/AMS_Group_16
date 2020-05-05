@@ -76,23 +76,35 @@ void AlexanderMain()
 		//} // End of while(1)
 		
 	// TIMER TESTS
-		myAirSensor.timerSetup(&myAirSensor);
 		int timeInMicroseconds;
-		SendString("Timer initiated. Starting timer."); SendChar('\n');
+		SendString("Timer initiated."); SendChar('\n');
 	
 		while(1)
 		{
-			myAirSensor.timerStart(&myAirSensor);
-			_delay_ms(1);
-			timeInMicroseconds = myAirSensor.timerStop(&myAirSensor);
-			SendString("Timer: Microseconds after a millisecond: "); SendChar('\n');
-			SendInteger(timeInMicroseconds);
-			SendChar('\n');
-			SendChar('\n');
-			SendChar('\n');
+		// Testing if stopWatch to see if it counts 16000 microseconds, then creates interrupt.
+			//SendString("stopWatchSetup() called..."); SendChar('\n');
+			//myAirSensor.stopWatchSetup(&myAirSensor);
+			//SendString("stopWatchStart() called...."); SendChar('\n');
+			//myAirSensor.stopWatchStart(&myAirSensor,18000);
+			//_delay_ms(1000);	
 			
-			myAirSensor.timerStart(&myAirSensor);
-			while(1){}
+			
+		// Testing timer to see if it counts 1000 microseconds in a millisecond:
+			//SendString("Starting timer."); SendChar('\n');
+			//myAirSensor.timerStart(&myAirSensor);
+			//_delay_ms(1);
+			//timeInMicroseconds = myAirSensor.timerStop(&myAirSensor);
+			//SendString("Timer: Microseconds after a millisecond: "); SendChar('\n');
+			//SendInteger(timeInMicroseconds);
+			//SendChar('\n');
+			//SendChar('\n');
+			//SendChar('\n');
+		
+		// Testing if getValues can use stopWatchStart()......
+		myAirSensor.getValues(&myAirSensor);
+		
+		_delay_ms(1000);
+			
 		} // End of while(1)
 		
 		
