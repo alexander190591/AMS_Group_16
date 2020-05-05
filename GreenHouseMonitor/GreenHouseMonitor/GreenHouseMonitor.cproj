@@ -30,15 +30,15 @@
     <EraseKey />
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.25.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.25.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
     <avrtoolserialnumber />
@@ -150,6 +150,12 @@
     <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="DHT11\include\DHT11.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DHT11\src\DHT11.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="DisplayDriver\include\DisplayControl.h">
       <SubType>compile</SubType>
     </Compile>
@@ -236,10 +242,13 @@
     <Folder Include="ButtonDriver\include" />
     <Folder Include="ButtonDriver\test" />
     <Folder Include="ButtonDriver\src" />
+    <Folder Include="DHT11\include" />
+    <Folder Include="DHT11\src" />
     <Folder Include="DisplayDriver\include" />
     <Folder Include="DisplayDriver\src" />
     <Folder Include="MainFiles" />
     <Folder Include="DisplayDriver" />
+    <Folder Include="DHT11" />
     <Folder Include="SDCardDriver" />
     <Folder Include="SDCardDriver\include" />
     <Folder Include="SDCardDriver\test" />

@@ -15,7 +15,7 @@
  * \return void
  */
 
-void setUp(struct SoilHumiditySensor* p, unsigned char analogPin)
+void setUpSoilHumiditySensor(struct SoilHumiditySensor* p, unsigned char analogPin)
 {
 	p->_analogPin = analogPin;	// Setting structs variable (like attribute in class)
 	
