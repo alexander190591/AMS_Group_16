@@ -84,9 +84,8 @@
 #define	TCH_SCRN_INT		INT4			// Interrupt 4 bit for EIMSK (External Interrupt Mask Register)
 #define TCH_SCRN_ISC0		ISC40			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
 #define TCH_SCRN_ISC1		ISC41			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
-
-
-
+#define TCH_SCRN_EICR		EICRB			// Interrupt 4 External Interrupt Control Register
+#define TCH_SCRN_EIMSK		EIMSK			// Interrupt 4 External Interrupt Mask Register
 
 
 /************************************************************************/
@@ -142,6 +141,8 @@
 #define AIRSENSOR_ISC0			ISC30				// Interrupt Sense Control ISC30 for EICRA (External Interrupt Control Register A)
 #define AIRSENSOR_ISC1			ISC31				// Interrupt Sense Control ISC31 for EICRA (External Interrupt Control Register A)
 #define AIRSENSOR_INTVECT		INT3_vect			// Interrupt 3 vector
+#define AIRSENSOR_EICR			EICRA				// Interrupt 3 External Interrupt Control Register
+#define AIRSENSOR_EIMSK			EIMSK				// Interrupt 3 External Interrupt Mask Register
 
 //			  S O I L   M O I S T U R E   S E N S O R
 // Pin & Port for SoilMoistureSensor
@@ -324,31 +325,43 @@
 #define SOME_NAME			ISC00			// Interrupt Sense Control ISC00 for EICRA (External Interrupt Control Register A)
 #define SOME_NAME			ISC01			// Interrupt Sense Control ISC01 for EICRA (External Interrupt Control Register A)
 #define SOME_NAME			INT0_vect		// Interrupt 0 vector
+#define SOME_NAME			EICRA			// Interrupt 0 External Interrupt Control Register
+#define SOME_NAME			EIMSK			// Interrupt 0 External Interrupt Mask Register
 
 #define	SOME_NAME			INT1			// Interrupt 1 bit for EIMSK (External Interrupt Mask Register)
 #define SOME_NAME			ISC10			// Interrupt Sense Control ISC10 for EICRA (External Interrupt Control Register A)
 #define SOME_NAME			ISC11			// Interrupt Sense Control ISC11 for EICRA (External Interrupt Control Register A)
 #define SOME_NAME			INT1_vect		// Interrupt 1 vector
+#define SOME_NAME			EICRA			// Interrupt 1 External Interrupt Control Register
+#define SOME_NAME			EIMSK			// Interrupt 1 External Interrupt Mask Register
 
 #define	SOME_NAME			INT2			// Interrupt 2 bit for EIMSK (External Interrupt Mask Register)
 #define SOME_NAME			ISC20			// Interrupt Sense Control ISC20 for EICRA (External Interrupt Control Register A)
 #define SOME_NAME			ISC21			// Interrupt Sense Control ISC21 for EICRA (External Interrupt Control Register A)
 #define SOME_NAME			INT2_vect		// Interrupt 2 vector
+#define SOME_NAME			EICRA			// Interrupt 2 External Interrupt Control Register
+#define SOME_NAME			EIMSK			// Interrupt 2 External Interrupt Mask Register
 
 #define	SOME_NAME			INT5			// Interrupt 5 bit for EIMSK (External Interrupt Mask Register)
 #define SOME_NAME			ISC50			// Interrupt Sense Control ISC50 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			ISC51			// Interrupt Sense Control ISC51 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			INT5_vect		// Interrupt 5 vector
+#define SOME_NAME			EICRB			// Interrupt 5 External Interrupt Control Register
+#define SOME_NAME			EIMSK			// Interrupt 5 External Interrupt Mask Register
 
 #define	SOME_NAME			INT6			// Interrupt 6 bit for EIMSK (External Interrupt Mask Register)
 #define SOME_NAME			ISC60			// Interrupt Sense Control ISC60 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			ISC61			// Interrupt Sense Control ISC61 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			INT6_vect		// Interrupt 6 vector
+#define SOME_NAME			EICRB			// Interrupt 6 External Interrupt Control Register
+#define SOME_NAME			EIMSK			// Interrupt 6 External Interrupt Mask Register
 
 #define	SOME_NAME			INT7			// Interrupt 7 bit for EIMSK (External Interrupt Mask Register)
 #define SOME_NAME			ISC70			// Interrupt Sense Control ISC70 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			ISC71			// Interrupt Sense Control ISC71 for EICRB (External Interrupt Control Register B)
 #define SOME_NAME			INT7_vect		// Interrupt 7 vector
+#define SOME_NAME			EICRB			// Interrupt 6 External Interrupt Control Register
+#define SOME_NAME			EIMSK			// Interrupt 6 External Interrupt Mask Register
 */
 
 

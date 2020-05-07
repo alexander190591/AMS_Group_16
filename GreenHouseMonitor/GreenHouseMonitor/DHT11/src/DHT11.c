@@ -20,12 +20,12 @@ void setUpAirSensor(struct AirSensor* ptr)
 {
 	// TODO SOMETHING WRONG HERE  *********************************************************************************************************************
 	
-	//EIMSK |= (1<<AIRSENSOR_INT);	// Enables pin interrupt.
-				//
 	//// Any edge of INTn generates asynchronously an interrupt request: ISCn1 == 0, ISCn0 == 1 (Table 15-1, Mega2560 datasheet).
-	//EICRB &= ~(1<<AIRSENSOR_ISC1);
-	//EICRB |= (1<<AIRSENSOR_ISC0);
 	
+	EICRA &= ~(1<<AIRSENSOR_ISC1);
+	EICRA|= (1<<AIRSENSOR_ISC0);
+	
+	EIMSK |= (1<<AIRSENSOR_INT);	// Enables pin interrupt.
 	// TODO SOMETHING WRONG HERE  *********************************************************************************************************************
 	
 	// Enables pin interrupt (EIMSK |= (1<<AIRSENSOR_INT);)
@@ -210,34 +210,7 @@ uint16_t timerStop(struct AirSensor* ptr)
 	return AIRSENSOR_TCNT/2;
 }
 
-//ISR(AIRSENSOR_INTVECT)
-//{
-//// This is what happens when the digital pin changes state...
-//
 
-//// Read state (HIGH or LOW)
-//// char state = HIGHORLOWREAD;
-////switch(state)
-////{
-////case HIGH:
-////// Start timer
-////break;
-////case LOW:
-////// Stop timer.
-////// Read counter.
-////// If(counter >= 35 && < 100)
-//////		Set array to 1.
-//////		clear counter.
-////// else if(counter < 35)
-//////		Set array slot to 0.
-//////		clear counter.
-////// else
-//////		set to idle...
-//////		clear timer.
-//////
-////break;
-////}
-//} // End of ISR
 
 ISR(AIRSENSOR_TIMEROVFVECT)
 {

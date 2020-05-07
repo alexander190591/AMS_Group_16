@@ -12,6 +12,37 @@
 #include "../defines.h"
 #include <util/delay.h>		// Used for _delay_ms()
 
+uint16_t interruptCounter;
+
+ISR(AIRSENSOR_INTVECT)
+{
+	// This is what happens when the digital pin changes state...
+
+	interruptCounter++;
+	// Read state (HIGH or LOW)
+	// char state = HIGHORLOWREAD;
+	//switch(state)
+	//{
+	//case HIGH:
+	//// Start timer
+	//break;
+	//case LOW:
+	//// Stop timer.
+	//// Read counter.
+	//// If(counter >= 35 && < 100)
+	////		Set array to 1.
+	////		clear counter.
+	//// else if(counter < 35)
+	////		Set array slot to 0.
+	////		clear counter.
+	//// else
+	////		set to idle...
+	////		clear timer.
+	////
+	//break;
+	//}
+} // End of ISR
+
 void AlexanderMain()
 {
 	sei();													// Enables all interrupts.
@@ -43,6 +74,7 @@ void AlexanderMain()
 	myAirSensor.setUpAirSensor(&myAirSensor);
 	SendString("setUpAirSensor DONE."); SendChar('\n');
 	
+	interruptCounter = 0;
 	// CLASS METHOD TEST
 		//myAirSensor.setUpAirSensor(&myAirSensor);
 		//SendString("setUpAirSensor() done"); SendChar('\n');
@@ -104,7 +136,9 @@ void AlexanderMain()
 		myAirSensor.getValues(&myAirSensor);
 		
 		_delay_ms(1000);
-			
+		
+		SendString("Interrupt counter value = "); SendInteger(interruptCounter);
+		interruptCounter = 0;	
 		} // End of while(1)
 		
 		
