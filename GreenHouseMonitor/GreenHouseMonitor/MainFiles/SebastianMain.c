@@ -8,6 +8,7 @@
 #include <util/delay.h>
 #include "../TouchDisplay/include/TouchDriver.h"
 
+
 void SebastianMain()
 {
 	/* Replace with your application code */
@@ -18,20 +19,29 @@ void SebastianMain()
 		//All pixels white (background)
 		FillRectangle(0,0,320,240,31,63,31);
 		
+		
 		updateWindowDisplay("aaaaa");
-		_delay_ms(10000);
+		/*_delay_ms(10000);
 		windowControlDisplay(50,50);
 		_delay_ms(20000);
 		windowControlDisplay(50,50);
 		_delay_ms(20000);
-		windowControlDisplay(120,50);
+		windowControlDisplay(120,50);*/
+		
+		//_delay_ms(3000);
+		
+		Setup();
+		//TouchSetup();
+		//_delay_ms(10000);
+		sei();
 		while(1)
 		{
+			//_delay_ms(3000);
+			//TouchSetup();
 			//DisplayOn();
-			_delay_ms(1000);
+			//_delay_ms(1000);
 			//DisplayOff();
 			//_delay_ms(1000);
-			//TouchSetup();
 		}
 	}
 }

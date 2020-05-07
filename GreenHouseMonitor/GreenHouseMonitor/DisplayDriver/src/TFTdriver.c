@@ -98,13 +98,13 @@ void DisplayInit()
 	RST_PORT &= ~(1<<RST_BIT);
 	//PORTG &= ~(2);
 	
-	//_delay_ms(500);
+	_delay_ms(500);
 	
 	//Setting reset pin high
 	RST_PORT |= (1<<RST_BIT);
 	//PORTG &= ~(2);
 	
-	//_delay_ms(500);
+	_delay_ms(500);
 
 	SleepOut();
 	
@@ -180,8 +180,7 @@ void SetPageAddress(unsigned int Start, unsigned int End)
 // (StartX,StartY) = Upper left corner. X horizontal (0-319) , Y vertical (0-239).
 // Height (1-240) is vertical. Width (1-320) is horizontal.
 // R-G-B = 5-6-5 bits.
-void FillRectangle(unsigned int StartX, unsigned int StartY, unsigned int Width, 
-		unsigned int Height, unsigned char Red, unsigned char Green, unsigned char Blue)
+void FillRectangle(unsigned int StartX, unsigned int StartY, unsigned int Width, unsigned int Height, unsigned char Red, unsigned char Green, unsigned char Blue)
 {
 	SetColumnAddress(StartY, StartY+Height);
 	SetPageAddress(StartX, StartX+Width);
