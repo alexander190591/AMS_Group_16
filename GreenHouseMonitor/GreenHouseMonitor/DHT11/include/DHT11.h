@@ -15,6 +15,9 @@ struct AirSensor
 	double _temperature;											// Variable for storing temperature value when calling getValues()-method.
 	double _humidity;												// Variable for storing humidity value when calling getValues()-method.
 	int _microseconds;												// Variable for storing microseconds for the timer.
+	int _dataBitCounter;											// Variable for counting amount of data collected.
+	int _newDataAvailable;											// Set when reading data from DHT11 is done.
+	uint8_t _sensorData[5];											// Variable for collecting sensor data. Bytes describe: RH integral, RH decimal, T integral (celcius), T decimal (celcius), Checksum.
 	void (*setUpAirSensor)(struct AirSensor*);						// Function pointer for setUpAirSensor 'method'.
 	double (*readTemperature)(struct AirSensor*);					// Function pointer for readTemperature 'method'.
 	double (*readHumidity)(struct AirSensor*);						// Function pointer for readHumidity 'method'.

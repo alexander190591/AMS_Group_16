@@ -18,18 +18,12 @@
 
 void setUpAirSensor(struct AirSensor* ptr)
 {
-	// TODO SOMETHING WRONG HERE  *********************************************************************************************************************
-	
 	//// Any edge of INTn generates asynchronously an interrupt request: ISCn1 == 0, ISCn0 == 1 (Table 15-1, Mega2560 datasheet).
 	
-	EICRA &= ~(1<<AIRSENSOR_ISC1);
-	EICRA|= (1<<AIRSENSOR_ISC0);
+	AIRSENSOR_EICR &= ~(1<<AIRSENSOR_ISC1);
+	AIRSENSOR_EICR |= (1<<AIRSENSOR_ISC0);
 	
-	EIMSK |= (1<<AIRSENSOR_INT);	// Enables pin interrupt.
-	// TODO SOMETHING WRONG HERE  *********************************************************************************************************************
-	
-	// Enables pin interrupt (EIMSK |= (1<<AIRSENSOR_INT);)
-	//// Any edge of INTn generates asynchronously an interrupt request: ISCn1 == 0, ISCn0 == 1 (Table 15-1, Mega2560 datasheet).
+	AIRSENSOR_EIMSK |= (1<<AIRSENSOR_INT);	// Enables pin interrupt.
 	
 	// Timer setup:
 	timerSetup(ptr);
@@ -76,10 +70,24 @@ void getValues(struct AirSensor* ptr)
 	// Pull pin low
 	AIRSENSOR_PORT	&= ~(1 << AIRSENSOR_PIN);
 	ptr->stopWatchSetup(ptr);
-	ptr->stopWatchStart(ptr, 18000);
+	ptr->stopWatchStart(ptr, 18000); // Creates interrupt when done. Going to ISR(AIRSENSOR_COMPAVECT).
 	
-	ptr->_humidity = 123.45;
-	ptr->_temperature = 654.32;
+	while(!(ptr->_newDataAvailable)){}
+	
+	ptr->_humidity = ptr->_sensorData[2] + ptr->_sensorData[3]/100;
+	ptr->_temperature = ptr->_sensorData[0] + ptr->_sensorData[1]/100;
+	
+	double tempInteger = ptr->_sensorData[0];
+	double tempDecimal = ptr->_sensorData[1];
+	double humidInteger = ptr->_sensorData[2];
+	double humidDecimal = ptr->_sensorData[3];
+	double checksum = ptr->_sensorData[4];
+	
+	if(checksum == (tempInteger + tempDecimal + humidInteger + humidDecimal))
+	{
+		ptr->_humidity = ptr->_sensorData[2] + ptr->_sensorData[3]/100;
+		ptr->_temperature = ptr->_sensorData[0] + ptr->_sensorData[1]/100;
+	}
 }
 
 
@@ -209,36 +217,3 @@ uint16_t timerStop(struct AirSensor* ptr)
 	
 	return AIRSENSOR_TCNT/2;
 }
-
-
-
-ISR(AIRSENSOR_TIMEROVFVECT)
-{
-// This is what happens when compare value is reached...
-	SendString("TIMER OVERFLOW!!!!"); SendChar('\n');  SendChar('\n');  SendChar('\n');
-	
-} // End of ISR(AIRSENSOR_TIMERINT)
-
-ISR(AIRSENSOR_COMPAVECT)
-{
-	// OUTPUT TOGGLE TEST TO CHECK TIMER......
-	//// Setting pin as output:
-	//AIRSENSOR_DDR |= (1 << AIRSENSOR_PIN);
-	//// Toggle pin:
-	//AIRSENSOR_PORT ^= (1 << AIRSENSOR_PIN);
-
-	
-	// TODO::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	//// Make Digital line input with pull-up resistor.
-	AIRSENSOR_DDR &= ~(1 << AIRSENSOR_PIN);		// Set pin as input.
-	AIRSENSOR_PORT |= (1 << AIRSENSOR_PIN);		// Pull-up resistor (make the signal go HIGH while listening).
-	
-	// Clearing the counter:
-	AIRSENSOR_TCNT = 0;
-		
-	// Clearing the mode:
-	AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_WGM2);
-		
-	//// Start interrupt on change.
-	//
-} // End of ISR(AIRSENSOR_COMPAVECT)
