@@ -111,6 +111,7 @@
 #define AIRSENSOR_PIN			PD3					// Pin# 18		Data-pin for the DHT11
 #define AIRSENSOR_PORT			PORTD				// Designating AirSensor pin to PORT D
 #define AIRSENSOR_DDR			DDRD				// Designating AirSensor pin to Data Direction Register D
+#define ARISENSOR_PINxn			PIND				// All pins on port D.
 
 // Timer for AirSensor
 #define	AIRSENSOR_TCNT			TCNT1				// Timer/Counter 1	(16-bit)
