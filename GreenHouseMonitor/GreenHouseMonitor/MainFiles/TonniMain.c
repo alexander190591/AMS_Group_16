@@ -20,14 +20,17 @@
 
 #include "../StepperDriver/test/Test_StepperDriver.h"
 #include "../ButtonDriver/test/Test_ButtonDriver.h"
-
+#include "../SPIDriver/test/Test_SPIDriver.h"
+#include "../SDCardDriver/test/Test_SDCardDriver.h"
 
 void TonniMain(){
-	
- 	TestStepperDriver();
+// 	
+//  	TestStepperDriver();
 //	TestButtonDriver();
 
-	
+TestSDCardDriver();
+
+RunTest();	
 		
 
 

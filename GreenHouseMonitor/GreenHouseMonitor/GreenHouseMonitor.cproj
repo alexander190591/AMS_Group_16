@@ -36,7 +36,7 @@
         <documentation help="" />
         <offline-documentation help="" />
         <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.25.0" />
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
@@ -166,6 +166,12 @@
     <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="DHT11\include\DHT11.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DHT11\src\DHT11.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="DisplayDriver\include\DisplayControl.h">
       <SubType>compile</SubType>
     </Compile>
@@ -193,10 +199,34 @@
     <Compile Include="MainFiles\TonniMain.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SDCardDriver\include\SDCardDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SDCardDriver\src\SDCardDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SDCardDriver\test\Test_SDCardDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SDCardDriver\test\Test_SDCardDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SoilHumiditySensor\include\SoilHumiditySensor.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SoilHumiditySensor\src\SoilHumiditySensor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPIDriver\include\SPIDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPIDriver\src\SPIDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPIDriver\test\Test_SPIDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPIDriver\test\Test_SPIDriver.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="StepperDriver\include\StepperDriver.h">
@@ -228,10 +258,21 @@
     <Folder Include="ButtonDriver\include" />
     <Folder Include="ButtonDriver\test" />
     <Folder Include="ButtonDriver\src" />
+    <Folder Include="DHT11\include" />
+    <Folder Include="DHT11\src" />
     <Folder Include="DisplayDriver\include" />
     <Folder Include="DisplayDriver\src" />
     <Folder Include="MainFiles" />
     <Folder Include="DisplayDriver" />
+    <Folder Include="DHT11" />
+    <Folder Include="SDCardDriver" />
+    <Folder Include="SDCardDriver\include" />
+    <Folder Include="SDCardDriver\test" />
+    <Folder Include="SDCardDriver\src" />
+    <Folder Include="SPIDriver" />
+    <Folder Include="SPIDriver\include" />
+    <Folder Include="SPIDriver\test" />
+    <Folder Include="SPIDriver\src" />
     <Folder Include="TouchDisplay" />
     <Folder Include="StepperDriver\test" />
     <Folder Include="TouchDisplay\include" />

@@ -15,7 +15,7 @@
  * \return void
  */
 
-void setUp(struct SoilHumiditySensor* p, unsigned char analogPin)
+void setUpSoilHumiditySensor(struct SoilHumiditySensor* p, unsigned char analogPin)
 {
 	p->_analogPin = analogPin;	// Setting structs variable (like attribute in class)
 	
@@ -30,9 +30,9 @@ void setUp(struct SoilHumiditySensor* p, unsigned char analogPin)
 	ADMUX = (1<<REFS0);
 	
 	// ADCSRA, Mega2560 Datasheet p. 285
-	//ADCSRA	= 0b00000000; // Clearing all bits.
-	//ADCSRA |= (1<<ADEN); // Enables ADC: ADEN bit.
-	//ADCSRA |= 0b00000111; // Sets division factor to 128 to ensure 125 kHz (16MHz / 128) (ADC Prescaler Select Bits ADPS2:ADPS1).
+	// ADCSRA	= 0b00000000; // Clearing all bits.
+	// ADCSRA |= (1<<ADEN); // Enables ADC: ADEN bit.
+	// ADCSRA |= 0b00000111; // Sets division factor to 128 to ensure 125 kHz (16MHz / 128) (ADC Prescaler Select Bits ADPS2:ADPS1).
 	ADCSRA = 0b10000111;
 	
 	// Choosing of ADC input: analog input channel selected by writing to MUX bits in ADMUX and ADCSRB.

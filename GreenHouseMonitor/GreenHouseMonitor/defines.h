@@ -80,6 +80,10 @@
 #define TOUCH_CS			PE3			//	PIN# 5		Touch Cable Select
 #define TOUCH_CLK			PH3			//	PIN# 6		Touch bus Clock
 
+/*							Interrupt									*/
+#define	TCH_SCRN_INT		INT4			// Interrupt 4 bit for EIMSK (External Interrupt Mask Register)
+#define TCH_SCRN_ISC0		ISC40			// Interrupt Sense Control ISCn0 for EICRA (External Interrupt Control Register A)
+#define TCH_SCRN_ISC1		ISC41			// Interrupt Sense Control ISCn1 for EICRA (External Interrupt Control Register A)
 
 
 
@@ -103,7 +107,47 @@
 /*			Defines for Senors (Humidity, temperature etc.)				*/
 /************************************************************************/
 
+//						A I R   S E N S O R
+// Pin & Port for AirSensor
+#define AIRSENSOR_PIN			PD3					// Pin# 18		Data-pin for the DHT11
+#define AIRSENSOR_PORT			PORTD				// Designating AirSensor pin to PORT D
+#define AIRSENSOR_DDR			DDRD				// Designating AirSensor pin to Data Direction Register D
 
+// Timer for AirSensor
+#define	AIRSENSOR_TCNT			TCNT1				// Timer/Counter 1	(16-bit)
+#define	AIRSENSOR_TIMSK			TIMSK1				// Timer/Counter 1 Interrupt Mask Register
+#define AIRSENSOR_TCCRA			TCCR1A				// Timer/Counter 1 Control Register A
+#define AIRSENSOR_TCCRB			TCCR1B				// Timer/Counter 1 Control Register B
+#define AIRSENSOR_TIFR			TIFR1				// Timer/Counter 1 Interrupt Flag Register
+#define AIRSENSOR_ICIE			ICIE1				// Timer/Counter 1 Input Catpure Interrupt Enable
+#define AIRSENSOR_OCIEA			OCIE1A				// Timer/Counter 1 Output Compare A Match Interrupt Enable
+#define AIRSENSOR_OCIEB			OCIE1B				// Timer/Counter 1 Output Compare B Match Interrupt Enable
+#define AIRSENSOR_OCIEC			OCIE1C				// Timer/Counter 1 Output Compare C Match Interrupt Enable
+#define AIRSENSOR_TOIE			TOIE1				// Timer/Counter 1 Overflow Interrupt Enable
+#define AIRSENSOR_CS0			CS10				// Timer/Counter 1 Clock Select Bit 0
+#define AIRSENSOR_CS1			CS11				// Timer/Counter 1 Clock Select Bit 1
+#define AIRSENSOR_CS2			CS12				// Timer/Counter 1 Clock Select Bit 2		
+#define AIRSENSOR_WGM0			WGM10				// Timer/Counter 1 Waveform Generation Mode bit 0
+#define AIRSENSOR_WGM1			WGM11				// Timer/Counter 1 Waveform Generation Mode bit 1 
+#define AIRSENSOR_WGM2			WGM12				// Timer/Counter 1 Waveform Generation Mode bit 2
+#define AIRSENSOR_WGM3			WGM13				// Timer/Counter 1 Waveform Generation Mode bit 3
+#define AIRSENSOR_OCRA			OCR1A				// Timer/Counter 1 Output Compare Register A
+#define AIRSENSOR_OCRB			OCR1B				// Timer/Counter 1 Output Compare Register B
+#define AIRSENSOR_OCRC			OCR1C				// Timer/Counter 1 Output Compare Register C
+#define AIRSENSOR_TIMEROVFVECT	TIMER1_OVF_vect		// Timer/Counter 1 Interrupt Vector
+#define AIRSENSOR_COMPAVECT		TIMER1_COMPA_vect	// Timer/Counter 1 Compare Match A Interrupt Vector
+
+// Interrupt for AirSensor
+#define	AIRSENSOR_INT			INT3				// Interrupt 3 bit for EIMSK (External Interrupt Mask Register)
+#define AIRSENSOR_ISC0			ISC30				// Interrupt Sense Control ISC30 for EICRA (External Interrupt Control Register A)
+#define AIRSENSOR_ISC1			ISC31				// Interrupt Sense Control ISC31 for EICRA (External Interrupt Control Register A)
+#define AIRSENSOR_INTVECT		INT3_vect			// Interrupt 3 vector
+
+//			  S O I L   M O I S T U R E   S E N S O R
+// Pin & Port for SoilMoistureSensor
+#define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
+#define SOILMOISTURE_PORT   PORTF       //  Designating SoilMoistureSensor pin to PORT F (ADC0-ADC7)
+#define SOILMOISTURE_DDR	DDRF		//  Designating SoilMoistureSensor pin to Data Direction Register F
 
 
 /************************************************************************/
@@ -124,10 +168,6 @@
 /************************************************************************/
 /*			Interrupt, ADCs, Clocks Alternate Port names etc.			*/
 /************************************************************************/
-#define SOILMOISTURE_PIN	PF0			//	Pin# A0		SoilMoistureSensor (ADC)
-#define SOILMOISTURE_PORT   PORTF       //  Designating SoilMoistureSensor pin to PORT F (ADC0-ADC7)
-#define SOILMOISTURE_DDR	DDRF		//  Designating SoilMoistureSensor pin to Data Direction Register F
-
 //Stepper PORT and DDR
 #define STEPPER_MODE_PORT			PORTB	//	Designating Step Mode Pins to PORT B
 #define STEPPER_EN_PORT				PORTH	//	Designating enable Pin to PORT H
@@ -154,6 +194,165 @@
 #define CLOSE	-1
 
 /************************************************************************/
+/*                                TIMERS                                */
+/************************************************************************/
+//		Define NAME			Register		Description
+/*
+#define	SOME_NAME			TCNT0				// Timer/Counter 0	(8-bit)
+#define	SOME_NAME			TIMSK0				// Timer/Counter 0 Interrupt Mask Register
+#define SOME_NAME			TCCR0A				// Timer/Counter 0 Control Register A
+#define SOME_NAME			TCCR0B				// Timer/Counter 0 Control Register B
+#define SOME_NAME			TIFR0				// Timer/Counter 0 Interrupt Flag Register
+#define SOME_NAME			ICIE0				// Timer/Counter 0 Input Catpure Interrupt Enable
+#define SOME_NAME			OCIE0A				// Timer/Counter 0 Output Compare A Match Interrupt Enable
+#define SOME_NAME			OCIE0B				// Timer/Counter 0 Output Compare B Match Interrupt Enable
+#define SOME_NAME			OCIE0C				// Timer/Counter 0 Output Compare C Match Interrupt Enable
+#define SOME_NAME			TOIE0				// Timer/Counter 0 Overflow Interrupt Enable
+#define SOME_NAME			CS00				// Timer/Counter 0 Clock Select Bit 0
+#define SOME_NAME			CS01				// Timer/Counter 0 Clock Select Bit 1
+#define SOME_NAME			CS02				// Timer/Counter 0 Clock Select Bit 2
+#define SOME_NAME			WGM00				// Timer/Counter 0 Waveform Generation Mode bit 0
+#define SOME_NAME			WGM01				// Timer/Counter 0 Waveform Generation Mode bit 1
+#define SOME_NAME			WGM02				// Timer/Counter 0 Waveform Generation Mode bit 2
+#define SOME_NAME			WGM03				// Timer/Counter 0 Waveform Generation Mode bit 3
+#define SOME_NAME			OCR0A				// Timer/Counter 0 Output Compare Register A
+#define SOME_NAME			OCR0B				// Timer/Counter 0 Output Compare Register B
+#define SOME_NAME			OCR0C				// Timer/Counter 0 Output Compare Register C
+#define SOME_NAME			INT0_vect			// Timer/Counter 0 Interrupt Vector
+#define SOME_NAME			TIMER0_COMPA_vect	// Timer/Counter 0 Compare Match A Interrupt Vector
+
+#define	SOME_NAME			TCNT2				// Timer/Counter 2	(8-bit)
+#define	SOME_NAME			TIMSK2				// Timer/Counter 2 Interrupt Mask Register
+#define SOME_NAME			TCCR2A				// Timer/Counter 2 Control Register A
+#define SOME_NAME			TCCR2B				// Timer/Counter 2 Control Register B
+#define SOME_NAME			TIFR2				// Timer/Counter 2 Interrupt Flag Register
+#define SOME_NAME			ICIE2				// Timer/Counter 2 Input Catpure Interrupt Enable
+#define SOME_NAME			OCIE2A				// Timer/Counter 2 Output Compare A Match Interrupt Enable
+#define SOME_NAME			OCIE2B				// Timer/Counter 2 Output Compare B Match Interrupt Enable
+#define SOME_NAME			OCIE2C				// Timer/Counter 2 Output Compare C Match Interrupt Enable
+#define SOME_NAME			TOIE2				// Timer/Counter 2 Overflow Interrupt Enable
+#define SOME_NAME			CS20				// Timer/Counter 2 Clock Select Bit 0
+#define SOME_NAME			CS21				// Timer/Counter 2 Clock Select Bit 1
+#define SOME_NAME			CS22				// Timer/Counter 2 Clock Select Bit 2
+#define SOME_NAME			WGM20				// Timer/Counter 2 Waveform Generation Mode bit 0
+#define SOME_NAME			WGM21				// Timer/Counter 2 Waveform Generation Mode bit 1
+#define SOME_NAME			WGM22				// Timer/Counter 2 Waveform Generation Mode bit 2
+#define SOME_NAME			WGM23				// Timer/Counter 2 Waveform Generation Mode bit 3
+#define SOME_NAME			OCR2A				// Timer/Counter 2 Output Compare Register A
+#define SOME_NAME			OCR2B				// Timer/Counter 2 Output Compare Register B
+#define SOME_NAME			OCR2C				// Timer/Counter 2 Output Compare Register C
+#define SOME_NAME			INT2_vect			// Timer/Counter 2 Interrupt Vector
+#define SOME_NAME			TIMER2_COMPB_vect	// Timer/Counter 2 Compare Match B Interrupt Vector
+
+#define	SOME_NAME			TCNT3				// Timer/Counter 3	(16-bit)
+#define	SOME_NAME			TIMSK3				// Timer/Counter 3 Interrupt Mask Register
+#define SOME_NAME			TCCR3A				// Timer/Counter 3 Control Register A
+#define SOME_NAME			TCCR3B				// Timer/Counter 3 Control Register B
+#define SOME_NAME			TIFR3				// Timer/Counter 3 Interrupt Flag Register
+#define SOME_NAME			ICIE3				// Timer/Counter 3 Input Catpure Interrupt Enable
+#define SOME_NAME			OCIE3A				// Timer/Counter 3 Output Compare A Match Interrupt Enable
+#define SOME_NAME			OCIE3B				// Timer/Counter 3 Output Compare B Match Interrupt Enable
+#define SOME_NAME			OCIE3C				// Timer/Counter 3 Output Compare C Match Interrupt Enable
+#define SOME_NAME			TOIE3				// Timer/Counter 3 Overflow Interrupt Enable
+#define SOME_NAME			CS30				// Timer/Counter 3 Clock Select Bit 0
+#define SOME_NAME			CS31				// Timer/Counter 3 Clock Select Bit 1
+#define SOME_NAME			CS32				// Timer/Counter 3 Clock Select Bit 2
+#define SOME_NAME			WGM30				// Timer/Counter 3 Waveform Generation Mode bit 0
+#define SOME_NAME			WGM31				// Timer/Counter 3 Waveform Generation Mode bit 1
+#define SOME_NAME			WGM32				// Timer/Counter 3 Waveform Generation Mode bit 2
+#define SOME_NAME			WGM33				// Timer/Counter 3 Waveform Generation Mode bit 3
+#define SOME_NAME			OCR3A				// Timer/Counter 3 Output Compare Register A
+#define SOME_NAME			OCR3B				// Timer/Counter 3 Output Compare Register B
+#define SOME_NAME			OCR3C				// Timer/Counter 3 Output Compare Register C
+#define SOME_NAME			INT3_vect			// Timer/Counter 3 Interrupt Vector
+#define SOME_NAME			TIMER3_COMPA_vect	// Timer/Counter 3 Compare Match A Interrupt Vector
+
+#define	SOME_NAME			TCNT4				// Timer/Counter 4	(16-bit)
+#define	SOME_NAME			TIMSK4				// Timer/Counter 4 Interrupt Mask Register
+#define SOME_NAME			TCCR4A				// Timer/Counter 4 Control Register A
+#define SOME_NAME			TCCR4B				// Timer/Counter 4 Control Register B
+#define SOME_NAME			TIFR4				// Timer/Counter 4 Interrupt Flag Register
+#define SOME_NAME			ICIE4				// Timer/Counter 4 Input Catpure Interrupt Enable
+#define SOME_NAME			OCIE4A				// Timer/Counter 4 Output Compare A Match Interrupt Enable
+#define SOME_NAME			OCIE4B				// Timer/Counter 4 Output Compare B Match Interrupt Enable
+#define SOME_NAME			OCIE4C				// Timer/Counter 4 Output Compare C Match Interrupt Enable
+#define SOME_NAME			TOIE4				// Timer/Counter 4 Overflow Interrupt Enable
+#define SOME_NAME			CS40				// Timer/Counter 4 Clock Select Bit 0
+#define SOME_NAME			CS41				// Timer/Counter 4 Clock Select Bit 1
+#define SOME_NAME			CS42				// Timer/Counter 4 Clock Select Bit 2
+#define SOME_NAME			WGM40				// Timer/Counter 4 Waveform Generation Mode bit 0
+#define SOME_NAME			WGM41				// Timer/Counter 4 Waveform Generation Mode bit 1
+#define SOME_NAME			WGM42				// Timer/Counter 4 Waveform Generation Mode bit 2
+#define SOME_NAME			WGM43				// Timer/Counter 4 Waveform Generation Mode bit 3
+#define SOME_NAME			OCR4A				// Timer/Counter 4 Output Compare Register A
+#define SOME_NAME			OCR4B				// Timer/Counter 4 Output Compare Register B
+#define SOME_NAME			OCR4C				// Timer/Counter 4 Output Compare Register C
+#define SOME_NAME			INT4_vect			// Timer/Counter 4 Interrupt Vector
+#define SOME_NAME			TIMER4_COMPA_vect	// Timer/Counter 4 Compare Match A Interrupt Vector
+
+#define	SOME_NAME			TCNT5				// Timer/Counter 5	(16-bit)
+#define	SOME_NAME			TIMSK5				// Timer/Counter 5 Interrupt Mask Register
+#define SOME_NAME			TCCR5A				// Timer/Counter 5 Control Register A
+#define SOME_NAME			TCCR5B				// Timer/Counter 5 Control Register B
+#define SOME_NAME			TIFR5				// Timer/Counter 5 Interrupt Flag Register
+#define SOME_NAME			ICIE5				// Timer/Counter 5 Input Catpure Interrupt Enable
+#define SOME_NAME			OCIE5A				// Timer/Counter 5 Output Compare A Match Interrupt Enable
+#define SOME_NAME			OCIE5B				// Timer/Counter 5 Output Compare B Match Interrupt Enable
+#define SOME_NAME			OCIE5C				// Timer/Counter 5 Output Compare C Match Interrupt Enable
+#define SOME_NAME			TOIE5				// Timer/Counter 5 Overflow Interrupt Enable
+#define SOME_NAME			CS50				// Timer/Counter 5 Clock Select Bit 0
+#define SOME_NAME			CS51				// Timer/Counter 5 Clock Select Bit 1
+#define SOME_NAME			CS52				// Timer/Counter 5 Clock Select Bit 2
+#define SOME_NAME			WGM50				// Timer/Counter 5 Waveform Generation Mode bit 0
+#define SOME_NAME			WGM51				// Timer/Counter 5 Waveform Generation Mode bit 1
+#define SOME_NAME			WGM52				// Timer/Counter 5 Waveform Generation Mode bit 2
+#define SOME_NAME			WGM53				// Timer/Counter 5 Waveform Generation Mode bit 3
+#define SOME_NAME			OCR5A				// Timer/Counter 5 Output Compare Register A
+#define SOME_NAME			OCR5B				// Timer/Counter 5 Output Compare Register B
+#define SOME_NAME			OCR5C				// Timer/Counter 5 Output Compare Register C
+#define SOME_NAME			INT5_vect			// Timer/Counter 5 Interrupt Vector
+#define SOME_NAME			TIMER5_COMPA_vect	// Timer/Counter 5 Compare Match A Interrupt Vector
+*/
+
+
+/************************************************************************/
+/*                              INTERRUPTS                              */
+/************************************************************************/
+//		Define NAME			Register		Description
+/*
+#define	SOME_NAME			INT0			// Interrupt 0 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC00			// Interrupt Sense Control ISC00 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC01			// Interrupt Sense Control ISC01 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			INT0_vect		// Interrupt 0 vector
+
+#define	SOME_NAME			INT1			// Interrupt 1 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC10			// Interrupt Sense Control ISC10 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC11			// Interrupt Sense Control ISC11 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			INT1_vect		// Interrupt 1 vector
+
+#define	SOME_NAME			INT2			// Interrupt 2 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC20			// Interrupt Sense Control ISC20 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			ISC21			// Interrupt Sense Control ISC21 for EICRA (External Interrupt Control Register A)
+#define SOME_NAME			INT2_vect		// Interrupt 2 vector
+
+#define	SOME_NAME			INT5			// Interrupt 5 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC50			// Interrupt Sense Control ISC50 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			ISC51			// Interrupt Sense Control ISC51 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			INT5_vect		// Interrupt 5 vector
+
+#define	SOME_NAME			INT6			// Interrupt 6 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC60			// Interrupt Sense Control ISC60 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			ISC61			// Interrupt Sense Control ISC61 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			INT6_vect		// Interrupt 6 vector
+
+#define	SOME_NAME			INT7			// Interrupt 7 bit for EIMSK (External Interrupt Mask Register)
+#define SOME_NAME			ISC70			// Interrupt Sense Control ISC70 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			ISC71			// Interrupt Sense Control ISC71 for EICRB (External Interrupt Control Register B)
+#define SOME_NAME			INT7_vect		// Interrupt 7 vector
+*/
+
+
+/************************************************************************/
 /*								FREE PINS                               */
 /************************************************************************/
 
@@ -167,7 +366,6 @@
 #define SOME_NAME			PJ0			//	Pin# 15		Some description
 #define SOME_NAME			PH1			//	Pin# 16		Some description
 #define SOME_NAME			PH0			//	Pin# 17		Some description
-#define SOME_NAME			PD3			//	Pin# 18		Some description
 #define SOME_NAME			PD2			//	Pin# 19		Some description
 #define SOME_NAME			PD1			//	Pin# 20		Some description
 #define SOME_NAME			PD0			//	Pin# 21		Some description
