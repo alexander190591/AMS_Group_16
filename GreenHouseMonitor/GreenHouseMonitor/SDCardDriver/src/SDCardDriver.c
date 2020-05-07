@@ -90,7 +90,7 @@ unsigned char ReadBlock(unsigned char * buffer, unsigned long startAddress){
 	unsigned char c, r1;
 
 	// checking if the start address is not at the beginning of a block. 
-	if (address % BLOCKSIZE != 0)	{ return 0; }
+	if (startAddress % BLOCKSIZE != 0)	{ return 0; }
 
 	r1 = Command(READ_SINGLE_BLOCK, startAddress);
 	//	wait for SD to locate data
@@ -105,7 +105,7 @@ unsigned char ReadBlock(unsigned char * buffer, unsigned long startAddress){
 
 	c = SPI_CycleByte(0xFF);
 	//	waiting for 
-	while (c != 0xFE)	{ c = SPI_CycleByte(0xFF) }
+	while (c != 0xFE)	{ c = SPI_CycleByte(0xFF); }
 	for (i=0;i<512;i++)	{
 		*(buffer++)=SPI_CycleByte(0xFF);
 	}
@@ -123,10 +123,10 @@ unsigned char WriteBlock(unsigned char * data, unsigned long startAddress){
 	unsigned char c; 
 	short i; 
 	// checking if the start address is not at the beginning of a block. 
-	if (address % BLOCKSIZE != 0)	{ return 0; }
+	if (startAddress % BLOCKSIZE != 0)	{ return 0; }
 
 	// if write cmd dont return 0 theres an write error. 
-	if (Command(WRITE_SINGLE_BLOCK,address) != 0)	{ return 0; }
+	if (Command(WRITE_SINGLE_BLOCK,startAddress) != 0)	{ return 0; }
 
 	//	clearing any data before sending actual data.
 	c = SPI_CycleByte(0xFF);
@@ -143,6 +143,13 @@ unsigned char WriteBlock(unsigned char * data, unsigned long startAddress){
 
 	c = SPI_CycleByte(0xFF);
 	c &= 0x1F;	//	Mask for Write error - see documentation for SD
+	
+	//	React to write failure: 
+	if (c != 0x05)
+	{
+		//TODO: dunno what to do here atm... 
+	}
+	
 
 
 }

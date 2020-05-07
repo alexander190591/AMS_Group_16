@@ -28,10 +28,10 @@ void TonniMain(){
 //  	TestStepperDriver();
 //	TestButtonDriver();
 
-TestSDCardDriver();
-
-RunTest();	
-		
+// TestSDCardDriver();
+// 
+// RunTest();	
+// 		
 
 
 }
