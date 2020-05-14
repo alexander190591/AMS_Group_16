@@ -7,6 +7,7 @@
 
 #include "../include/DHT11.h"
 #include "../../defines.h"
+#include "../../UART/include/uart.h"
 
 /**
  * \brief Sets up the interrupt for communication with the DHT11 module.
@@ -18,18 +19,10 @@
 
 void setUpAirSensor(struct AirSensor* ptr)
 {
-	// TODO SOMETHING WRONG HERE  *********************************************************************************************************************
-	
 	//// Any edge of INTn generates asynchronously an interrupt request: ISCn1 == 0, ISCn0 == 1 (Table 15-1, Mega2560 datasheet).
-	
-	EICRA &= ~(1<<AIRSENSOR_ISC1);
-	EICRA|= (1<<AIRSENSOR_ISC0);
-	
-	EIMSK |= (1<<AIRSENSOR_INT);	// Enables pin interrupt.
-	// TODO SOMETHING WRONG HERE  *********************************************************************************************************************
-	
-	// Enables pin interrupt (EIMSK |= (1<<AIRSENSOR_INT);)
-	//// Any edge of INTn generates asynchronously an interrupt request: ISCn1 == 0, ISCn0 == 1 (Table 15-1, Mega2560 datasheet).
+	AIRSENSOR_EICR &= ~(1<<AIRSENSOR_ISC1);
+	AIRSENSOR_EICR |= (1<<AIRSENSOR_ISC0);
+	AIRSENSOR_EIMSK |= (1<<AIRSENSOR_INT);	// Enables pin interrupt.
 	
 	// Timer setup:
 	timerSetup(ptr);
@@ -45,7 +38,11 @@ void setUpAirSensor(struct AirSensor* ptr)
 
 double readTemperature(struct AirSensor* ptr)
 {
-	ptr->getValues(ptr);
+	uint8_t dataReceived = 0;
+	do{
+		dataReceived = ptr->getValues(ptr);														// Updates the _temperature variable (and _humidity) with data from DHT11.
+	} while(!dataReceived);
+	
 	return ptr->_temperature;
 }
 
@@ -59,7 +56,11 @@ double readTemperature(struct AirSensor* ptr)
 
 double readHumidity(struct AirSensor* ptr)
 {
-	ptr->getValues(ptr);
+	uint8_t dataReceived = 0;
+	do{
+		dataReceived = ptr->getValues(ptr);														// Updates the _humidity variable (and _temperature) with data from DHT11.
+	} while(!dataReceived);
+	
 	return ptr->_humidity;
 }
 
@@ -67,19 +68,50 @@ double readHumidity(struct AirSensor* ptr)
  * \brief Communicates with the DHT11. Stores values in _humidity and _temperature of the struct.
  *
  * \param ptr is a pointer to the AirSensor struct.
+ * 
+ * \return 1 if data was read correctly from DHT11 and _humidity and _temperature value was set correctly.
+ * \return 0 if data was NOT read correctly (checskum != sum of humidity and temperature).
  */
 
-void getValues(struct AirSensor* ptr)
+uint8_t getValues(struct AirSensor* ptr)
 {
-	// Setting pin as output:
-	AIRSENSOR_DDR |= (1 << AIRSENSOR_PIN);
-	// Pull pin low
-	AIRSENSOR_PORT	&= ~(1 << AIRSENSOR_PIN);
-	ptr->stopWatchSetup(ptr);
-	ptr->stopWatchStart(ptr, 18000);
+	// Sending start signal to DHT11 (>=18 ms LOW signal)			 
+	AIRSENSOR_DDR |= (1 << AIRSENSOR_PIN);										// Setting pin as output.				
+	AIRSENSOR_PORT	&= ~(1 << AIRSENSOR_PIN);									// Pull pin low.
 	
-	ptr->_humidity = 123.45;
-	ptr->_temperature = 654.32;
+	ptr->stopWatchSetup(ptr);													// CTC mode and interrupt set.
+	ptr->stopWatchStart(ptr, 18000);											// Creates interrupt when done. Going to ISR(AIRSENSOR_COMPAVECT).
+	
+	while(!(ptr->_newDataAvailable)){}											// Waiting for all 40 bits to arrive from DHT11.
+	
+	uint16_t humidInteger = (uint16_t)(ptr->_sensorData[0]);					// Set first byte from DHT11 (Humidity Integer value)
+	uint16_t humidDecimal = (uint16_t)(ptr->_sensorData[1]);					// Set second byte from DHT11 (Humidity Decimal value)
+	uint16_t tempInteger = (uint16_t)(ptr->_sensorData[2]);						// Set third byte from DHT11 (Temperature Integer value)
+	uint16_t tempDecimal = (uint16_t)(ptr->_sensorData[3]);						// Set fourth byte from DHT11 (Temperature Decimal value)
+	uint16_t checksum = (uint16_t)(ptr->_sensorData[4]);						// Set fifth byte from DHT11 (Checksum value (sum of the four above)
+	
+	// Debugging:
+	//SendString("tempInteger = "); SendInteger(tempInteger); SendChar('\n');
+	//SendString("tempDecimal= "); SendInteger(tempDecimal); SendChar('\n');
+	//SendString("humidInteger = "); SendInteger(humidInteger); SendChar('\n');
+	//SendString("humidDecimal = "); SendInteger(humidDecimal); SendChar('\n');
+	//SendString("Sum = "); SendInteger(humidInteger+humidDecimal+tempInteger+tempDecimal); SendChar('\n');
+	//SendString("Checksum = "); SendInteger(checksum); SendChar('\n');
+	
+	if(checksum == (tempInteger + tempDecimal + humidInteger + humidDecimal))	// If Checksum is correct
+	{
+		// Debugging:
+		//SendChar('\n');
+		//SendString("Sum = "); SendInteger(humidInteger+humidDecimal+tempInteger+tempDecimal); 
+		// SendString(". Checksum = "); SendInteger(checksum); SendChar('\n');
+		
+		ptr->_humidity = (double)ptr->_sensorData[0] + 0.01*(double)(ptr->_sensorData[1]);		// Set _humidity variable in Struct to received value.
+		ptr->_temperature = (double)ptr->_sensorData[2] + 0.01*(double)(ptr->_sensorData[3]);	// Set _temperature variable in Struct to received value.
+		return 1;
+	}
+	else
+		return 0;
+	
 }
 
 
@@ -94,15 +126,13 @@ void getValues(struct AirSensor* ptr)
  */
 void stopWatchSetup(struct AirSensor* ptr)
 {
-	// Clearing TCCRB to make sure no other mode is set:
-	AIRSENSOR_TCCRB = 0;
+	AIRSENSOR_TCCRB = 0;														// Clearing TCCRB to make sure no other mode is set.
 	
 	// Sets up to interrupt for when compare value is reached.
 	// WGMn3:0 == 0100 for CTC mode.
 	AIRSENSOR_TCCRB |= (1 << AIRSENSOR_WGM2);
 	
-	// Enable Output Compare A Match Interupt (OCIEnA)
-	AIRSENSOR_TIMSK |= (1 << AIRSENSOR_OCIEA);
+	AIRSENSOR_TIMSK |= (1 << AIRSENSOR_OCIEA);									// Enable Output Compare A Match Interupt (OCIEnA).
 }
 
 /**
@@ -112,15 +142,10 @@ void stopWatchSetup(struct AirSensor* ptr)
  */
 void stopWatchStart(struct AirSensor* ptr, uint16_t microseconds)
 {
-	// Set compare value to microseconds.
-	// Starts stopwatch timer.
-	// Interrupt when microseconds are up.
+	AIRSENSOR_TCNT = 0;															// Clear counter.
 	
-	// Clear counter
-	AIRSENSOR_TCNT = 0;
-	
-	// Set compare value for Output Compare Register A
-	AIRSENSOR_OCRA = (microseconds*2);
+	// Set compare value for Output Compare Register A:
+	AIRSENSOR_OCRA = (microseconds*2);											// every tick is half a microsecond with prescaler to 18 at 16MHz.
 	
 	// Timer activated when clock source is selected (Mega2560 datasheet p. 135).
 	// Prescaler set to 8 to make one tick equal to half a microsecond.
@@ -152,7 +177,7 @@ void timerSetup(struct AirSensor* ptr)
 	AIRSENSOR_TIMSK &= ~(1 << AIRSENSOR_OCIEC);
 	
 	// Bit0 (TOIE1, Overflow Interrupt Enable) == 1.
-	AIRSENSOR_TIMSK |= (1 << AIRSENSOR_TOIE);
+	//AIRSENSOR_TIMSK |= (1 << AIRSENSOR_TOIE);
 		
 	// Timer inactive, when no clock source is selected.
 	// Prescaler set to "No clock source" == Timer/Counter stopped (Table 17-6, page 157, Mega2560 datasheet).
@@ -160,10 +185,10 @@ void timerSetup(struct AirSensor* ptr)
 	AIRSENSOR_TCCRA = 0;
 	AIRSENSOR_TCCRB = 0;
 
-	//// TCCR1B Bit2:0 (CS12:0, Clock Select) == 0b000. "No clock source"
-	//AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS0);
-	//AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS1);
-	//AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS2);
+	// TCCR1B Bit2:0 (CS12:0, Clock Select) == 0b000. "No clock source"
+	AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS0);
+	AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS1);
+	AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS2);
 }
 
 /**
@@ -173,10 +198,9 @@ void timerSetup(struct AirSensor* ptr)
  */
 void timerStart(struct AirSensor* ptr)
 {
-	// Normal mode chosen (Important, because CTC is used for timer):
-	AIRSENSOR_TCCRA = 0b00000000;
+	AIRSENSOR_TCCRA = 0b00000000;									
 		
-	AIRSENSOR_TCNT = 0;	// Clears the counter.
+	AIRSENSOR_TCNT = 0;															// Clears the counter.
 	
 	// Timer activated when clock source is selected (Mega2560 datasheet p. 135).
 	// Prescaler set to 8 to make one tick equal to half a microsecond.
@@ -201,44 +225,11 @@ uint16_t timerStop(struct AirSensor* ptr)
 	AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS1);
 	AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_CS2);
 	
-	if(ptr != 0)									// If the method is called within the struct:
+	if(ptr != 0)																// If the method is called within the struct:
 	{
 		// Reads timer value to _microseconds.
-		ptr->_microseconds = AIRSENSOR_TCNT/2;		// Every count in timer with prescaler 8 on 16MHz is 0,5 microseconds.
+		ptr->_microseconds = AIRSENSOR_TCNT/2;									// Every count in timer with prescaler 8 on 16MHz is 0,5 microseconds.
 	}
 	
 	return AIRSENSOR_TCNT/2;
 }
-
-
-
-ISR(AIRSENSOR_TIMEROVFVECT)
-{
-// This is what happens when compare value is reached...
-	SendString("TIMER OVERFLOW!!!!"); SendChar('\n');  SendChar('\n');  SendChar('\n');
-	
-} // End of ISR(AIRSENSOR_TIMERINT)
-
-ISR(AIRSENSOR_COMPAVECT)
-{
-	// OUTPUT TOGGLE TEST TO CHECK TIMER......
-	//// Setting pin as output:
-	//AIRSENSOR_DDR |= (1 << AIRSENSOR_PIN);
-	//// Toggle pin:
-	//AIRSENSOR_PORT ^= (1 << AIRSENSOR_PIN);
-
-	
-	// TODO::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	//// Make Digital line input with pull-up resistor.
-	AIRSENSOR_DDR &= ~(1 << AIRSENSOR_PIN);		// Set pin as input.
-	AIRSENSOR_PORT |= (1 << AIRSENSOR_PIN);		// Pull-up resistor (make the signal go HIGH while listening).
-	
-	// Clearing the counter:
-	AIRSENSOR_TCNT = 0;
-		
-	// Clearing the mode:
-	AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_WGM2);
-		
-	//// Start interrupt on change.
-	//
-} // End of ISR(AIRSENSOR_COMPAVECT)
