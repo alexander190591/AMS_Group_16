@@ -16,32 +16,26 @@ void SebastianMain()
 	{
 		// Initialize the display
 		DisplayInit();
+		//DisplayOn();
 		//All pixels white (background)
 		FillRectangle(0,0,320,240,31,63,31);
 		
 		
-		updateWindowDisplay("aaaaa");
-		/*_delay_ms(10000);
-		windowControlDisplay(50,50);
-		_delay_ms(20000);
-		windowControlDisplay(50,50);
-		_delay_ms(20000);
-		windowControlDisplay(120,50);*/
-		
-		//_delay_ms(3000);
+		updateWindowDisplay("a");
+
 		
 		Setup();
-		//TouchSetup();
-		//_delay_ms(10000);
+
 		sei();
 		while(1)
-		{
-			//_delay_ms(3000);
-			//TouchSetup();
-			//DisplayOn();
-			//_delay_ms(1000);
-			//DisplayOff();
-			//_delay_ms(1000);
+		{			
+			if(getData() == 1){
+				//DisplayInit();
+				
+				FillRectangle(0,0,320,240,31,63,31);
+				updateWindowDisplay("AA");
+				setData();
+			}
 		}
 	}
 }

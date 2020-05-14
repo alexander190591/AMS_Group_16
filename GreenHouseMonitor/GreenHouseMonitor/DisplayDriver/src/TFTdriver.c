@@ -83,16 +83,27 @@ void DisplayInit()
 	
 	//Initializing Ports as outputs
 	
-	DDRG |= 0b00000111;
-	DDRD |= 0b10000000;
+	//DDRG |= 0b00000111;
+	
+	DDRG |= (1<<0);
+	DDRG |= (1<<1);
+	DDRG |= (1<<2);
+	
+	//DDRD |= 0b10000000;
+	
+	DDRD |= (1<<7);
 	
 	DDRA = 0xFF;
 	DDRC = 0xFF;
 	
 	//Setting the required pins high
 	
-	PORTG |= 0b00000111;
-	PORTD |= 0b10000000;
+	//PORTG |= 0b00000111;
+	PORTG |= (1<<0);
+	PORTG |= (1<<1);
+	PORTG |= (1<<2);
+	//PORTD |= 0b10000000;
+	PORTD |= (1<<7);
 	
 	//Setting reset pin low
 	RST_PORT &= ~(1<<RST_BIT);
