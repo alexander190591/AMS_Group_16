@@ -18,12 +18,20 @@
 
 #ifndef DEFINES_H_
 #define DEFINES_H_
+#include <avr/io.h>
+#include <ctype.h>
+#include <stdio.h>
+typedef uint8_t byte;	//	Definition of data type "byte" (easier to use than "unsigned char")
+typedef unsigned short word; 
+typedef uint32_t dword;
+
 
 /************************************************************************/
 /*				!!!!! FIND FREE PINS AT BOTTOM !!!!!                    */
 /************************************************************************/
 
 #define F_CPU 16000000
+#define DEBUG 1 // Set to 0 or 1 disable or enable debug mode. 
 
 
 /************************************************************************/

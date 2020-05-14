@@ -22,6 +22,8 @@
 #include "../ButtonDriver/test/Test_ButtonDriver.h"
 #include "../SPIDriver/test/Test_SPIDriver.h"
 #include "../SDCardDriver/test/Test_SDCardDriver.h"
+#include "../FileRW/test/Test_FileRW.h"
+#include "../FileRW/include/FileRW.h"
 
 void TonniMain(){
 // 	
@@ -32,6 +34,14 @@ void TonniMain(){
 // 
 // RunTest();	
 // 		
+
+
+// initialize system
+initFileRW();
+#if DEBUG
+SendString("All initializations successful!\r\n");
+#endif
+somename();
 
 
 }

@@ -184,6 +184,24 @@
     <Compile Include="DisplayDriver\src\TFTdriver.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="FATDriver\include\FATDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="FATDriver\src\FATDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="FileRW\include\FileRW.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="FileRW\src\FileRW.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="FileRW\test\Test_FileRW.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="FileRW\test\Test_FileRW.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -253,6 +271,12 @@
     <Compile Include="UART\src\uart.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Util.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Util.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ButtonDriver\include" />
@@ -262,9 +286,16 @@
     <Folder Include="DHT11\src" />
     <Folder Include="DisplayDriver\include" />
     <Folder Include="DisplayDriver\src" />
+    <Folder Include="FATDriver\include" />
+    <Folder Include="FATDriver\src" />
+    <Folder Include="FileRW\include" />
+    <Folder Include="FileRW\test" />
+    <Folder Include="FileRW\src" />
     <Folder Include="MainFiles" />
     <Folder Include="DisplayDriver" />
     <Folder Include="DHT11" />
+    <Folder Include="FATDriver" />
+    <Folder Include="FileRW" />
     <Folder Include="SDCardDriver" />
     <Folder Include="SDCardDriver\include" />
     <Folder Include="SDCardDriver\test" />

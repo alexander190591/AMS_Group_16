@@ -71,9 +71,11 @@ void SPI_SlaveSelect(int ssPin, bool enable){
 
 	if (enable) {
 		*spiPort &= ~(1 << ssPin);
+//		SendDebugMessage("SS Enabled!");
 	}
 	else{
 		*spiPort |=  (1 << ssPin);
+//		SendDebugMessage("SS disabled!");
 	}
 }
 
@@ -98,3 +100,12 @@ void SPI_Tx(unsigned char data){
 }
 
 
+unsigned char SPI_CycleByte(unsigned char inData){
+	
+	unsigned char outData;
+
+	SPDR = inData;						//	Starting transmit.
+	while (!(SPSR & (1 << SPIF))) {}	//	Waiting for transmit complete flag.
+	outData = SPDR;						//	Clearing data, for next transmit.
+	return outData;
+}

@@ -27,7 +27,7 @@ void SPI_Init(char port, int misoPin, int mosiPin, int ssPin, int clkPin );
 void SPI_SlaveSelect(int ssPin, bool enable);
 void SPI_Tx(unsigned char data);
 unsigned char SPI_Rx();
-
+unsigned char SPI_CycleByte(unsigned char inData);
 
 
 

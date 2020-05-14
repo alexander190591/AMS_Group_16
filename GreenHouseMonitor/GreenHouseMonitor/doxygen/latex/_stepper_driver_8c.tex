@@ -1,0 +1,246 @@
+\hypertarget{_stepper_driver_8c}{}\doxysection{Stepper\+Driver/src/\+Stepper\+Driver.c File Reference}
+\label{_stepper_driver_8c}\index{StepperDriver/src/StepperDriver.c@{StepperDriver/src/StepperDriver.c}}
+
+
+Low level driver for the Big Easy Stepper \mbox{\hyperlink{struct_motor}{Motor}} Driver Module.  
+
+
+{\ttfamily \#include \char`\"{}../include/\+Stepper\+Driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Button\+Driver/include/\+Button\+Driver.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_stepper_driver_8c_a69eb18a03b50d2e053a5efc1d51760b4}{Stepper\+Init}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the Stepper Driver. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_a932ef3fb03492b0822da0a7134cb986f}{Default\+Reset}} ()
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_a410b2e1f1f125c1167ac8d8d7dbea9d1}{Set\+Stepper\+Mode}} (int mode)
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_ad332394be2ea2b5bb98dfd8c5af2a745}{Open\+Window}} ()
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_aa8951e1fd9e5e3d5220c5dbd29fd8b01}{Close\+Window}} ()
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_a630236f937d67a6e0c2366d2568d8d81}{Set\+Direction}} (int direction)
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_ac78d097519843044c80de8db6e48ffe4}{Enable\+Motor}} ()
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_aa042db15d7381718f3d8c8cd0b7a0445}{Disable\+Motor}} ()
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_ac012b0bc31cf0c7209afe978a212e09f}{Drive\+Stepper}} (int revolutions)
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_stepper_driver_8c_a01454ee18f1095da5df1980a5d379bcb}{Calibrate\+Window\+Opening}} ()
+\begin{DoxyCompactList}\small\item\em short description \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Low level driver for the Big Easy Stepper \mbox{\hyperlink{struct_motor}{Motor}} Driver Module. 
+
+@path\+: ./\+Green\+House\+Monitor/\+Stepper\+Driver/src \begin{DoxyDate}{Date}
+\+: 26-\/03-\/2020 09\+:32\+:41 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+\+: Tonni Lutze
+\end{DoxyAuthor}
+Description here
+
+Major change \#1\+: 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_stepper_driver_8c_a01454ee18f1095da5df1980a5d379bcb}\label{_stepper_driver_8c_a01454ee18f1095da5df1980a5d379bcb}} 
+\index{StepperDriver.c@{StepperDriver.c}!CalibrateWindowOpening@{CalibrateWindowOpening}}
+\index{CalibrateWindowOpening@{CalibrateWindowOpening}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{CalibrateWindowOpening()}{CalibrateWindowOpening()}}
+{\footnotesize\ttfamily void Calibrate\+Window\+Opening (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_aa8951e1fd9e5e3d5220c5dbd29fd8b01}\label{_stepper_driver_8c_aa8951e1fd9e5e3d5220c5dbd29fd8b01}} 
+\index{StepperDriver.c@{StepperDriver.c}!CloseWindow@{CloseWindow}}
+\index{CloseWindow@{CloseWindow}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{CloseWindow()}{CloseWindow()}}
+{\footnotesize\ttfamily void Close\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_a932ef3fb03492b0822da0a7134cb986f}\label{_stepper_driver_8c_a932ef3fb03492b0822da0a7134cb986f}} 
+\index{StepperDriver.c@{StepperDriver.c}!DefaultReset@{DefaultReset}}
+\index{DefaultReset@{DefaultReset}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{DefaultReset()}{DefaultReset()}}
+{\footnotesize\ttfamily void Default\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_aa042db15d7381718f3d8c8cd0b7a0445}\label{_stepper_driver_8c_aa042db15d7381718f3d8c8cd0b7a0445}} 
+\index{StepperDriver.c@{StepperDriver.c}!DisableMotor@{DisableMotor}}
+\index{DisableMotor@{DisableMotor}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{DisableMotor()}{DisableMotor()}}
+{\footnotesize\ttfamily void Disable\+Motor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_ac012b0bc31cf0c7209afe978a212e09f}\label{_stepper_driver_8c_ac012b0bc31cf0c7209afe978a212e09f}} 
+\index{StepperDriver.c@{StepperDriver.c}!DriveStepper@{DriveStepper}}
+\index{DriveStepper@{DriveStepper}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{DriveStepper()}{DriveStepper()}}
+{\footnotesize\ttfamily void Drive\+Stepper (\begin{DoxyParamCaption}\item[{int}]{revolutions }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_ac78d097519843044c80de8db6e48ffe4}\label{_stepper_driver_8c_ac78d097519843044c80de8db6e48ffe4}} 
+\index{StepperDriver.c@{StepperDriver.c}!EnableMotor@{EnableMotor}}
+\index{EnableMotor@{EnableMotor}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{EnableMotor()}{EnableMotor()}}
+{\footnotesize\ttfamily void Enable\+Motor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_ad332394be2ea2b5bb98dfd8c5af2a745}\label{_stepper_driver_8c_ad332394be2ea2b5bb98dfd8c5af2a745}} 
+\index{StepperDriver.c@{StepperDriver.c}!OpenWindow@{OpenWindow}}
+\index{OpenWindow@{OpenWindow}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{OpenWindow()}{OpenWindow()}}
+{\footnotesize\ttfamily void Open\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_a630236f937d67a6e0c2366d2568d8d81}\label{_stepper_driver_8c_a630236f937d67a6e0c2366d2568d8d81}} 
+\index{StepperDriver.c@{StepperDriver.c}!SetDirection@{SetDirection}}
+\index{SetDirection@{SetDirection}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{SetDirection()}{SetDirection()}}
+{\footnotesize\ttfamily void Set\+Direction (\begin{DoxyParamCaption}\item[{int}]{direction }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_a410b2e1f1f125c1167ac8d8d7dbea9d1}\label{_stepper_driver_8c_a410b2e1f1f125c1167ac8d8d7dbea9d1}} 
+\index{StepperDriver.c@{StepperDriver.c}!SetStepperMode@{SetStepperMode}}
+\index{SetStepperMode@{SetStepperMode}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{SetStepperMode()}{SetStepperMode()}}
+{\footnotesize\ttfamily void Set\+Stepper\+Mode (\begin{DoxyParamCaption}\item[{int}]{mode }\end{DoxyParamCaption})}
+
+
+
+short description 
+
+Longer description
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$parametername$>$} & .... i.\+e. analog\+Pin is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i.\+e. what is returned. for example\+: void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_stepper_driver_8c_a69eb18a03b50d2e053a5efc1d51760b4}\label{_stepper_driver_8c_a69eb18a03b50d2e053a5efc1d51760b4}} 
+\index{StepperDriver.c@{StepperDriver.c}!StepperInit@{StepperInit}}
+\index{StepperInit@{StepperInit}!StepperDriver.c@{StepperDriver.c}}
+\doxysubsubsection{\texorpdfstring{StepperInit()}{StepperInit()}}
+{\footnotesize\ttfamily void Stepper\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initiates the Stepper Driver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em analog\+Pin} & is the pin number used for the soil humidity sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
