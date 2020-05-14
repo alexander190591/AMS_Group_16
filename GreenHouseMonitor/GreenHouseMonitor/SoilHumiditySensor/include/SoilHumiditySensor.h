@@ -9,7 +9,7 @@
 #ifndef SOILHUMIDITYSENSOR_H_
 #define SOILHUMIDITYSENSOR_H_
 
-#define _ValueInWater 275
+#define _ValueInWater 300
 #define _ValueInAir 600
 
 struct SoilHumiditySensor
