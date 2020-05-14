@@ -51,8 +51,8 @@ void readDataY(){
 		} else {
 			_DataY = (_DataY<<1);
 		}
-
-		clockPulse();
+		if(i>1)
+			clockPulse();
 	}
 	for (int i = 0; i < 4; i++)
 	{
@@ -82,7 +82,19 @@ void clockPulse(){
 //     og variable    //
 ////////////////////////
 
+/**
+<A short one line description>
+
+<Longer description>
+<May span multiple lines or paragraphs as needed>
+
+@param  No parameters
+@return No return value (void)
+*/
 void Setup(){
+	
+
+	
 	
 	//Setting Arduino outputs
 	DDRE |= (1<<TOUCH_CS);
@@ -92,61 +104,74 @@ void Setup(){
 	//Setting Arduino inputs	
 	DDRE &= ~(1<<TOUCH_OUT);
 	DDRE &= ~(1<<TOUCH_IRQ);
-	//DDRG |= 0b0010000;
-	
-	EIMSK |= _BV(INT4);
 
 	_NOP();
 	_NOP();
+	
+	//_delay_ms(1000)
+	
+
+	_NOP();
+	_NOP();
+
+	
+	CS_PORT |= (1<<TOUCH_CS); //High
+	
+	
+	
+	TCH_SCRN_EICR |=   (1<<TCH_SCRN_ISC1);		//ISC41 == 1
+	TCH_SCRN_EICR &=  ~(1<<TCH_SCRN_ISC0);		//ISC40 == 0
+	
+	TCH_SCRN_EIMSK |=  (1<<TCH_SCRN_INT);
+		
 }
 
 
 void TouchSetup(){	
+	
 	CS_PORT &= ~(1<<TOUCH_CS); //Low
 	
-	sendCommand(0b10010111);	//Sender commando til at læse X-koordinat
+	_NOP();
+	
+	
+	sendCommand(0b11010000);	//Sender commando til at læse X-koordinat
 								//  fordi A2 = 0
 								//		  A1 = 0
 								//		  A0 = 1
 	
-	_NOP();
-	_NOP();
-	_NOP();
-	_NOP();
-	CLK_PORT |= (1<<TOUCH_CLK); //High
-	_NOP();
-	_NOP();
-	_NOP();
-	_NOP();
-	CLK_PORT &= ~(1<<TOUCH_CLK); //Low
 	
 	readDataX();
 	
-	sendCommand(0b11010111);	//Sender commando til at læse Y-koordinat
+	
+	sendCommand(0b00110000);	//Sender commando til at læse Y-koordinat
 								//  fordi A2 = 1
 								//		  A1 = 0
 								//		  A0 = 1
-	
-	_NOP();
-	_NOP();
-	_NOP();
-	_NOP();
-	CLK_PORT |= (1<<TOUCH_CLK); //High
-	_NOP();
-	_NOP();
-	_NOP();
-	_NOP();
-	CLK_PORT &= ~(1<<TOUCH_CLK); //Low
-	
+
 	readDataY();
 	
+	
+	clockPulse();
+
 	CS_PORT |= (1<<TOUCH_CS); //High
 	
-	if((1000<_DataX && _DataX<2048) && (1000<_DataY && _DataY<2048)){
-		updateWindowDisplay("aaaaa");
+
+	
+}
+
+int getData(){
+	if((1000<_DataX) && (_DataX<2048)){
+		if((0<_DataY) && (_DataY<1000)){
+			return 1;
+		}
+	} else{
+		return 0;
 	}
-	
-	
+}
+
+void setData(){
+	_DataY = 0;
+	_DataX = 0;
 }
 
 void sendCommand(unsigned char command){
@@ -155,7 +180,10 @@ void sendCommand(unsigned char command){
 	{
 		DIN_PORT = ((1&(command >> i))<<TOUCH_IN);
 		clockPulse();
+	
 	}
+	DIN_PORT = ((1&(command))<<TOUCH_IN);
+	clockPulse();
 	
 	DIN_PORT &= ~(1<<TOUCH_IN);
 	
@@ -163,20 +191,27 @@ void sendCommand(unsigned char command){
 }
 
 
+
+
+
 //Interrupt routine
 
 ISR(INT4_vect){
-	_delay_ms(500);
-	//if(readData() > 0){
-		TouchSetup();
-		_delay_ms(500);
-		//_delay_ms(100);
-		//_delay_ms(100);
-	//}
+
+	
+	TCH_SCRN_EIMSK &=  ~(1<<TCH_SCRN_INT);
+	
+	TouchSetup();
+
+	
+	CS_PORT |= (1<<TOUCH_CS); //High
+
+	TCH_SCRN_EIMSK |=  (1<<TCH_SCRN_INT);
+	
+	DisplayInit();
+
+	
 }
-
-
-
 
 
  
