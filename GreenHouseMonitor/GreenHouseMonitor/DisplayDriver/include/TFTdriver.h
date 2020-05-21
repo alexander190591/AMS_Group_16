@@ -30,5 +30,8 @@ void SetPageAddress(unsigned int Start, unsigned int End);
 void MemoryWrite();
 void FillRectangle(unsigned int StartX, unsigned int StartY, unsigned int Width, 
                    unsigned int Height, unsigned char Red, unsigned char Green, unsigned char Blue);
+				   
+				   
+void WriteText();
 
 

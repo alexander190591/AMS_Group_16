@@ -157,7 +157,8 @@ unsigned int writeLetter(char letter, unsigned int startX, unsigned int startY){
 	switch (letter)
 	{
 		case 65:
-		return writeBigeA(startX,startY);
+			//FillRectangle(startX, startY, )
+		return writeBigeA(startX, startY);
 		break;
 		case 87:
 		return writeBigW(startX,startY);
@@ -177,8 +178,29 @@ unsigned int writeLetter(char letter, unsigned int startX, unsigned int startY){
 
 void writeLine(char* sentence, unsigned int startX, unsigned int startY){
 	unsigned int spacing = 0;
+	
+	SetColumnAddress(startY, startY+16);
+	SetPageAddress(startX, startX+(strlen(sentence)*16));
+	MemoryWrite();
+	
+	char* wrtChar;
+	
 	for(int i = 0; i<strlen(sentence); i++){
-		spacing = writeLetter(sentence[i],(startX+16*i),startY);
+		//spacing = writeLetter(sentence[i],(startX+16*i),startY);
+		/*
+		//Skal fetche Character
+		//wrtChar =fetchChar(sentence[i]);
+		
+		for(int j = 0; j<32; j++){
+			for (int k = 0; k<8; k++)
+			{
+				if(!((wrtChar[j]<<k)&0x80))
+			}
+			
+		}
+		
+		*/
+		
 	}
 }
 

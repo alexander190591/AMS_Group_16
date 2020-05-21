@@ -28,14 +28,7 @@ void SebastianMain()
 
 		sei();
 		while(1)
-		{			
-			if(getData() == 1){
-				//DisplayInit();
-				
-				FillRectangle(0,0,320,240,31,63,31);
-				updateWindowDisplay("AA");
-				setData();
-			}
+		{		
 		}
 	}
 }

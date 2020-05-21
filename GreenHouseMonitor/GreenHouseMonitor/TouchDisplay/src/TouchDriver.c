@@ -78,7 +78,7 @@ void clockPulse(){
 
 
 ////////////////////////
-// Pubkuc  functioner //
+// Public  functioner //
 //     og variable    //
 ////////////////////////
 
@@ -176,13 +176,23 @@ void setData(){
 
 void sendCommand(unsigned char command){
 	
-	for (int i = 7; i>0; i--)
-	{
-		DIN_PORT = ((1&(command >> i))<<TOUCH_IN);
-		clockPulse();
+	unsigned char hold = 0;
 	
+	for (int i = 7; i>0; i--)
+	{	
+		if(((1&(command >> i))<<TOUCH_IN))
+			DIN_PORT |= (1<<TOUCH_IN);
+		else
+			DIN_PORT &= ~(1<<TOUCH_IN);
+			
+		clockPulse();
 	}
-	DIN_PORT = ((1&(command))<<TOUCH_IN);
+	
+	if(((1&(command))<<TOUCH_IN))
+		DIN_PORT |= (1<<TOUCH_IN);
+	else
+		DIN_PORT &= ~(1<<TOUCH_IN);
+
 	clockPulse();
 	
 	DIN_PORT &= ~(1<<TOUCH_IN);
@@ -206,11 +216,20 @@ ISR(INT4_vect){
 	
 	CS_PORT |= (1<<TOUCH_CS); //High
 
+	
+			if(getData() == 1){
+				//DisplayInit();
+				//_delay_ms(1000);
+				
+				FillRectangle(0,0,320,240,31,63,31);
+				updateWindowDisplay("AA");
+				setData();
+			}
+			
+	EIFR |= 0x4;
+	
 	TCH_SCRN_EIMSK |=  (1<<TCH_SCRN_INT);
-	
-	DisplayInit();
 
-	
 }
 
 
