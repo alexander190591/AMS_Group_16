@@ -88,7 +88,9 @@ double getHumidityInPercent(struct SoilHumiditySensor* p)
 	// TODO this one... Based on calibration that is done when the _humidityValue is set correctly...
 	
 	int range = _ValueInAir-_ValueInWater;					// 600-275 == 325 for specific sensor module used here
-	int relativeValue = p->analogRead(p)-_ValueInWater;		// 604-275 == 329
+	int analogValue = p->analogRead(p);
+	analogValue = (analogValue > _ValueInAir) ? _ValueInAir : analogValue;	// Making sure analogValue cannot be higher than 600 when dry.
+	int relativeValue = analogValue-_ValueInWater;			// 600-275 == 329
 	double percentage = 100-(((relativeValue)*100)/range);	// 100-((329*100)/325) == -1,23 
 	if(percentage >= 100)
 		return percentage; //100;
