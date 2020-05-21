@@ -14,7 +14,7 @@
 
 #define DUMMYBYTE 0xFF
 
-/*
+
 
 
 unsigned char Command(unsigned char cmd, long arg){
@@ -44,31 +44,31 @@ int InitSD_Reader(){
 	//	It may take up to 74 cycles for it to be ready, doing it lazy we just give it 80 
 	SPI_SlaveSelect(SD_READER_CS, false);
 	for (l=0; l<10; l++){
-		//_byte = SPI_CycleByte(0xFF); 
-		SPI_Tx(0xFF);
+		_byte = SPI_CycleByte(0xFF); 
+		//SPI_Tx(0xFF);
 	}
 	
 
 	SPI_SlaveSelect(SD_READER_CS, false);
 	//	sending reset command: Part1_Physical_Layer_Simplified_Specification_Ver6.00.pdf page 230
-//	_byte = SPI_CycleByte(0x00 | 0x40);
-//	_byte = SPI_CycleByte(0x00);
-//	_byte = SPI_CycleByte(0x00);
-//	_byte = SPI_CycleByte(0x00);
-//	_byte = SPI_CycleByte(0x00);
-//	_byte = SPI_CycleByte(0x95);
+	_byte = SPI_CycleByte(0x00 | 0x40);
+	_byte = SPI_CycleByte(0x00);
+	_byte = SPI_CycleByte(0x00);
+	_byte = SPI_CycleByte(0x00);
+	_byte = SPI_CycleByte(0x00);
+	_byte = SPI_CycleByte(0x95);
 
-	SPI_Tx(0x00 | 0x40);
-	SPI_Tx(0x00);
-	SPI_Tx(0x00);
-	SPI_Tx(0x00);
-	SPI_Tx(0x00);
-	SPI_Tx(0x95);
+// 	SPI_Tx(0x00 | 0x40);
+// 	SPI_Tx(0x00);
+// 	SPI_Tx(0x00);
+// 	SPI_Tx(0x00);
+// 	SPI_Tx(0x00);
+// 	SPI_Tx(0x95);
 
 	//	waiting for SD to enter idle state (returns 0x01)
 	for (l=0; l<500; l++){
-//		_byte = SPI_CycleByte(0xFF);
-		_byte = SPI_Rx(0xFF);
+		_byte = SPI_CycleByte(0xFF);
+//		_byte = SPI_Rx(0xFF);
 		if (_byte == 0x01){
 		SendString("got a 0x01 now!");
 		break;
@@ -103,16 +103,16 @@ int InitSD_Reader(){
 }
 
 
-unsigned char ReadBlock(unsigned char * buffer, unsigned long startAddress){
+unsigned char ReadBlock(SensorDataObj * dataObj, uint8_t saveSlot){
 	
 	int i;
 	unsigned char c, r1;
 
 	// checking if the start address is not at the beginning of a block. 
-	if (startAddress % BLOCKSIZE != 0)	{ return 0; }
+	if (saveSlot % BLOCKSIZE != 0)	{ return 0; }
 
 //	r1 = Command(READ_SINGLE_BLOCK, startAddress);
-	r1 = SD_sendCommand(READ_SINGLE_BLOCK, startAddress);
+	r1 = SD_sendCommand(READ_SINGLE_BLOCK, saveSlot);
 	//	wait for SD to locate data
 	for (int i = 0; i<50; i++)	{
 		//	If return is empty we break out of the loop.
@@ -138,15 +138,15 @@ unsigned char ReadBlock(unsigned char * buffer, unsigned long startAddress){
 }
 
 
-unsigned char WriteBlock(unsigned char * data, unsigned long startAddress){
+unsigned char WriteBlock(SensorDataObj * dataObj, uint8_t saveSlot){
 	
 	unsigned char c; 
 	short i; 
 	// checking if the start address is not at the beginning of a block. 
-	if (startAddress % BLOCKSIZE != 0)	{ return 0; }
+	if (saveSlot % BLOCKSIZE != 0)	{ return 0; }
 
 	// if write cmd dont return 0 theres an write error. 
-	if (Command(WRITE_SINGLE_BLOCK,startAddress) != 0)	{ return 0; }
+	if (Command(WRITE_SINGLE_BLOCK,saveSlot) != 0)	{ return 0; }
 
 	//	clearing any data before sending actual data.
 	c = SPI_CycleByte(0xFF);
@@ -155,7 +155,7 @@ unsigned char WriteBlock(unsigned char * data, unsigned long startAddress){
 
 	//	
 	for (i = 0; i < BLOCKSIZE; i++)	{ 
-		c = SPI_CycleByte(data[i]); 
+		c = SPI_CycleByte(dataObj[i]); 
 	}
 	//	Dummies before getting response
 	c = SPI_CycleByte(0xFF);
@@ -177,18 +177,58 @@ unsigned char WriteBlock(unsigned char * data, unsigned long startAddress){
 
 }
 
-*/
 
 
+
+
+
+
+//	burde være med et variabelt antal argumenter, men grundet tidspres er den hardcoded til de tre vi skal bruge
+void CollectData(SensorDataObj * dataObj, double tempAir, double humidityAir, double humiditySoil, int saveSlot)
+{
+	
+
+	//	we want to save three doubles (= 24 bytes) - just to make sure we have space enough in a slot, ill make rook for 4 doubles, and double that up to 64 bytes.
+	dataObj->blockSize = 24;
+
+	dataObj->tempAir		= tempAir;
+	dataObj->humidityAir	= humidityAir;
+	dataObj->humiditySoil	= humiditySoil;
+	dataObj->saveSlot		= saveSlot;
+
+}
+
+
+
+void SaveSlot(SensorDataObj * dataObj){
+	
+	//	we want to save three doubles (= 24 bytes) - just to make sure we have space enough in a slot, ill make rook for 4 doubles, and double that up to 64 bytes. 
+	dataObj->blockSize = 24;
+	
+	
+	
+
+
+}
+
+unsigned char WriteRawData (){
+
+	//	slot 0 = 0 + blockSize
+
+
+}
+
+
+/*
 
 //#include "SPI_Driver.h"
 
-//******************************************************************
+// ******************************************************************
 //Function	: To initialize the SD/SDHC card in SPI mode
 //Arguments	: None
 //return	: unsigned char; will be 0 if no error,
 // 			  otherwise the response byte will be sent
-//******************************************************************
+// ******************************************************************
 //unsigned char InitSDCard()
 unsigned char InitSD_Reader()
 {
@@ -284,12 +324,12 @@ unsigned char InitSD_Reader()
 	return 1; //successful return
 }
 
-//******************************************************************
+// ******************************************************************
 //Function	: To send a command to SD card
 //Arguments	: unsigned char (8-bit command value)
 // 			  & unsigned long (32-bit command argument)
 //return	: unsigned char; response byte
-//******************************************************************
+// ******************************************************************
 unsigned char SD_sendCommand(unsigned char cmd, unsigned long arg)
 {
 	unsigned char response, retry = 0, status;
@@ -388,12 +428,12 @@ unsigned char SD_sendCommand(unsigned char cmd, unsigned long arg)
 	return response; //return state
 }
 
-//*****************************************************************
+// *****************************************************************
 //Function	: To erase specified no. of blocks of SD card
 //Arguments	: None
 //return	: unsigned char; will be 0 if no error,
 // 			  otherwise the response byte will be sent
-//*****************************************************************
+// *****************************************************************
 unsigned char SD_erase (unsigned long startBlock, unsigned long totalBlocks)
 {
 	unsigned char response;
@@ -412,13 +452,13 @@ unsigned char SD_erase (unsigned long startBlock, unsigned long totalBlocks)
 
 	return 0; //normal return
 }
-
-//******************************************************************
+ 
+// ******************************************************************
 //Function	: To read a single block from SD card
 //Arguments	: None
 //return	: unsigned char; will be 0 if no error,
 // 			  otherwise the response byte will be sent
-//******************************************************************
+// ******************************************************************
 
 
 //unsigned char SD_readSingleBlock(unsigned long startBlock)
@@ -468,12 +508,12 @@ unsigned char ReadBlock(unsigned long startBlock)
 	return 0;
 }
 
-//******************************************************************
+// ******************************************************************
 //Function	: To write to a single block of SD card
 //Arguments	: None
 //return	: unsigned char; will be 0 if no error,
 // 			  otherwise the response byte will be sent
-//******************************************************************
+// ******************************************************************
 
 
 //unsigned char SD_writeSingleBlock(unsigned long startBlock)
@@ -551,3 +591,4 @@ unsigned char WriteBlock(unsigned long startBlock)
 	SPI_SlaveSelect(SD_READER_CS, false);
 	return 0;
 }
+*/

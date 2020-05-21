@@ -167,6 +167,9 @@ int getData(){
 	} else{
 		return 0;
 	}
+
+	//	din else her er redundant og den mangler sådan set osse en return uden for din if else,
+	//	den mest simple løsning er at fjerne else og lade rin return 0; stå alene til sidst. 
 }
 
 void setData(){

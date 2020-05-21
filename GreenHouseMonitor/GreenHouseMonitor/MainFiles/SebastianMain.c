@@ -21,7 +21,7 @@ void SebastianMain()
 		FillRectangle(0,0,320,240,31,63,31);
 		
 		
-		updateWindowDisplay("a");
+		updateWindowDisplay("AA");
 
 		
 		Setup();
