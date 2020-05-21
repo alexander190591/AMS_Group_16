@@ -64,14 +64,13 @@ int main(void)
 	#endif UART_USED
 		
 	// Init sensor x2
-	// Init sk�rm
+	// Init skærm
 	// Init motor
 	// Init SD-driver
 
     while (1) 
     {
-<<<<<<< refs/remotes/origin/master
-		// L�s data
+		// Læs data
 		#ifdef UART_USED
 			SendString("L�s air_sensor_data.... \n");
 		#endif UART_USED
@@ -104,9 +103,9 @@ int main(void)
 			SendString("Soil Humidity is: "); SendInteger(soilHumidity); SendString("%.\n");
 		#endif UART_USED
 		
-		// Gem data p� SD-kort
+		// Gem data på SD-kort
 		
-		// S�t data i bestemte dele af sk�rmen
+		// Sæt data i bestemte dele af sk�rmen
 		
 		// Vent 10 sekunder
 		_delay_ms(2000);
@@ -159,7 +158,3 @@ ISR(AIRSENSOR_INTVECT) // Interrupt on any edge
 		break; // End of Case: HIGH (Any other than low)
 	} // End of switch()
 } // End of ISR(AIRSENSOR_INTVECT)
-=======
-    }
-}
->>>>>>> commit before a pull
