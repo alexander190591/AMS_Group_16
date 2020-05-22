@@ -14,9 +14,7 @@ typedef struct
 	double	tempAir;
 	double	humidityAir;
 	double	humiditySoil;
-	int		saveSlot;
-	int		blockSize; 
-
+	
 }SensorDataObj;
 
 

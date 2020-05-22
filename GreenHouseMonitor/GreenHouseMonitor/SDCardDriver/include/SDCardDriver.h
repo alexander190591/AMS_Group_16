@@ -16,14 +16,10 @@
 #include "fileDefs.h"
 
 
-#define BLOCKSIZE				24
-// #define BLOCKSIZE				512
+//#define BLOCKSIZE				24
+//#define BLOCKSIZE				12
+#define BLOCKSIZE				512
 
-#define SET_BLOCK_LEN			16
-#define READ_SINGLE_BLOCK		17
-#define WRITE_SINGLE_BLOCK		24
-#define SD_SEND_OP_COND			41   //Application specific command
-#define APP_CMD					55
 
 
 
@@ -60,7 +56,7 @@
 #define OFF    0
 
 volatile unsigned long startBlock, totalBlocks;
-volatile unsigned char SDHC_flag, cardType, buffer[512];
+volatile unsigned char SDHC_flag, cardType;//, buffer[BLOCKSIZE];
 
 //unsigned char InitSDCard(void);
 // unsigned char InitSD_Reader();
@@ -78,6 +74,8 @@ unsigned char SD_writeSingleBlock(unsigned long startBlock);
 unsigned char SD_erase (unsigned long startBlock, unsigned long totalBlocks);
 
 void CollectData(SensorDataObj * dataObj, double tempAir, double humidityAir, double humiditySoil);
-
+unsigned char WriteRawData (SensorDataObj * dataObj, int saveSlot);
+unsigned char WriteSaveSlot (int saveSlot);
+SensorDataObj * ReadRawData( int saveSlot);
 
 #endif /* SDCARDDRIVER_H_ */

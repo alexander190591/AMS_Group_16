@@ -17,7 +17,7 @@
 	#include "UART/include/uart.h"
 #endif
 
-//#include "MainFiles/MainFiles.h"													// Used for seperate main files for every group member
+#include "MainFiles/MainFiles.h"													// Used for seperate main files for every group member
 
 struct AirSensor* myAirSensorPtr;													// Pointer for the AirSensor "object".
 
@@ -26,7 +26,7 @@ int main(void)
 ////// Group member mains called here. Only one should be called at any time:
 //	AlexanderMain();																	
 // 	SebastianMain();
-//	TonniMain();
+	TonniMain();
 
 	#ifdef UART_USED
 		InitUART(115200, 8, 0);															// Uart for testing, copied form Henning's MSYS-class.
