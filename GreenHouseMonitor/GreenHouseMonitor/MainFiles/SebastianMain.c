@@ -21,10 +21,13 @@ void SebastianMain()
 		FillRectangle(0,0,320,240,31,63,31);
 		
 		
-		updateWindowDisplay("AA");
-
+		//updateWindowDisplay("a");
+		updateEarthHumidDisplay("20");
+		updateTemperaturDisplay("20");
+		updateAirHumidDisplay("20");
 		
 		Setup();
+		
 
 		sei();
 		while(1)

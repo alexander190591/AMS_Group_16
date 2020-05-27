@@ -12,6 +12,7 @@
 //Functions for updating display with values,
 //  reserved for non-touch
 
+
 void updateWindowDisplay(char*);
 void updateEarthHumidDisplay(char*);
 void updateTemperaturDisplay(char*);

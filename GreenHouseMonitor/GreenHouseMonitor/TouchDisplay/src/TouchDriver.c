@@ -123,6 +123,9 @@ void Setup(){
 	TCH_SCRN_EICR &=  ~(1<<TCH_SCRN_ISC0);		//ISC40 == 0
 	
 	TCH_SCRN_EIMSK |=  (1<<TCH_SCRN_INT);
+	
+	
+	
 		
 }
 
@@ -134,7 +137,7 @@ void TouchSetup(){
 	_NOP();
 	
 	
-	sendCommand(0b11010000);	//Sender commando til at læse X-koordinat
+	sendCommand(0b10010010);	//Sender commando til at læse X-koordinat
 								//  fordi A2 = 0
 								//		  A1 = 0
 								//		  A0 = 1
@@ -143,7 +146,7 @@ void TouchSetup(){
 	readDataX();
 	
 	
-	sendCommand(0b00110000);	//Sender commando til at læse Y-koordinat
+	sendCommand(0b11010010);	//Sender commando til at læse Y-koordinat
 								//  fordi A2 = 1
 								//		  A1 = 0
 								//		  A0 = 1
@@ -160,16 +163,40 @@ void TouchSetup(){
 }
 
 int getData(){
-	if((1000<_DataX) && (_DataX<2048)){
-		if((0<_DataY) && (_DataY<1000)){
+	/*if((1000<_DataX) && (_DataX<2048)){
+		if((1000<_DataY) && (_DataY<2048)){
 			return 1;
+		} else if((0<_DataY) && (_DataY<1000)){
+			return 2;
+		} else {
+			return 0;
 		}
-	} else{
-		return 0;
+	} else if ((_DataX<1000)){
+		if((1000<_DataY) && (_DataY<2048)){
+			return 3;
+		} else*/ 
+	if (_DataY < 1000){
+		if((0<_DataX) && (_DataX<500)){		//Open full window
+			return 1;
+		} else if ((500<_DataX) && (_DataX<1000))
+		{
+			return 2;						//Open a bit
+		}
+		else if ((1000<_DataX) && (_DataX<1500))
+		{
+			return 3;						//Close a bit
+		}
+		else if ((1500<_DataX) && (_DataX<2000))
+		{
+			return 4;						//Close full
+		}
+		else{
+			return 0;
+		}
 	}
-
-	//	din else her er redundant og den mangler sådan set osse en return uden for din if else,
-	//	den mest simple løsning er at fjerne else og lade rin return 0; stå alene til sidst. 
+	/*} else {
+		return 0;
+	}*/
 }
 
 void setData(){
@@ -179,23 +206,22 @@ void setData(){
 
 void sendCommand(unsigned char command){
 	
-	unsigned char hold = 0;
-	
 	for (int i = 7; i>0; i--)
-	{	
+	{
 		if(((1&(command >> i))<<TOUCH_IN))
 			DIN_PORT |= (1<<TOUCH_IN);
 		else
 			DIN_PORT &= ~(1<<TOUCH_IN);
 			
 		clockPulse();
+	
 	}
 	
 	if(((1&(command))<<TOUCH_IN))
 		DIN_PORT |= (1<<TOUCH_IN);
 	else
 		DIN_PORT &= ~(1<<TOUCH_IN);
-
+		
 	clockPulse();
 	
 	DIN_PORT &= ~(1<<TOUCH_IN);
@@ -210,6 +236,7 @@ void sendCommand(unsigned char command){
 //Interrupt routine
 
 ISR(INT4_vect){
+	_delay_ms(100);
 
 	
 	TCH_SCRN_EIMSK &=  ~(1<<TCH_SCRN_INT);
@@ -220,12 +247,22 @@ ISR(INT4_vect){
 	CS_PORT |= (1<<TOUCH_CS); //High
 
 	
-			if(getData() == 1){
-				//DisplayInit();
-				//_delay_ms(1000);
-				
-				FillRectangle(0,0,320,240,31,63,31);
-				updateWindowDisplay("AA");
+			
+			if(getData() == 1){						// Open full
+				updateWindowDisplay("op full");
+				//DriveStepper(1);
+				setData();
+			} else if (getData() == 2) {			//Open partly
+				updateWindowDisplay("op part");
+				//DriveStepper(1);
+				setData();
+			} else if (getData() == 3) {			//Close partly
+				updateWindowDisplay("cl part");
+				//DriveStepper(1);
+				setData();
+			} else if (getData() == 4) {			//Close fully
+				updateWindowDisplay("cl full");
+				//DriveStepper(1);
 				setData();
 			}
 			

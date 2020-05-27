@@ -9,6 +9,7 @@
 
 
 #include "../include/DisplayControl.h"
+#include "../include/Characters.h"
 #include <string.h>
 
 
@@ -177,30 +178,34 @@ unsigned int writeLetter(char letter, unsigned int startX, unsigned int startY){
 }
 
 void writeLine(char* sentence, unsigned int startX, unsigned int startY){
+	
+	/*unsigned int spacing = 0;
+	for(int i = 0; i<strlen(sentence); i++){
+		spacing = writeLetter(sentence[i],(startX+16*i),startY);
+	}*/
+		
 	unsigned int spacing = 0;
 	
-	SetColumnAddress(startY, startY+16);
+	SetColumnAddress(startY, startY+15);
 	SetPageAddress(startX, startX+(strlen(sentence)*16));
 	MemoryWrite();
 	
-	char* wrtChar;
+
 	
 	for(int i = 0; i<strlen(sentence); i++){
-		//spacing = writeLetter(sentence[i],(startX+16*i),startY);
-		/*
-		//Skal fetche Character
-		//wrtChar =fetchChar(sentence[i]);
 		
+		//Skal fetche Character
+		char* wrtChar = getWriteChar(*(sentence+i));
+
 		for(int j = 0; j<32; j++){
 			for (int k = 0; k<8; k++)
 			{
-				if(!((wrtChar[j]<<k)&0x80))
-			}
-			
-		}
-		
-		*/
-		
+				if(!(((*(wrtChar+j))<<k)&0x80))
+					WritePixel(31,63,31);
+				else
+					WritePixel(0,0,0);	
+			}	
+		}	
 	}
 }
 
@@ -213,56 +218,27 @@ void writeLine(char* sentence, unsigned int startX, unsigned int startY){
 //////////////////////////////
 
 void updateWindowDisplay(char* arr){
+	writeLine("soil:", 20, 20);
+	FillRectangle(180, 20, 200, 16, 31, 63, 31);
 	writeLine(arr, 180, 20);
 }
 
 void updateEarthHumidDisplay(char* arr){
+	writeLine("soil:", 20, 20);
 	writeLine(arr, 180, 20);
 }
 
 void updateTemperaturDisplay(char* arr){
-	writeLine(arr, 180, 20);
+	writeLine("temp:", 20, 50);
+	writeLine(arr, 180, 50);
+}
+
+void updateAirHumidDisplay(char* arr){
+	writeLine("humid:", 20, 80);
+	writeLine(arr, 180, 80);
 }
 
 
-void windowControlDisplay(unsigned int xCoor, unsigned int yCoor){
-	switch (windowFlag){
-		case 0:
-			FillRectangle(windowLeftx,windowHighy,windowRightx,windowLowy,31,63,31);
-			if((windowLeftx < xCoor < windowRightx) && (windowHighy < yCoor < windowLowy)){
-				// Change the box for the window to one with controls
-				//windowChange();
-				windowFlag = 1;
-			}
-			break;
-		case 1:
-			FillRectangle(160,0,320-140,100,31,63,31);
-			if(((adjustDownX0 < xCoor) && (xCoor < adjustDownX1)) && ((adjustDownY0 < yCoor) && (yCoor < adjustDownY1))){
-				//0<x<80    0<y<80
-				//Call adjust down for moter
-				
-				//(Maybe) Change below to show the value incremented by (windowInc)
-				writeLine("AAA",180,20);
-			} else if (((adjustUpX0 < xCoor)&&(xCoor < adjustUpX1)) && ((adjustUpY0 < yCoor) && (yCoor < adjustUpY1))){
-				//80<x<160  0<y<80
-				//Call adjust up for motor
-				
-				//(Maybe) Change below to show the value incremented by (windowInc)
-				writeLine("WWW",180,20);
-			} else {
-				windowFlag = 0;
-				windowInc = 0;
-			}
-			break;
-		default:
-			windowFlag = 0;
-			break;
-	}
-}
-
-void earthHumidControlDisplay(unsigned int startX, unsigned int startY){
-	
-}
 
 
 

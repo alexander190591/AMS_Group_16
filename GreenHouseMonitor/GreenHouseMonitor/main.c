@@ -12,6 +12,7 @@
 #include "DHT11/include/DHT11.h"
 #include "SoilHumiditySensor/include/SoilHumiditySensor.h"
 #include <util/delay.h>// Used for _delay_ms()
+#include "MainFiles/MainFiles.h"
 
 #ifdef UART_USED
 	#include "UART/include/uart.h"
@@ -19,16 +20,16 @@
 
 //#include "MainFiles/MainFiles.h"													// Used for seperate main files for every group member
 
-struct AirSensor* myAirSensorPtr;													// Pointer for the AirSensor "object".
+//struct AirSensor* myAirSensorPtr;													// Pointer for the AirSensor "object".
 
 int main(void)
 {
 ////// Group member mains called here. Only one should be called at any time:
 //	AlexanderMain();																	
-// 	SebastianMain();
+ 	SebastianMain();
 //	TonniMain();
 
-	#ifdef UART_USED
+	/*#ifdef UART_USED
 		InitUART(115200, 8, 0);															// Uart for testing, copied form Henning's MSYS-class.
 	#endif UART_USED
 		
@@ -109,9 +110,9 @@ int main(void)
 		
 		// Vent 10 sekunder
 		_delay_ms(2000);
-    } // End of while(1)
+    } // End of while(1)*/
 } // End of Main()
-
+/*
 
 ISR(AIRSENSOR_INTVECT) // Interrupt on any edge
 {
@@ -158,3 +159,4 @@ ISR(AIRSENSOR_INTVECT) // Interrupt on any edge
 		break; // End of Case: HIGH (Any other than low)
 	} // End of switch()
 } // End of ISR(AIRSENSOR_INTVECT)
+*/
