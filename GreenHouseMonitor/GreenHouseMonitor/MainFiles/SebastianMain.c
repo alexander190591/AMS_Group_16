@@ -22,9 +22,9 @@ void SebastianMain()
 		
 		
 		//updateWindowDisplay("a");
-		updateEarthHumidDisplay("20");
-		updateTemperaturDisplay("20");
-		updateAirHumidDisplay("20");
+		//updateEarthHumidDisplay("20");
+		//updateTemperaturDisplay("20");
+		//updateAirHumidDisplay("20");
 		
 		Setup();
 		

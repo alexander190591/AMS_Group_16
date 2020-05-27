@@ -14,9 +14,9 @@
 
 
 void updateWindowDisplay(char*);
-void updateEarthHumidDisplay(char*);
-void updateTemperaturDisplay(char*);
-
+void updateEarthHumidDisplay(double);
+void updateTemperaturDisplay(double);
+void updateAirHumidDisplay(double);
 
 //The functions for calling main controldisplay parts,
 //  reserved for touch

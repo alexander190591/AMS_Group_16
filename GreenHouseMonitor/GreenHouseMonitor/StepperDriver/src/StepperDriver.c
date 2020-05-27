@@ -134,11 +134,14 @@ void SetStepperMode(int mode){
 
 void OpenWindow()
 {
-	int revolutions = 1;
+	int revolutions = 600;
 	SetDirection(OPEN);
-	SetStepperMode(5);
+	SetStepperMode(2);
 	EnableMotor();	
-	if (!isWindowOpen) { DriveStepper(revolutions); }
+	while (!MntSwitchOpened()){
+		DriveStepper(1);
+	}
+	//if (!isWindowOpen) { DriveStepper(revolutions); }
 	isWindowOpen = true;
 	DisableMotor();
 }
@@ -147,15 +150,51 @@ void OpenWindow()
 
 void CloseWindow()
 {
-	int revolutions = 1;
+	
 	SetDirection(CLOSE);
-	SetStepperMode(5);
+	SetStepperMode(2);
 	EnableMotor();
-	if (isWindowOpen) { DriveStepper(revolutions); }
+	while (!MntSwitchClosed() ){
+		DriveStepper(1);
+		
+	}
+	//if (isWindowOpen) { DriveStepper(revolutions); }
 	isWindowOpen = false;
 	DisableMotor();
 }
 
+
+void CloseWindowPct(){
+	
+	//if (maxNbrRevolutions <= 0 ) return;
+	int isDoneFlag = 0;
+	
+	SetDirection(CLOSE);
+	SetStepperMode(2);
+	EnableMotor();
+	while (!MntSwitchClosed() && !isDoneFlag){
+		DriveStepper(maxNbrRevolutions * 0.1);
+		isDoneFlag = 1; 
+	}
+}
+
+void OpenWindowPct(){
+	
+	//if (maxNbrRevolutions <= 0 ) return;
+	
+	int isDoneFlag = 0;
+	SetDirection(OPEN);
+	SetStepperMode(2);
+	EnableMotor();
+	while (!MntSwitchOpened() && !isDoneFlag){
+		DriveStepper(maxNbrRevolutions * 0.1);
+		isDoneFlag = 1; 
+	}
+}
+
+void OpenWindowPct();
+
+void CloseOpenWindowPct();
 
 void SetDirection(/*struct Motor *motor,*/ int direction){
 	/*
@@ -248,7 +287,7 @@ void CalibrateWindowOpening(){
 	
 	//	First we want to make sure the window is fully closed
 	SetDirection(CLOSE);
-	SetStepperMode(1);
+	SetStepperMode(2);
 	EnableMotor();
 	//	Drive Stepper Motor until Fully-Closed end-switch is triggered
 	while (!MntSwitchClosed()){
@@ -257,7 +296,7 @@ void CalibrateWindowOpening(){
 	DisableMotor();
 	//	Make sure to reset counter.
 	revolutionCount = 0;
-
+	_delay_ms(500);
 	//	The window should be closed at this point
 	//	Now we run the stepper forwards until it hits the end switch, while it does we'll count the number of revolutions it takes to open fully
 	SetDirection(OPEN);

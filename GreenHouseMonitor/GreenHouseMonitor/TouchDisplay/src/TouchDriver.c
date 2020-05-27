@@ -91,7 +91,7 @@ void clockPulse(){
 @param  No parameters
 @return No return value (void)
 */
-void Setup(){
+void SetupTouch(){
 	
 
 	
@@ -124,13 +124,30 @@ void Setup(){
 	
 	TCH_SCRN_EIMSK |=  (1<<TCH_SCRN_INT);
 	
+	//Første box
+	FillRectangle(0, 120, 80, (240-120), 0, 0, 0);
+	FillRectangle(5, 125, 75, (240-130), 31, 63, 31);
 	
+	
+	//Anden box
+	FillRectangle(80, 120, 80, (240-120), 0, 0, 0);
+	FillRectangle(85, 125, 75, (240-130), 31, 63, 31);
+	
+	//Tredje box
+	FillRectangle(160, 120, 80, (240-120), 0, 0, 0);
+	FillRectangle(165, 125, 75, (240-130), 31, 63, 31);
+	
+	//Fjerde box
+	FillRectangle(240, 120, 80, (240-120), 0, 0, 0);
+	FillRectangle(245, 125, 75, (240-130), 31, 63, 31);
+	
+	//writeWindowBoxes();
 	
 		
 }
 
 
-void TouchSetup(){	
+void TouchCommunication(){	
 	
 	CS_PORT &= ~(1<<TOUCH_CS); //Low
 	
@@ -163,18 +180,6 @@ void TouchSetup(){
 }
 
 int getData(){
-	/*if((1000<_DataX) && (_DataX<2048)){
-		if((1000<_DataY) && (_DataY<2048)){
-			return 1;
-		} else if((0<_DataY) && (_DataY<1000)){
-			return 2;
-		} else {
-			return 0;
-		}
-	} else if ((_DataX<1000)){
-		if((1000<_DataY) && (_DataY<2048)){
-			return 3;
-		} else*/ 
 	if (_DataY < 1000){
 		if((0<_DataX) && (_DataX<500)){		//Open full window
 			return 1;
@@ -194,9 +199,6 @@ int getData(){
 			return 0;
 		}
 	}
-	/*} else {
-		return 0;
-	}*/
 }
 
 void setData(){
@@ -241,7 +243,7 @@ ISR(INT4_vect){
 	
 	TCH_SCRN_EIMSK &=  ~(1<<TCH_SCRN_INT);
 	
-	TouchSetup();
+	TouchCommunication();
 
 	
 	CS_PORT |= (1<<TOUCH_CS); //High
@@ -249,20 +251,20 @@ ISR(INT4_vect){
 	
 			
 			if(getData() == 1){						// Open full
-				updateWindowDisplay("op full");
-				//DriveStepper(1);
+				//updateWindowDisplay("op full");
+				OpenWindow();
 				setData();
 			} else if (getData() == 2) {			//Open partly
-				updateWindowDisplay("op part");
-				//DriveStepper(1);
+				//updateWindowDisplay("op part");
+				OpenWindowPct();
 				setData();
 			} else if (getData() == 3) {			//Close partly
-				updateWindowDisplay("cl part");
-				//DriveStepper(1);
+				//updateWindowDisplay("cl part");
+				CloseWindowPct();
 				setData();
 			} else if (getData() == 4) {			//Close fully
-				updateWindowDisplay("cl full");
-				//DriveStepper(1);
+				//updateWindowDisplay("cl full");
+				CloseWindow();
 				setData();
 			}
 			

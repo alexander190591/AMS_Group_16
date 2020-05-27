@@ -8,13 +8,16 @@
 #define TOUCHDRIVER_H_
 
 
+
 #include "../../DisplayDriver/include/TFTdriver.h"
 #include "../../DisplayDriver/include/DisplayControl.h"
+#include "../../StepperDriver/include/StepperDriver.h"
+#include "../../ButtonDriver/include/ButtonDriver.h"
 #include <avr/interrupt.h>
-#include <stdbool.h>
 
-void TouchSetup();
-void Setup();
+
+//void TouchSetup();
+void SetupTouch();
 int getData();
 void setData();
 //void sendCommand(unsigned char command);

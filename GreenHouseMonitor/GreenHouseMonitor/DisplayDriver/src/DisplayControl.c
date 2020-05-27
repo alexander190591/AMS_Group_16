@@ -11,6 +11,7 @@
 #include "../include/DisplayControl.h"
 #include "../include/Characters.h"
 #include <string.h>
+#include <stdint.h>
 
 
 //////////////////////////////
@@ -223,19 +224,58 @@ void updateWindowDisplay(char* arr){
 	writeLine(arr, 180, 20);
 }
 
-void updateEarthHumidDisplay(char* arr){
+void updateEarthHumidDisplay(double earthHumid){
+	uint8_t mySoilHumInt = earthHumid;
+	
+	char humidityArray[50];
+	char humidityIntChar[5];
+	
+	itoa(mySoilHumInt, humidityIntChar, 10);
+	strcpy(humidityArray, humidityIntChar);
+	strcat(humidityArray, " rh");
+	
 	writeLine("soil:", 20, 20);
-	writeLine(arr, 180, 20);
+	FillRectangle(180, 20, 200, 16, 31, 63, 31);
+	writeLine(humidityArray, 180, 20);
 }
 
-void updateTemperaturDisplay(char* arr){
+void updateTemperaturDisplay(double temp){
+	uint8_t myTempInt = temp;															// Splitting temperature integer from decimal to print with UART-driver.
+	uint8_t myTempDec = ((double)temp-(double)(myTempInt))*100;						// Splitting temperature decimal from integer to print with UART-driver.
+	//
+	char temperatureArray[50];
+	char temperatureIntChar[5];
+	char temperatureDecChar[5];
+	
+	itoa(myTempInt, temperatureIntChar, 10);
+	itoa(myTempDec, temperatureDecChar, 10);
+	
+	// Create string with temperature value
+	strcpy(temperatureArray, temperatureIntChar);
+	strcat(temperatureArray, ":");
+	strcat(temperatureArray, temperatureDecChar);
+	strcat(temperatureArray, " deg");
+	
+	
+	
 	writeLine("temp:", 20, 50);
-	writeLine(arr, 180, 50);
+	FillRectangle(180, 50, 200, 16, 31, 63, 31);
+	writeLine(temperatureArray, 180, 50);
 }
 
-void updateAirHumidDisplay(char* arr){
+void updateAirHumidDisplay(double humidity){
+	char humidityArray[50];
+	char humidityChar[5];
+	
+	uint8_t myAirHumidInt = humidity;
+	
+	itoa(myAirHumidInt, humidityChar, 10);
+	strcpy(humidityArray, humidityChar);
+	strcat(humidityArray, " rh");
+
 	writeLine("humid:", 20, 80);
-	writeLine(arr, 180, 80);
+	FillRectangle(180, 80, 200, 16, 31, 63, 31);
+	writeLine(humidityArray, 180, 80);
 }
 
 

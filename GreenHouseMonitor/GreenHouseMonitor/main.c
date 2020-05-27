@@ -13,6 +13,14 @@
 #include "SoilHumiditySensor/include/SoilHumiditySensor.h"
 #include <util/delay.h>// Used for _delay_ms()
 #include "MainFiles/MainFiles.h"
+#include "TouchDisplay/include/TouchDriver.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <avr/interrupt.h>
+
+#include "ButtonDriver/include/ButtonDriver.h"
+#include "StepperDriver/include/StepperDriver.h"
 
 #ifdef UART_USED
 	#include "UART/include/uart.h"
@@ -20,19 +28,20 @@
 
 //#include "MainFiles/MainFiles.h"													// Used for seperate main files for every group member
 
-//struct AirSensor* myAirSensorPtr;													// Pointer for the AirSensor "object".
+struct AirSensor* myAirSensorPtr;													// Pointer for the AirSensor "object".
 
 int main(void)
 {
 ////// Group member mains called here. Only one should be called at any time:
 //	AlexanderMain();																	
- 	SebastianMain();
+// 	SebastianMain();
 //	TonniMain();
+	
 
-	/*#ifdef UART_USED
+	#ifdef UART_USED
 		InitUART(115200, 8, 0);															// Uart for testing, copied form Henning's MSYS-class.
 	#endif UART_USED
-		
+		//
 	sei();																			// Enables all interrupts.
 	
 // Air sensor (Relative humidity and temperature)
@@ -52,9 +61,17 @@ int main(void)
 	#ifdef UART_USED
 		SendString("Test: Set up soil sensor... \n");
 	#endif UART_USED
-
+//
 	struct SoilHumiditySensor mySoilHumiditySensor = {0, 0, 0, setUpSoilHumiditySensor, analogRead, getHumidityInPercent};
 	mySoilHumiditySensor.setUpSoilHumiditySensor(&mySoilHumiditySensor, 0);
+	
+	DisplayInit();
+	FillRectangle(0,0,320,240,31,63,31);
+	SetupTouch();
+	
+	updateEarthHumidDisplay(0.0);
+	updateTemperaturDisplay(0.0);
+	updateAirHumidDisplay(0.0);
 	
 	double airHumidity = 0.0;
 	double airTemperature = 0.0;
@@ -63,28 +80,37 @@ int main(void)
 	#ifdef UART_USED
 		SendString("Test: sensor setup done. \n");
 	#endif UART_USED
+		//
 		
-	// Init sensor x2
-	// Init skærm
-	// Init motor
-	// Init SD-driver
-
+	StepperInit();
+	
+	cli();
+	CalibrateWindowOpening();
+	#ifdef UART_USED
+		SendString("Haj med Dej \n");
+		SendInteger(maxNbrRevolutions);
+		SendString("Haj med Dej \n");
+		SendInteger(120);
+	#endif UART_USED
+	sei();
+	
     while (1) 
     {
+		//_delay_ms(10000);
 		// Læs data
 		#ifdef UART_USED
-			SendString("L�s air_sensor_data.... \n");
+			SendString("Læs air_sensor_data.... \n");
 		#endif UART_USED
 		
 		airHumidity = myAirSensorPtr->readHumidity(myAirSensorPtr);
 		airTemperature = myAirSensorPtr->readTemperature(myAirSensorPtr);
-		
+		//
 		#ifdef UART_USED
-			SendString("L�s soil sensordata.... \n");
+			SendString("Læs soil sensordata.... \n");
 		#endif UART_USED
-		
+		//
 		int analogSoilHumidity = mySoilHumiditySensor.analogRead(&mySoilHumiditySensor);
-		
+		//
 		#ifdef UART_USED
 			SendString("Analog soil value: "); SendInteger(analogSoilHumidity); SendChar('\n');
 		#endif
@@ -106,13 +132,23 @@ int main(void)
 		
 		// Gem data på SD-kort
 		
-		// Sæt data i bestemte dele af sk�rmen
+		// Sæt data i bestemte dele af skærmen
+		// Creating string with air temperature
+		
+		
+		// Create string with humidity value
+		//strcpy(humidityArray, humidityChar);
+		//strcat(humidityArray, "rh");
+		
+		updateEarthHumidDisplay(soilHumidity);
+		updateTemperaturDisplay(airTemperature);
+		updateAirHumidDisplay(airHumidity);
 		
 		// Vent 10 sekunder
 		_delay_ms(2000);
-    } // End of while(1)*/
+    } // End of while(1)
 } // End of Main()
-/*
+
 
 ISR(AIRSENSOR_INTVECT) // Interrupt on any edge
 {
@@ -159,4 +195,16 @@ ISR(AIRSENSOR_INTVECT) // Interrupt on any edge
 		break; // End of Case: HIGH (Any other than low)
 	} // End of switch()
 } // End of ISR(AIRSENSOR_INTVECT)
-*/
+
+ISR(AIRSENSOR_COMPAVECT)															// Interrupt for when 18 ms start signal from MCU has been sent to DHT11.
+{
+// Make Digital line input with pull-up resistor:
+AIRSENSOR_DDR &= ~(1 << AIRSENSOR_PIN);											// Set pin as input.
+AIRSENSOR_PORT |= (1 << AIRSENSOR_PIN);											// Pull-up resistor (make the signal go HIGH while listening).
+
+AIRSENSOR_TCNT = 0;																// Clearing the counter.
+AIRSENSOR_TCCRB &= ~(1 << AIRSENSOR_WGM2);										// Clearing the mode.
+
+myAirSensorPtr->timerStart(myAirSensorPtr);										// Starts timer as data request is done. Used to look for response signal (80us).
+
+} // End of ISR(AIRSENSOR_COMPAVECT)

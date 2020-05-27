@@ -93,9 +93,9 @@ double getHumidityInPercent(struct SoilHumiditySensor* p)
 	int relativeValue = analogValue-_ValueInWater;			// 600-275 == 329
 	double percentage = 100-(((relativeValue)*100)/range);	// 100-((329*100)/325) == -1,23 
 	if(percentage >= 100)
-		return percentage; //100;
+		return 100; //100;
 	else if(percentage <= 0)
-		return percentage; // 0;
+		return 0; // 0;
 	else
 		return percentage;
 }

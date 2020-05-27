@@ -81,9 +81,7 @@ uint8_t getValues(struct AirSensor* ptr)
 	
 	ptr->stopWatchSetup(ptr);													// CTC mode and interrupt set.
 	ptr->stopWatchStart(ptr, 18000);											// Creates interrupt when done. Going to ISR(AIRSENSOR_COMPAVECT).
-	
 	while(!(ptr->_newDataAvailable)){}											// Waiting for all 40 bits to arrive from DHT11.
-	
 	uint16_t humidInteger = (uint16_t)(ptr->_sensorData[0]);					// Set first byte from DHT11 (Humidity Integer value)
 	uint16_t humidDecimal = (uint16_t)(ptr->_sensorData[1]);					// Set second byte from DHT11 (Humidity Decimal value)
 	uint16_t tempInteger = (uint16_t)(ptr->_sensorData[2]);						// Set third byte from DHT11 (Temperature Integer value)
@@ -100,10 +98,10 @@ uint8_t getValues(struct AirSensor* ptr)
 	
 	if(checksum == (tempInteger + tempDecimal + humidInteger + humidDecimal))	// If Checksum is correct
 	{
-		// Debugging:
+		//// Debugging:
 		//SendChar('\n');
-		//SendString("Sum = "); SendInteger(humidInteger+humidDecimal+tempInteger+tempDecimal); 
-		// SendString(". Checksum = "); SendInteger(checksum); SendChar('\n');
+		//SendString("Sum = "); SendInteger(humidInteger+humidDecimal+tempInteger+tempDecimal);
+		//SendString(". Checksum = "); SendInteger(checksum); SendChar('\n');
 		
 		ptr->_humidity = (double)ptr->_sensorData[0] + 0.01*(double)(ptr->_sensorData[1]);		// Set _humidity variable in Struct to received value.
 		ptr->_temperature = (double)ptr->_sensorData[2] + 0.01*(double)(ptr->_sensorData[3]);	// Set _temperature variable in Struct to received value.

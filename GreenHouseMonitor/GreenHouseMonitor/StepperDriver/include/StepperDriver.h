@@ -59,7 +59,7 @@
 int stepperMode; 
 bool isInitialised; 
 bool isWindowOpen;
-int maxNbrRevolutions;
+double maxNbrRevolutions;
 
 
 struct Motor{
