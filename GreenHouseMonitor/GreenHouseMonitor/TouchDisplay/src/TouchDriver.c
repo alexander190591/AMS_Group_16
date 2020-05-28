@@ -330,40 +330,27 @@ void setData(){
   * 
 **/	
 ISR(INT4_vect){
-	_delay_ms(100);
-
-	
+	_delay_ms(100);	
 	TCH_SCRN_EIMSK &=  ~(1<<TCH_SCRN_INT);
-	
 	TouchCommunication();
-
-	
 	CS_PORT |= (1<<TOUCH_CS); //High
-
 	
-			
 			if(getData() == 1){						// Open full
-				//updateWindowDisplay("op full");
 				OpenWindow();
 				setData();
 			} else if (getData() == 2) {			//Open partly
-				//updateWindowDisplay("op part");
 				OpenWindowPct();
 				setData();
 			} else if (getData() == 3) {			//Close partly
-				//updateWindowDisplay("cl part");
 				CloseWindowPct();
 				setData();
 			} else if (getData() == 4) {			//Close fully
-				//updateWindowDisplay("cl full");
 				CloseWindow();
 				setData();
 			}
 			
 	EIFR |= 0x4;
-	
 	TCH_SCRN_EIMSK |=  (1<<TCH_SCRN_INT);
-
 }
 
 

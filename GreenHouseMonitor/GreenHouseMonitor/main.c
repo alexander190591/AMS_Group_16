@@ -26,7 +26,7 @@
 	#include "UART/include/uart.h"
 #endif
 
-//#include "MainFiles/MainFiles.h"													// Used for seperate main files for every group member
+#include "MainFiles/MainFiles.h"													// Used for seperate main files for every group member
 
 struct AirSensor* myAirSensorPtr;													// Pointer for the AirSensor "object".
 

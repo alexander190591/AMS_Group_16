@@ -23,14 +23,12 @@ void DisplayControlConstruct(){
 
 
 void writeLine(char* sentence, unsigned int startX, unsigned int startY){
-	
-	/*unsigned int spacing = 0;
-	for(int i = 0; i<strlen(sentence); i++){
-		spacing = writeLetter(sentence[i],(startX+16*i),startY);
-	}*/
-		
-	unsigned int spacing = 0;
-	
+/*
+*		Delvist hentet/inspireret fra github:
+*	https://github.com/cjingeberg/AMS_Project/blob/master/TouchScreenDriver/Drivers/TFTdriver.c
+*
+*/
+
 	SetColumnAddress(startY, startY+15);
 	SetPageAddress(startX, startX+(strlen(sentence)*16));
 	MemoryWrite();
