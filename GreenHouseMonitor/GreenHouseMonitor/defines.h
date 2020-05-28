@@ -18,6 +18,8 @@
 
 #ifndef DEFINES_H_
 #define DEFINES_H_
+#pragma once
+
 #include <avr/io.h>
 #include <ctype.h>
 #include <stdio.h>

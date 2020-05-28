@@ -1,23 +1,16 @@
 /*! \brief Low level driver for analog buttons.
  *	
- *			Description here
- *
- *
- *	
- *	Filename:	ButtonDriver.h
- *	Path:		./GreenHouseMonitor/ButtonDriver/include
+ *	Filename:	./GreenHouseMonitor/ButtonDriver/include/ButtonDriver.h
  *	Created:	02-04-2020 07:52:49
  *	Author:		Tonni Lutze
  *
- *	Major change #1:
- *	Major change #2:
+ *	
  */
 
  //#define F_CPU 16000000
-
+ #pragma once
  #include <avr/io.h>
  #include <util/delay.h>
-
  #include "../../defines.h"
 
 
@@ -26,8 +19,38 @@
 
 
 
-
+ /**
+  * @brief Initiates the Button Driver.
+  * 
+  * 
+  * @param None.
+  * 
+  * @return void
+  * 
+**/
  void InitButtons();
+
+
+ /**
+  * @brief monitors a pin to check if end switch has been pressed.
+  * 
+  * 
+  * @param None.
+  * 
+  * @return unsigned char - returns 0 or 1
+  * 
+**/
  unsigned char MntSwitchOpened();
+
+
+ /**
+  * @brief monitors a pin to check if switch has been pressed.
+  * 
+  * 
+  * @param None.
+  * 
+  * @return unsigned char - returns 0 or 1
+  * 
+**/
  unsigned char MntSwitchClosed();
 

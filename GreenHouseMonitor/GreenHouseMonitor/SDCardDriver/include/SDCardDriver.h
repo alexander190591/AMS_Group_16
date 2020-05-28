@@ -1,13 +1,19 @@
+/** 
+  *	
+  *	
+  *	@file:		./GreenHouseMonitor/SDCardDriver/includeStepperDriver.h
+  *	@date:		16-04-2020 13:57:05
+  *	@author:	Tonni Lutze
+  *
+  *	@brief SD Card driver file for controlling SD Card via SPI
+  *	
+  *			
+  *	
+**/
+
 
 #ifndef SDCARDDRIVER_H_
 #define SDCARDDRIVER_H_
-
-/*
- * SDCardDriver.h
- *
- * Created: 16-04-2020 13:57:05
- *  Author: Tonni
- */ 
 
 
 #include <avr/io.h>
@@ -20,16 +26,10 @@
 //#define BLOCKSIZE				12
 #define BLOCKSIZE				512
 
-
-
-
  //int InitSD_Reader();
 // unsigned char ReadBlock (unsigned char * buffer, unsigned long startAddress);
 // unsigned char WriteBlock (unsigned char * data, unsigned long startAddress);
  unsigned char Command(unsigned char cmd, long arg);
-
-
-
 
 // 
 // //SD commands, many of these are not used here
@@ -64,8 +64,6 @@ volatile unsigned char SDHC_flag, cardType;//, buffer[BLOCKSIZE];
 // unsigned char SD_readSingleBlock(unsigned long startBlock);
 // unsigned char SD_writeSingleBlock(unsigned long startBlock);
 // unsigned char SD_erase (unsigned long startBlock, unsigned long totalBlocks);
-
-
 
 int InitSD_Reader();
 unsigned char SD_sendCommand(unsigned char cmd, unsigned long arg);

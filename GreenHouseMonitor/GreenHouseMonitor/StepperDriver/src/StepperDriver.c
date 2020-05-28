@@ -1,8 +1,7 @@
 /** 
   *	
   *	
-  *	@file:		StepperDriver.c
-  *	@path:		./GreenHouseMonitor/StepperDriver/src
+  *	@file:		./GreenHouseMonitor/StepperDriver/src/StepperDriver.c
   *	@date:		26-03-2020 09:32:41
   *	@author:	Tonni Lutze
   *
@@ -10,10 +9,6 @@
   *	
   *	Description here
   *	
-  *	
-  *	
-  *			
-  *	Major change #1:
   *	
 **/
 
@@ -36,11 +31,6 @@
  */
 
 
-
-
-
-
-
 void StepperInit()
 {
 	if (!isInitialised){
@@ -59,25 +49,11 @@ void StepperInit()
 	STEPPER_STEP_DDR	|= (1 << STEPPER_STEP);
 
 	
-
-// 
-// 	DDRF &= ~(1 << 1);
-// 	DDRH |= (1 << 5);
-
-	
 	DefaultReset();
 	isInitialised = true;
 	}
 }
 
-
-
-// void SetPin(int pin_, int state_){
-// 
-// 	if		(state_ == HIGH )	{ return |=  ( 1 << pin_ );	}
-// 	else if (state_ == LOW)		{ return &= ~( 1 << pin_ );	}
-// 	else return NULL
-// }
 
 
 void DefaultReset(){
@@ -228,6 +204,8 @@ If the mode is set to 1/16 microstep:
 360 degree / (0,9 degree / Step ) * 16 = 6400 steps
 */
 
+//	we only want positive integers.
+revolutions = abs(revolutions);
 
 int steps = 0;
 
@@ -279,9 +257,6 @@ int steps = 0;
 
 void CalibrateWindowOpening(){
 	
-
-	
-
 // 	bool isWindowClosed, endStopReached = false;
 	int revolutionCount;
 	

@@ -1,34 +1,33 @@
-/*
- * FATDriver.h
+/*! \brief Driver for FAT file system
+ *	
+ *			Description here
  *
- * Created: 07-05-2020 11:09:56
- *  Author: Tonni
- */ 
+ *
+ *	
+ *	Filename:	./GreenHouseMonitor/FATDriver/include/FATDriver.h
+ *	Created:	Created: 07-05-2020 11:09:56
+ *	Author:		Tonni Lutze
+ *
+ *	
+ */
 
 
 #ifndef FATDRIVER_H_
 #define FATDRIVER_H_
 
+#pragma once
 #include "../../SDCardDriver/include/SDCardDriver.h"
 #include <string.h>	
 #include "../../defines.h"
-
+#include <ctype.h>
 
 #define PARTENTRY1 0x1be  // offset of 1st partition entry
 #define NEW_FILE_ATTR 0x20  // only set the archive bit when creating a new file
-
-
-//#include <hidef.h>      /* common defines and macros */
-//#include "derivative.h"      /* derivative-specific definitions */
-#include <ctype.h>
 
 void memreverse(void* from, void* to, size_t length);
 char* str_toupper(char *str);
 char* str_n_toupper(char *str, word n);
 void delay(void);
-
-
-
 
 // partition info
 typedef struct
@@ -68,27 +67,5 @@ byte update_FAT(byte* buf, word cluster, word value);
 void prtn_set_addr(byte* bootSec, dword partition_addr);
 byte getFile(dir_entry_t* de, byte* buf, char* filename, byte length);
 byte create_file(dir_entry_t* de, char* filename, byte fn_length, byte* buf);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif /* FATDRIVER_H_ */
