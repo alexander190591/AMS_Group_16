@@ -9,19 +9,67 @@
 #ifndef DISPLAYCONTROL_H_
 #define DISPLAYCONTROL_H_
 
-//Functions for updating display with values,
-//  reserved for non-touch
+#include "TFTdriver.h"
 
 
-void updateWindowDisplay(char*);
+/**
+  * @brief Initiates Display Control driver.
+  * 
+  * 
+  * @param void.
+  * 
+  * @return void
+  * 
+**/
+void DisplayControlConstruct();
+
+
+
+/**
+  * @brief Makes outline for areas with touch functionality.
+  * 
+  * 
+  * @param void.
+  * 
+  * @return void
+  * 
+**/
+void writeWindowBoxes();
+
+/**
+  * @brief Writes to area designated for soil moisture.
+  * 
+  * 
+  * @param Double which is the value to be written.
+  * 
+  * @return void
+  * 
+**/
 void updateEarthHumidDisplay(double);
+
+/**
+  * @brief Writes to area designated for temperature.
+  * 
+  * 
+  * @param Double which is the value to be written.
+  * 
+  * @return void
+  * 
+**/
 void updateTemperaturDisplay(double);
+
+/**
+  * @brief Writes to area designated for air humidity.
+  * 
+  * 
+  * @param Double which is the value to be written.
+  * 
+  * @return void
+  * 
+**/
 void updateAirHumidDisplay(double);
 
-//The functions for calling main controldisplay parts,
-//  reserved for touch
-void windowControlDisplay(unsigned int, unsigned int);
-void earthHumidControlDisplay(unsigned int, unsigned int);
+
 
 
 

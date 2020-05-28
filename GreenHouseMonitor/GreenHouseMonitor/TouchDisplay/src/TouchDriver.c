@@ -1,9 +1,21 @@
-/*
- * TouchDriver.c
- *
- * Created: 26-03-2020 09:35:36
- *  Author: Sebastian Folsach
- */ 
+/** 
+  *	
+  *	
+  *	@file:		TouchDriver.c
+  *	@path:		./GreenHouseMonitor/TouchDisplay/src
+  *	@date:		26-03-2020 09:35:36
+  *	@author:	Sebastian Folsach
+  *
+  *	@brief Driver for using touch functionality with screen having a XPT2046.
+  *	
+  *	Description here
+  *	
+  *	
+  *	
+  *			
+  *	Major change #1:
+  *	
+**/
 #include <avr/io.h>
 #include <avr/cpufunc.h>
 #include <util/delay.h>
@@ -27,6 +39,17 @@ int _DataY = 0;
 //     og variable    //
 ////////////////////////
 
+
+/**
+  * @brief Function for reading the X-coordinate
+  * 
+  * This function reads the bit stream for each clock pulse and concatenates it up to have the complete value.
+  * 
+  * @param void
+  * 
+  * @return void
+  * 
+**/	
 void readDataX(){
 	_DataX = 0;
 	for(int i = 12; i>0; i--){
@@ -43,6 +66,19 @@ void readDataX(){
 		clockPulse();
 	}
 }
+
+
+
+/**
+  * @brief Function for reading the Y-coordinate
+  *
+  * This function reads the bit stream for each clock pulse and concatenates it up to have the complete value.
+  * 
+  * @param void
+  * 
+  * @return void
+  * 
+**/	
 void readDataY(){
 	_DataY = 0;
 	for(int i = 12; i>0; i--){
@@ -60,6 +96,18 @@ void readDataY(){
 	}
 }
 
+
+
+/**
+  * @brief Function for making a clock pulse
+  *
+  * This function makes a clock pulse by waiting four "_NOP()" which is 250 ns and then switches state.
+  * 
+  * @param void
+  * 
+  * @return void
+  * 
+**/	
 void clockPulse(){
 	_NOP();
 	_NOP();
@@ -76,24 +124,50 @@ void clockPulse(){
 
 
 
+/**
+  * @brief Function for sending command
+  *
+  * This function sends an 8-bit command to the XPT2046 about what it should send back
+  * 
+  * @param command is an unsigned char
+  * 
+  * @return void
+  * 
+**/	
+void sendCommand(unsigned char command){
+	
+	for (int i = 7; i>0; i--)
+	{
+		if(((1&(command >> i))<<TOUCH_IN))
+		DIN_PORT |= (1<<TOUCH_IN);
+		else
+		DIN_PORT &= ~(1<<TOUCH_IN);
+		
+		clockPulse();
+		
+	}
+	
+	if(((1&(command))<<TOUCH_IN))
+	DIN_PORT |= (1<<TOUCH_IN);
+	else
+	DIN_PORT &= ~(1<<TOUCH_IN);
+	
+	clockPulse();
+	
+	DIN_PORT &= ~(1<<TOUCH_IN);
+	
+	
+}
 
 ////////////////////////
 // Public  functioner //
 //     og variable    //
 ////////////////////////
 
-/**
-<A short one line description>
 
-<Longer description>
-<May span multiple lines or paragraphs as needed>
-
-@param  No parameters
-@return No return value (void)
-*/
 void SetupTouch(){
 	
-
+	DisplayControlConstruct();
 	
 	
 	//Setting Arduino outputs
@@ -141,16 +215,28 @@ void SetupTouch(){
 	FillRectangle(240, 120, 80, (240-120), 0, 0, 0);
 	FillRectangle(245, 125, 75, (240-130), 31, 63, 31);
 	
-	//writeWindowBoxes();
+	writeWindowBoxes();
 	
 		
 }
 
-
+/**
+  * @brief Function for all XPT2046 communication
+  *
+  * This function initiates communication by pulling the chip select bit low sends an 8-bit command to the XPT2046 about what wanting the X-coordinate after which it reads the respons.
+  *  
+  * Then it send an 8-bit command to the XPT2046 about what wanting the Y-coordinate after which it reads the respons.
+  *
+  * @param command is an unsigned char
+  * 
+  * @return void
+  * 
+**/	
 void TouchCommunication(){	
 	
 	CS_PORT &= ~(1<<TOUCH_CS); //Low
 	
+	_NOP();
 	_NOP();
 	
 	
@@ -178,6 +264,16 @@ void TouchCommunication(){
 
 	
 }
+/**
+  * @brief Function for getting the last pushed coordinates
+  *
+  * This function gives returns a representation for the place where the screen has been pushed
+  *
+  * @param void
+  * 
+  * @return int
+  * 
+**/	
 
 int getData(){
 	if (_DataY < 1000){
@@ -201,34 +297,21 @@ int getData(){
 	}
 }
 
+
+
+/**
+  * @brief Function for wiping coordinate set.
+  *
+  * This function wipes the last read coordinate set.
+  *
+  * @param void
+  * 
+  * @return void
+  * 
+**/	
 void setData(){
 	_DataY = 0;
 	_DataX = 0;
-}
-
-void sendCommand(unsigned char command){
-	
-	for (int i = 7; i>0; i--)
-	{
-		if(((1&(command >> i))<<TOUCH_IN))
-			DIN_PORT |= (1<<TOUCH_IN);
-		else
-			DIN_PORT &= ~(1<<TOUCH_IN);
-			
-		clockPulse();
-	
-	}
-	
-	if(((1&(command))<<TOUCH_IN))
-		DIN_PORT |= (1<<TOUCH_IN);
-	else
-		DIN_PORT &= ~(1<<TOUCH_IN);
-		
-	clockPulse();
-	
-	DIN_PORT &= ~(1<<TOUCH_IN);
-	
-	
 }
 
 
@@ -237,6 +320,15 @@ void sendCommand(unsigned char command){
 
 //Interrupt routine
 
+/**
+  * @brief Interrupt routine
+  *
+  * This is the interrupt routine that handles when an interrupt on PE4 is detected
+  *
+  * @param INT4_vect is a vector for the external interrupt
+  * 
+  * 
+**/	
 ISR(INT4_vect){
 	_delay_ms(100);
 

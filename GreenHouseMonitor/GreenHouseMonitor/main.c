@@ -65,8 +65,7 @@ int main(void)
 	struct SoilHumiditySensor mySoilHumiditySensor = {0, 0, 0, setUpSoilHumiditySensor, analogRead, getHumidityInPercent};
 	mySoilHumiditySensor.setUpSoilHumiditySensor(&mySoilHumiditySensor, 0);
 	
-	DisplayInit();
-	FillRectangle(0,0,320,240,31,63,31);
+	sei();
 	SetupTouch();
 	
 	updateEarthHumidDisplay(0.0);
@@ -85,7 +84,7 @@ int main(void)
 	StepperInit();
 	
 	cli();
-	CalibrateWindowOpening();
+	//CalibrateWindowOpening();
 	#ifdef UART_USED
 		SendString("Haj med Dej \n");
 		SendInteger(maxNbrRevolutions);

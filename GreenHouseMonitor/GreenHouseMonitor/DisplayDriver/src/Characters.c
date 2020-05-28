@@ -1,3 +1,18 @@
+/************************************
+*
+*		Hentet fra github:
+*	https://github.com/cjingeberg/AMS_Project/blob/master/TouchScreenDriver/Drivers/font.c
+*
+*
+*
+*
+*
+*
+*
+**************************************/
+
+
+
 
 #include "../include/Characters.h"
 
