@@ -82,117 +82,132 @@ struct Window{
   * @brief Initiates the Stepper Driver.
   * 
   * 
-  * @param analogPin is the pin number used for the soil humidity sensor.
+  * @param None.
   * 
   * @return void
   * 
 **/
 void StepperInit();	
 
+
+
 /**
-  * @brief short description
+  * @brief Default Reset 
   * 
-  * Longer description
+  * Resets settings to default i.e.
+  *	
+  *	SINGLE_STEP_OFF;		//	Set Step Pin Low
+  *	SetDirection(OPEN);		//	Default direction will be OPEN
+  *	SetStepperMode(5);		//	I want my default as 1/16 Microstep mode (Mode 5 ( H H H )) :
+  *	DisableMotor();			//	Disabling until we actually need the motor
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * @param None. 
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @return void
   * 
 **/	
 void DefaultReset();
 
+
+
 /**
-  * @brief short description
+  * @brief Enables the Motor
   * 
-  * Longer description
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @param None.
+  * 
+  * @return void
   * 
 **/	
 void EnableMotor();
 
+
+
 /**
-  * @brief short description
+  * @brief Disable Motor
   * 
-  * Longer description
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @param None. 
+  * 
+  * @return void
   * 
 **/	
 void DisableMotor();
 
+
+
+
 /**
-  * @brief short description
+  * @brief set stepper mode
   * 
-  * Longer description
+  * Setting the microstep resolution
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * @param int mode - Valid options: 1-5 where 1 = full step, 2 = halfstep, 3 = 1/4 microstep, 4 = 1/8 microstep, 5 = 1/16 microstep
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @return void
   * 
 **/	
 void SetStepperMode(int mode);
 
 /**
-  * @brief short description
+  * @brief Open Window
   * 
-  * Longer description
+  * Drives the stepper to fully open the window. limit is reached when momentary switch is triggered. 
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * @param None. 
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @return void.
   * 
 **/	
 void OpenWindow();
 
 /**
-  * @brief short description
+  * @brief Close Window
   * 
-  * Longer description
+  * Drives the stepper to fully Close the window. limit is reached when momentary switch is triggered. 
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * @param None. 
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @return void.
   * 
 **/	
 void CloseWindow();
 
 /**
-  * @brief short description
+  * @brief Drive stepper
   * 
-  * Longer description
+  * this function drives the stepper in a preset direction for a chosen number of revolutions
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * @param int revolutions: valid options, any positive integer
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @return void
   * 
 **/	
 void DriveStepper(int revolutions);
 
 /**
-  * @brief short description
+  * @brief Set direction
   * 
-  * Longer description
+  * Setting the direction the motor should turn. 
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * @param int direction - Valid options: OPEN and CLOSE (these are defined)
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @return void
   * 
 **/	
 void SetDirection(/*struct Motor *motor,*/ int direction);
 
 /**
-  * @brief short description
+  * @brief Calibrate window Opening
   * 
-  * Longer description
+  * Runs a cycle where a window is first fully closed, and then fully opened to count the number of rotations needed
+  *	to do this. this is used when opening the window some fraction of the possible max
   * 
-  * @param <parametername> <description>  .... i.e. analogPin is the pin number used for the soil humidity sensor.
+  * @param None. 
   * 
-  * @return <description> i.e. what is returned. for example: void
+  * @return void
   * 
 **/	
 void CalibrateWindowOpening();

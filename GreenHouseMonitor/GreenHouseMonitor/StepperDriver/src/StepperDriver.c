@@ -228,6 +228,8 @@ If the mode is set to 1/16 microstep:
 360 degree / (0,9 degree / Step ) * 16 = 6400 steps
 */
 
+//	we only want positive integers.
+revolutions = abs(revolutions);
 
 int steps = 0;
 
