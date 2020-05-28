@@ -1,15 +1,10 @@
  /*! \brief Low level driver for SPI.
  *			
- *			
- *
  *	
- *	
- *	Filename:	SPIDriver.h
- *	Path:		./GreenHouseMonitor/SPIDriver/include
+ *	Filename:	./GreenHouseMonitor/SPIDriver/include/SPIDriver.c
  *	Created:	16-04-2020 08:32:41
  *	Author:		Tonni Lutze
  *
- *	Major change #1:
  */
 
   

@@ -1,10 +1,13 @@
-/*
- * FATDriver.c
- *
- * Created: 07-05-2020 11:10:28
- *  Author: Tonni
- */ 
 
+ /*! \brief Driver for FAT file system
+ *	
+ *	
+ *	Filename:	./GreenHouseMonitor/FATDriver/include/FATDriver.c
+ *	Created:	07-05-2020 11:10:28
+ *	Author:		Tonni Lutze
+ *
+ *	
+ */
 
 
 

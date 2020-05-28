@@ -4,12 +4,9 @@
  *
  *
  *	
- *	Filename:	ButtonDriver.c
- *	Path:		./GreenHouseMonitor/ButtonDriver/src
+ *	Filename:	./GreenHouseMonitor/ButtonDriver/src/ButtonDriver.c
  *	Created:	02-04-2020 07:52:49
  *	Author:		Tonni Lutze
- *	Major change #1:			
- *	Major change #2:
  */
 
 

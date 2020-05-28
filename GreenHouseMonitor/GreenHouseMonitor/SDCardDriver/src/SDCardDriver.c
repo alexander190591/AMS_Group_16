@@ -1,10 +1,15 @@
-/*
- * SDCardDriver.c
- *
- * Created: 16-04-2020 13:56:55
- *  Author: Tonni
- */ 
-
+/** 
+  *	
+  *	
+  *	@file:		./GreenHouseMonitor/SDCardDriver/SDCardDriver.c
+  *	@date:		16-04-2020 13:56:55
+  *	@author:	Tonni Lutze
+  *
+  *	@brief Low Level driver for SD Card reader 
+  *	
+  *	
+  *	
+**/
 
 #include <avr/io.h>
 #include <ctype.h>
@@ -13,9 +18,6 @@
 #include "../../defines.h"
 
 #define DUMMYBYTE 0xFF
-
-
-
 
 unsigned char Command(unsigned char cmd, long arg){
 

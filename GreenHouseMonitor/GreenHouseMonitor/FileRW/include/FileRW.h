@@ -1,14 +1,18 @@
-/*
- * FileRW.h
+/*! \brief Driver for file IO
+ *	
+ *	Filename:	./GreenHouseMonitor/FileRW/include/FileRW.h
+ *	Created:	Created: 07-05-2020 12:11:04
+ *	Author:		Tonni Lutze
  *
- * Created: 07-05-2020 12:11:04
- *  Author: Tonni
- */ 
+ *	
+ */
+
 
 
 #ifndef FILERW_H_
 #define FILERW_H_
 
+#pragma once
 #include "../../FATDriver/include/FATDriver.h"
 
 #define SEEK_START 0
